@@ -10,7 +10,8 @@ public abstract class Member
     protected String phone;
     protected String email;
     
-    public Member(String ID, String firstName, String lastName, String phone, String email)
+    public Member
+        (String ID, String firstName, String lastName, String phone, String email)
     {
         this.ID = ID;
         this.firstName = firstName;
