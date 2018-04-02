@@ -4,22 +4,27 @@
  */
 public class Coach extends Member
 {
-    protected int yearsExp;
-    protected int championships;
-    protected int playoffs;
-    protected double wLRatio;
+    private int yearsExp;
+    private int championships;
+    private int playoffs;
+    private double wLRatio;
     
     public Coach
         (String ID, String firstName, String lastName, String phone,
                 String email, int yearsExp, int championships, int playoffs,
                     double wLRatio)
-        {
-            super(ID, firstName, lastName, phone, email);
-            this.yearsExp = yearsExp;
-            this.championships = championships;
-            this.playoffs = playoffs;
-            this.wLRatio = wLRatio;
-        }
+    {
+        super(ID, firstName, lastName, phone, email);
+        this.yearsExp = yearsExp;
+        this.championships = championships;
+        this.playoffs = playoffs;
+        this.wLRatio = wLRatio;
+    }
+        
+    public void calcSalary()
+    {
+        
+    }
 
     public int getYearsExp()
     {

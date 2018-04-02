@@ -4,11 +4,11 @@
  */
 public abstract class Member
 {
-    protected String ID;
-    protected String firstName;
-    protected String lastName;
-    protected String phone;
-    protected String email;
+    private String ID;
+    private String firstName;
+    private String lastName;
+    private String phone;
+    private String email;
     
     public Member
         (String ID, String firstName, String lastName, String phone, String email)
@@ -19,6 +19,8 @@ public abstract class Member
         this.phone = phone;
         this.email = email;
     }
+        
+    public abstract void calcSalary();
 
     public String getID()
     {

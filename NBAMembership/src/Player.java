@@ -4,33 +4,39 @@
  */
 public class Player extends Member
 {
-    protected String number;
-    protected String college;
-    protected boolean rookie; //are they a rookie this year?
-    protected int startYear; //year they started in NBA
-    protected String position;
-    protected String country;
-    protected double ppg; //points per game
-    protected double rpg; //rebounds per game
-    protected int highScore; //highest score ever in one game
+    private String number;
+    private String college;
+    private boolean rookie; //are they a rookie this year?
+    private int startYear; //year they started in NBA
+    private String position;
+    private String country;
+    private double ppg; //points per game
+    private double rpg; //rebounds per game
+    private int highScore; //highest score ever in one game
+    
     
     public Player
         (String ID, String firstName, String lastName, String phone,
                 String email, String number, String college, boolean rookie,
                     int startYear, String position, String country, double ppg,
                         double rpg, int highScore)
-        {
-            super(ID, firstName, lastName, phone, email);
-            this.number = number;
-            this.college = college;
-            this.rookie = rookie;
-            this.startYear = startYear;
-            this.position = position;
-            this.country = country;
-            this.ppg = ppg;
-            this.rpg = rpg;
-            this.highScore = highScore;
-        }
+    {
+        super(ID, firstName, lastName, phone, email);
+        this.number = number;
+        this.college = college;
+        this.rookie = rookie;
+        this.startYear = startYear;
+        this.position = position;
+        this.country = country;
+        this.ppg = ppg;
+        this.rpg = rpg;
+        this.highScore = highScore;
+    }
+        
+    public void calcSalary()
+    {
+        
+    }
 
     public String getNumber()
     {
