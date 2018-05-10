@@ -8,7 +8,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,10 +23,10 @@ import javax.swing.SwingConstants;
 public class FrontEnd extends JFrame implements ActionListener
 {
     JLabel lblHeading = new JLabel("Registration");
-    JLabel lblTeams = new JLabel("Teams", SwingConstants.CENTER);
-    JLabel lblPlayers = new JLabel("Players", SwingConstants.CENTER);
-    JLabel lblCoaches = new JLabel("Coaches", SwingConstants.CENTER);
-    JLabel lblHelp = new JLabel("Help", SwingConstants.CENTER);
+    JButton btnTeams = new JButton("Teams");
+    JButton btnPlayers = new JButton("Players");
+    JButton btnCoaches = new JButton("Coaches");
+    JButton btnHelp = new JButton("Help");
     JPanel buttons = new JPanel();
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
@@ -48,40 +47,36 @@ public class FrontEnd extends JFrame implements ActionListener
         buttons.setBackground(Color.BLACK);
         lblHeading.setForeground(Color.WHITE);
         lblHeading.setFont(new Font("Verdana", Font.BOLD, 34));
-        lblTeams.setFont(fntButtons);
-        lblTeams.setForeground(Color.WHITE);
-        lblTeams.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-        lblTeams.setBackground(Color.DARK_GRAY);
-        lblTeams.setOpaque(true);
-        lblPlayers.setFont(fntButtons);
-        lblPlayers.setForeground(Color.WHITE);
-        lblPlayers.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-        lblPlayers.setBackground(Color.DARK_GRAY);
-        lblPlayers.setOpaque(true);
-        lblCoaches.setFont(fntButtons);
-        lblCoaches.setForeground(Color.WHITE);
-        lblCoaches.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-        lblCoaches.setBackground(Color.DARK_GRAY);
-        lblCoaches.setOpaque(true);
-        lblHelp.setFont(fntButtons);
-        lblHelp.setForeground(Color.WHITE);
-        lblHelp.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-        lblHelp.setBackground(Color.DARK_GRAY);
-        lblHelp.setOpaque(true);
+        btnTeams.setFont(fntButtons);
+        btnTeams.setForeground(Color.WHITE);
+        btnTeams.setBackground(Color.DARK_GRAY);
+        btnPlayers.setFont(fntButtons);
+        btnPlayers.setForeground(Color.WHITE);
+        btnPlayers.setFocusPainted(false);
+        btnPlayers.setBackground(Color.DARK_GRAY);
+        btnCoaches.setFont(fntButtons);
+        btnCoaches.setForeground(Color.WHITE);
+        btnCoaches.setBackground(Color.DARK_GRAY);
+        btnHelp.setFont(fntButtons);
+        btnHelp.setForeground(Color.WHITE);
+        btnHelp.setBackground(Color.DARK_GRAY);
         lblImage.setIcon(imgLogo);
         con.add(lblImage);
         con.add(lblHeading);
         con.add(new JLabel("                                                                                    "));
         con.add(buttons);
-        buttons.add(lblTeams);
-        buttons.add(lblPlayers);
-        buttons.add(lblCoaches);
-        buttons.add(lblHelp);
+        buttons.add(btnTeams);
+        buttons.add(btnPlayers);
+        buttons.add(btnCoaches);
+        buttons.add(btnHelp);
+        
+        btnHelp.addActionListener(this);
     }
     
     public void actionPerformed(ActionEvent ae)
     {
-        
+        Help help = new Help();
+        this.dispose();
     }
     
     public static void main(String [] args)
