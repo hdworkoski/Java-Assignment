@@ -107,30 +107,33 @@ public class PlayerMenu extends JFrame implements ActionListener
         //what to do if each button is clicked
         if(ae.getSource() == btnAdd)
         {
-            
+            AddPlayerMenu apm1 = new AddPlayerMenu("Add New Player");
+            this.dispose();
         }
         else if(ae.getSource() == btnEdit)
         {
-            
+            AddPlayerMenu apm2 = new AddPlayerMenu("Edit Player Details");
+            this.dispose();
         }
         else if(ae.getSource() == btnDelete)
         {
-            
+            FrontEnd fe = new FrontEnd();
+            this.dispose();
         }
         else if(ae.getSource() == btnSearch)
         {
-            
+            FrontEnd fe = new FrontEnd();
+            this.dispose();
         }
         else if(ae.getSource() == btnSortLast)
         {
-            
+            FrontEnd fe = new FrontEnd();
+            this.dispose();
         }
         else if(ae.getSource() == btnSortTeam)
         {
-            
+            FrontEnd fe = new FrontEnd();
+            this.dispose();
         }
-        
-        FrontEnd fe = new FrontEnd();
-        this.dispose();
     }
 }
