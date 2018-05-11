@@ -77,10 +77,5 @@ public class FrontEnd extends JFrame implements ActionListener
     {
         Help help = new Help();
         this.dispose();
-    }
-    
-    public static void main(String [] args)
-    {
-        FrontEnd fe = new FrontEnd();
-    }
+    } 
 }
