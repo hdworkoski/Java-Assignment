@@ -17,12 +17,14 @@ import javax.swing.JLabel;
  */
 public class Help extends JFrame implements ActionListener
 {
+    //create GUI objects
     JLabel lblHeading = new JLabel("Registration Help");
     JLabel lblHelp = new JLabel("Help Information. Here is some more help information.\nAnd some more help information");
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
-    Container con = getContentPane();
     JButton btnOk = new JButton("Ok");
+    
+    Container con = getContentPane();
     
     public Help()
     {
@@ -31,6 +33,7 @@ public class Help extends JFrame implements ActionListener
         this.setBounds(550, 200, 350, 500);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
+        //set layout, colors, fonts
         con.setLayout(new FlowLayout());
         con.setBackground(Color.BLACK);
         lblImage.setIcon(imgLogo);
@@ -38,21 +41,27 @@ public class Help extends JFrame implements ActionListener
         lblHeading.setForeground(Color.WHITE);
         lblHelp.setFont(new Font("Arial", Font.BOLD, 16));
         lblHelp.setForeground(Color.WHITE);
+        
+        //customize button
         btnOk.setFont(new Font("Arial", Font.BOLD, 20));
         btnOk.setForeground(Color.WHITE);
         btnOk.setBackground(Color.DARK_GRAY);
         btnOk.setOpaque(true);
         btnOk.setBorderPainted(false);
+        
+        //add objects
         con.add(lblImage);
         con.add(lblHeading);
         con.add(lblHelp);
         con.add(btnOk);
         
+        //add action listener
         btnOk.addActionListener(this);
     }
     
     public void actionPerformed(ActionEvent ae)
     {
+        //what to do when button is clicked
         FrontEnd fe = new FrontEnd();
         this.dispose();
     }

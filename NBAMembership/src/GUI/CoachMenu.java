@@ -15,25 +15,25 @@ import javax.swing.JLabel;
  *
  * @author hillarydworkoski
  */
-public class PlayerMenu extends JFrame implements ActionListener
+public class CoachMenu extends JFrame implements ActionListener
 {
-    //create GUI objects
-    JLabel lblHeading = new JLabel("Players");
+    //create objects
+    JLabel lblHeading = new JLabel("Coaches");
     JLabel lblLine = new JLabel("                                                         ");
-    JButton btnAdd = new JButton("Add a Player");
-    JButton btnEdit = new JButton("Edit an Existing Player");
-    JButton btnDelete = new JButton("Delete an Existing Player");
-    JButton btnSearch = new JButton("Search for an Existing Player");
-    JButton btnSortLast = new JButton("Sort Players by Last Name");
-    JButton btnSortTeam = new JButton("Sort Players by Team");
+    JButton btnAdd = new JButton("Add a Coach");
+    JButton btnEdit = new JButton("Edit an Existing Coach");
+    JButton btnDelete = new JButton("Delete an Existing Coach");
+    JButton btnSearch = new JButton("Search for an Existing Coach");
+    JButton btnSortLast = new JButton("Sort Coaches by Last Name");
+    JButton btnSortTeam = new JButton("Sort Coaches by Team");
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
     
     Container con = getContentPane();
     
-    public PlayerMenu()
+    public CoachMenu()
     {
-        this.setTitle("Players");
+        this.setTitle("Coaches");
         this.setVisible(true);
         this.setBounds(550, 200, 350, 500);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

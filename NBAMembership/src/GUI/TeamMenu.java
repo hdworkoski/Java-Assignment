@@ -15,30 +15,30 @@ import javax.swing.JLabel;
  *
  * @author hillarydworkoski
  */
-public class PlayerMenu extends JFrame implements ActionListener
+public class TeamMenu extends JFrame implements ActionListener
 {
     //create GUI objects
-    JLabel lblHeading = new JLabel("Players");
+    JLabel lblHeading = new JLabel("Teams");
     JLabel lblLine = new JLabel("                                                         ");
-    JButton btnAdd = new JButton("Add a Player");
-    JButton btnEdit = new JButton("Edit an Existing Player");
-    JButton btnDelete = new JButton("Delete an Existing Player");
-    JButton btnSearch = new JButton("Search for an Existing Player");
-    JButton btnSortLast = new JButton("Sort Players by Last Name");
-    JButton btnSortTeam = new JButton("Sort Players by Team");
+    JButton btnAdd = new JButton("Add a Team");
+    JButton btnEdit = new JButton("Edit an Existing Team");
+    JButton btnDelete = new JButton("Delete an Existing Team");
+    JButton btnSearch = new JButton("Search for an Existing Team");
+    JButton btnSortName = new JButton("Sort Teams by Name");
+    JButton btnSortRegion = new JButton("Sort Teams by Region");
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
     
     Container con = getContentPane();
     
-    public PlayerMenu()
+    public TeamMenu()
     {
-        this.setTitle("Players");
+        this.setTitle("Teams");
         this.setVisible(true);
         this.setBounds(550, 200, 350, 500);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
-        //set layout, fonts, colors
+        //set layout, colors, and fonts
         con.setLayout(new FlowLayout());
         con.setBackground(Color.BLACK);
         lblImage.setIcon(imgLogo);
@@ -70,17 +70,17 @@ public class PlayerMenu extends JFrame implements ActionListener
         btnSearch.setOpaque(true);
         btnSearch.setBorderPainted(false);
         
-        btnSortLast.setFont(new Font("Arial", Font.BOLD, 20));
-        btnSortLast.setForeground(Color.WHITE);
-        btnSortLast.setBackground(Color.DARK_GRAY);
-        btnSortLast.setOpaque(true);
-        btnSortLast.setBorderPainted(false);
+        btnSortName.setFont(new Font("Arial", Font.BOLD, 20));
+        btnSortName.setForeground(Color.WHITE);
+        btnSortName.setBackground(Color.DARK_GRAY);
+        btnSortName.setOpaque(true);
+        btnSortName.setBorderPainted(false);
         
-        btnSortTeam.setFont(new Font("Arial", Font.BOLD, 20));
-        btnSortTeam.setForeground(Color.WHITE);
-        btnSortTeam.setBackground(Color.DARK_GRAY);
-        btnSortTeam.setOpaque(true);
-        btnSortTeam.setBorderPainted(false);
+        btnSortRegion.setFont(new Font("Arial", Font.BOLD, 20));
+        btnSortRegion.setForeground(Color.WHITE);
+        btnSortRegion.setBackground(Color.DARK_GRAY);
+        btnSortRegion.setOpaque(true);
+        btnSortRegion.setBorderPainted(false);
         
         //add objects
         con.add(lblImage);
@@ -90,16 +90,16 @@ public class PlayerMenu extends JFrame implements ActionListener
         con.add(btnEdit);
         con.add(btnDelete);
         con.add(btnSearch);
-        con.add(btnSortLast);
-        con.add(btnSortTeam);
+        con.add(btnSortName);
+        con.add(btnSortRegion);
         
         //add action listeners to buttons
         btnAdd.addActionListener(this);
         btnEdit.addActionListener(this);
         btnDelete.addActionListener(this);
         btnSearch.addActionListener(this);
-        btnSortLast.addActionListener(this);
-        btnSortTeam.addActionListener(this);
+        btnSortName.addActionListener(this);
+        btnSortRegion.addActionListener(this);
     }
     
     public void actionPerformed(ActionEvent ae)
@@ -121,11 +121,11 @@ public class PlayerMenu extends JFrame implements ActionListener
         {
             
         }
-        else if(ae.getSource() == btnSortLast)
+        else if(ae.getSource() == btnSortName)
         {
             
         }
-        else if(ae.getSource() == btnSortTeam)
+        else if(ae.getSource() == btnSortRegion)
         {
             
         }
