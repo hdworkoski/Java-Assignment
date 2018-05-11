@@ -14,7 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 /**
  *
@@ -50,16 +49,23 @@ public class FrontEnd extends JFrame implements ActionListener
         btnTeams.setFont(fntButtons);
         btnTeams.setForeground(Color.WHITE);
         btnTeams.setBackground(Color.DARK_GRAY);
+        btnTeams.setOpaque(true);
+        btnTeams.setBorderPainted(false);
         btnPlayers.setFont(fntButtons);
         btnPlayers.setForeground(Color.WHITE);
-        btnPlayers.setFocusPainted(false);
         btnPlayers.setBackground(Color.DARK_GRAY);
+        btnPlayers.setOpaque(true);
+        btnPlayers.setBorderPainted(false);
         btnCoaches.setFont(fntButtons);
         btnCoaches.setForeground(Color.WHITE);
         btnCoaches.setBackground(Color.DARK_GRAY);
+        btnCoaches.setOpaque(true);
+        btnCoaches.setBorderPainted(false);
         btnHelp.setFont(fntButtons);
         btnHelp.setForeground(Color.WHITE);
         btnHelp.setBackground(Color.DARK_GRAY);
+        btnHelp.setOpaque(true);
+        btnHelp.setBorderPainted(false);
         lblImage.setIcon(imgLogo);
         con.add(lblImage);
         con.add(lblHeading);
@@ -70,12 +76,21 @@ public class FrontEnd extends JFrame implements ActionListener
         buttons.add(btnCoaches);
         buttons.add(btnHelp);
         
+        btnPlayers.addActionListener(this);
         btnHelp.addActionListener(this);
     }
     
     public void actionPerformed(ActionEvent ae)
     {
-        Help help = new Help();
-        this.dispose();
+        if(ae.getSource() == btnPlayers)
+        {
+            PlayerMenu pm = new PlayerMenu();
+            this.dispose();
+        }
+        else if(ae.getSource() == btnHelp)
+        {
+            Help help = new Help();
+            this.dispose();
+        }
     } 
 }

@@ -41,6 +41,8 @@ public class Help extends JFrame implements ActionListener
         btnOk.setFont(new Font("Arial", Font.BOLD, 20));
         btnOk.setForeground(Color.WHITE);
         btnOk.setBackground(Color.DARK_GRAY);
+        btnOk.setOpaque(true);
+        btnOk.setBorderPainted(false);
         con.add(lblImage);
         con.add(lblHeading);
         con.add(lblHelp);
