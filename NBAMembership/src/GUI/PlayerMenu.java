@@ -127,12 +127,12 @@ public class PlayerMenu extends JFrame implements ActionListener
         }
         else if(ae.getSource() == btnSortLast)
         {
-            FrontEnd fe = new FrontEnd();
+            SortPlayerMenu spm = new SortPlayerMenu("Last Name");
             this.dispose();
         }
         else if(ae.getSource() == btnSortTeam)
         {
-            FrontEnd fe = new FrontEnd();
+            SortPlayerMenu spm2 = new SortPlayerMenu("Team");
             this.dispose();
         }
     }
