@@ -26,12 +26,15 @@ public class Help extends JFrame implements ActionListener
     
     Container con = getContentPane();
     
-    public Help()
+    FrontEnd mainMenu;
+    
+    public Help(FrontEnd fe)
     {
         this.setTitle("Registration Help");
         this.setVisible(true);
         this.setBounds(550, 200, 350, 500);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        mainMenu = fe;
         
         //set layout, colors, fonts
         con.setLayout(new FlowLayout());
@@ -62,7 +65,7 @@ public class Help extends JFrame implements ActionListener
     public void actionPerformed(ActionEvent ae)
     {
         //what to do when button is clicked
-        FrontEnd fe = new FrontEnd();
+        mainMenu.setVisible(true);
         this.dispose();
     }
 }

@@ -102,23 +102,23 @@ public class FrontEnd extends JFrame implements ActionListener
         //what to do for each button clicked
         if(ae.getSource() == btnTeams)
         {
-            TeamMenu tm = new TeamMenu();
-            this.dispose();
+            TeamMenu tm = new TeamMenu(this);
+            this.setVisible(false);
         }
         else if(ae.getSource() == btnPlayers)
         {
-            PlayerMenu pm = new PlayerMenu();
-            this.dispose();
+            PlayerMenu pm = new PlayerMenu(this);
+            this.setVisible(false);
         }
         else if(ae.getSource() == btnCoaches)
         {
-            CoachMenu cm = new CoachMenu();
-            this.dispose();
+            CoachMenu cm = new CoachMenu(this);
+            this.setVisible(false);
         }
         else if(ae.getSource() == btnHelp)
         {
-            Help help = new Help();
-            this.dispose();
+            Help help = new Help(this);
+            this.setVisible(false);
         }
     } 
 }

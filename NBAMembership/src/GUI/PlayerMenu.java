@@ -26,17 +26,21 @@ public class PlayerMenu extends JFrame implements ActionListener
     JButton btnSearch = new JButton("Search for an Existing Player");
     JButton btnSortLast = new JButton("Sort Players by Last Name");
     JButton btnSortTeam = new JButton("Sort Players by Team");
+    JButton btnBack = new JButton("Back");
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
     
     Container con = getContentPane();
     
-    public PlayerMenu()
+    FrontEnd mainMenu;
+    
+    public PlayerMenu(FrontEnd fe)
     {
         this.setTitle("Players");
         this.setVisible(true);
         this.setBounds(550, 200, 350, 500);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        mainMenu = fe;
         
         //set layout, fonts, colors
         con.setLayout(new FlowLayout());
@@ -82,6 +86,12 @@ public class PlayerMenu extends JFrame implements ActionListener
         btnSortTeam.setOpaque(true);
         btnSortTeam.setBorderPainted(false);
         
+        btnBack.setFont(new Font("Arial", Font.BOLD, 20));
+        btnBack.setForeground(Color.WHITE);
+        btnBack.setBackground(Color.DARK_GRAY);
+        btnBack.setOpaque(true);
+        btnBack.setBorderPainted(false);
+        
         //add objects
         con.add(lblImage);
         con.add(lblHeading);
@@ -92,6 +102,7 @@ public class PlayerMenu extends JFrame implements ActionListener
         con.add(btnSearch);
         con.add(btnSortLast);
         con.add(btnSortTeam);
+        con.add(btnBack);
         
         //add action listeners to buttons
         btnAdd.addActionListener(this);
@@ -100,6 +111,7 @@ public class PlayerMenu extends JFrame implements ActionListener
         btnSearch.addActionListener(this);
         btnSortLast.addActionListener(this);
         btnSortTeam.addActionListener(this);
+        btnBack.addActionListener(this);
     }
     
     public void actionPerformed(ActionEvent ae)
@@ -133,6 +145,11 @@ public class PlayerMenu extends JFrame implements ActionListener
         else if(ae.getSource() == btnSortTeam)
         {
             SortPlayerMenu spm2 = new SortPlayerMenu("Team");
+            this.dispose();
+        }
+        else if(ae.getSource() == btnBack)
+        {
+            mainMenu.setVisible(true);
             this.dispose();
         }
     }
