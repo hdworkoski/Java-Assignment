@@ -25,7 +25,13 @@ import javax.swing.JTable;
 public class TeamTableMenu extends JFrame implements ActionListener
 {
     //create GUI objects
-    JButton btnOK = new JButton("OK");
+    JButton btnBack = new JButton("Back");
+    JButton btnEdit = new JButton("Edit Team");
+    JButton btnDelete = new JButton("Delete Team");
+    JButton btnSortR = new JButton("Sort by Region");
+    JButton btnSortC = new JButton("Sort by Conference");
+    JButton btnView = new JButton("View Members");
+    JPanel pnlButtons = new JPanel();
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
     JPanel pnlTop = new JPanel();
@@ -35,7 +41,6 @@ public class TeamTableMenu extends JFrame implements ActionListener
     JScrollPane scroll = new JScrollPane(tblTeam,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    JScrollBar bar = scroll.getVerticalScrollBar();
     TeamTableModel table;
     TeamMenu tm;
     
@@ -43,29 +48,59 @@ public class TeamTableMenu extends JFrame implements ActionListener
     {
         this.setTitle("View Teams");
         this.setVisible(true);
-        this.setBounds(300, 200, 450, 550);
+        this.setBounds(400, 50, 530, 1000);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.tm = tm;
-        
-        bar.setPreferredSize(new Dimension(40, 0));
         
         //set layout, fonts, colors
         con.setLayout(new FlowLayout());
         con.setBackground(Color.BLACK);
         pnlTop.setLayout(new GridLayout(2, 1, 5, 5));
         pnlTop.setBackground(Color.BLACK);
+        pnlButtons.setLayout(new GridLayout(2, 3, 5, 5));
+        pnlButtons.setBackground(Color.BLACK);
         lblImage.setIcon(imgLogo);
         JLabel lblHeading = new JLabel("View Teams");
         lblHeading.setFont(new Font("Verdana", Font.BOLD, 34));
         lblHeading.setForeground(Color.WHITE);
         
         
-        //customize button
-        btnOK.setFont(new Font("Arial", Font.BOLD, 20));
-        btnOK.setForeground(Color.WHITE);
-        btnOK.setBackground(Color.DARK_GRAY);
-        btnOK.setOpaque(true);
-        btnOK.setBorderPainted(false);
+        //customize buttons
+        btnBack.setFont(new Font("Arial", Font.BOLD, 20));
+        btnBack.setForeground(Color.WHITE);
+        btnBack.setBackground(Color.DARK_GRAY);
+        btnBack.setOpaque(true);
+        btnBack.setBorderPainted(false);
+        
+        btnEdit.setFont(new Font("Arial", Font.BOLD, 20));
+        btnEdit.setForeground(Color.WHITE);
+        btnEdit.setBackground(Color.DARK_GRAY);
+        btnEdit.setOpaque(true);
+        btnEdit.setBorderPainted(false);
+        
+        btnDelete.setFont(new Font("Arial", Font.BOLD, 20));
+        btnDelete.setForeground(Color.WHITE);
+        btnDelete.setBackground(Color.DARK_GRAY);
+        btnDelete.setOpaque(true);
+        btnDelete.setBorderPainted(false);
+        
+        btnSortR.setFont(new Font("Arial", Font.BOLD, 20));
+        btnSortR.setForeground(Color.WHITE);
+        btnSortR.setBackground(Color.DARK_GRAY);
+        btnSortR.setOpaque(true);
+        btnSortR.setBorderPainted(false);
+        
+        btnSortC.setFont(new Font("Arial", Font.BOLD, 20));
+        btnSortC.setForeground(Color.WHITE);
+        btnSortC.setBackground(Color.DARK_GRAY);
+        btnSortC.setOpaque(true);
+        btnSortC.setBorderPainted(false);
+        
+        btnView.setFont(new Font("Arial", Font.BOLD, 20));
+        btnView.setForeground(Color.WHITE);
+        btnView.setBackground(Color.DARK_GRAY);
+        btnView.setOpaque(true);
+        btnView.setBorderPainted(false);
         
         table = new TeamTableModel();
         tblTeam.setModel(table);
@@ -74,10 +109,16 @@ public class TeamTableMenu extends JFrame implements ActionListener
         pnlTop.add(lblHeading);
         con.add(pnlTop);
         con.add(scroll);
-        con.add(btnOK);
+        pnlButtons.add(btnEdit);
+        pnlButtons.add(btnSortR);
+        pnlButtons.add(btnSortC);
+        pnlButtons.add(btnView);
+        pnlButtons.add(btnDelete);
+        pnlButtons.add(btnBack);
+        con.add(pnlButtons);
         
         //add action listeners to buttons
-        btnOK.addActionListener(this);
+        btnBack.addActionListener(this);
     }
     
     public void actionPerformed(ActionEvent ae)
