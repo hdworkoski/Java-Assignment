@@ -18,12 +18,12 @@ public class Player extends Member
     
     
     public Player
-        (String ID, String firstName, String lastName, String phone,
+        (String ID, String team, String firstName, String lastName, String phone,
                 String email, String number, String college, boolean rookie,
                     int startYear, String position, String country, double ppg,
                         double rpg, int highScore)
     {
-        super(ID, firstName, lastName, phone, email);
+        super(ID, team, firstName, lastName, phone, email);
         this.number = number;
         this.college = college;
         this.rookie = rookie;
@@ -98,5 +98,35 @@ public class Player extends Member
     public void setCountry(String country)
     {
         this.country = country;
-    }      
+    }
+    
+    public double getPPG()
+    {
+        return ppg;
+    }
+    
+    public void setPPG(double ppg)
+    {
+        this.ppg = ppg;
+    }
+    
+    public double getRPG()
+    {
+        return rpg;
+    }
+    
+    public void setPRG(double rpg)
+    {
+        this.rpg = rpg;
+    }
+    
+    public int getHS()
+    {
+        return highScore;
+    }
+    
+    public void setHS(int highScore)
+    {
+        this.highScore = highScore;
+    }
 }

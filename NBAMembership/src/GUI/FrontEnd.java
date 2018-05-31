@@ -38,7 +38,7 @@ public class FrontEnd extends JFrame implements ActionListener
     {
         this.setTitle("NBA Registration");
         this.setVisible(true);
-        this.setBounds(550, 200, 350, 500);
+        this.setBounds(550, 200, 320, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //set layouts

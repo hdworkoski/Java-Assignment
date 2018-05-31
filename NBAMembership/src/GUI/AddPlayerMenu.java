@@ -48,8 +48,9 @@ public class AddPlayerMenu extends JFrame implements ActionListener
     JTextField txfHS = new JTextField(5);
     
     Container con = getContentPane();
+    PlayerMenu pm;
     
-    public AddPlayerMenu(String title)
+    public AddPlayerMenu(String title, PlayerMenu pm)
     {
         this.setTitle(title);
         this.setVisible(true);
@@ -59,6 +60,7 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         //set layout, fonts, colors
         JLabel lblHeading = new JLabel(title);
         con.setLayout(new FlowLayout());
+        this.pm = pm;
         data.setLayout(new GridLayout(9, 2, 5, 5));
         con.setBackground(Color.BLACK);
         lblImage.setIcon(imgLogo);
@@ -132,12 +134,12 @@ public class AddPlayerMenu extends JFrame implements ActionListener
     {
         if(ae.getSource() == btnSave)
         {
-            FrontEnd fe = new FrontEnd();
+            pm.setVisible(true);
             this.dispose();
         }
         else if(ae.getSource() == btnCancel)
         {
-            PlayerMenu pm = new PlayerMenu();
+            pm.setVisible(true);
             this.dispose();
         }
     }

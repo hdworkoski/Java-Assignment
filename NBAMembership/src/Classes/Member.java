@@ -7,15 +7,17 @@ package Classes;
 public abstract class Member
 {
     private String ID;
+    private String team;
     private String firstName;
     private String lastName;
     private String phone;
     private String email;
     
     public Member
-        (String ID, String firstName, String lastName, String phone, String email)
+        (String ID, String team, String firstName, String lastName, String phone, String email)
     {
         this.ID = ID;
+        this.team = team;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
@@ -72,5 +74,15 @@ public abstract class Member
     public void setEmail(String email)
     {
         this.email = email;
+    }
+    
+    public String getTeam()
+    {
+        return team;
+    }
+    
+    public void setTeam(String team)
+    {
+        this.team = team;
     }
 }

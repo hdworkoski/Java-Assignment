@@ -20,27 +20,24 @@ public class CoachMenu extends JFrame implements ActionListener
     //create objects
     JLabel lblHeading = new JLabel("Coaches");
     JLabel lblLine = new JLabel("                                                         ");
+    JLabel lblLine2 = new JLabel("                                                         ");
     JButton btnAdd = new JButton("Add a Coach");
-    JButton btnEdit = new JButton("Edit an Existing Coach");
-    JButton btnDelete = new JButton("Delete an Existing Coach");
-    JButton btnSearch = new JButton("Search for an Existing Coach");
-    JButton btnSortLast = new JButton("Sort Coaches by Last Name");
-    JButton btnSortTeam = new JButton("Sort Coaches by Team");
+    JButton btnView = new JButton("View Coaches");
     JButton btnBack = new JButton("Back");
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
     
     Container con = getContentPane();
     
-    FrontEnd mainMenu;
+    FrontEnd fe;
     
     public CoachMenu(FrontEnd fe)
     {
         this.setTitle("Coaches");
         this.setVisible(true);
-        this.setBounds(550, 200, 350, 500);
+        this.setBounds(550, 200, 320, 500);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        mainMenu = fe;
+        this.fe = fe;
         
         //set layout, fonts, colors
         con.setLayout(new FlowLayout());
@@ -56,35 +53,11 @@ public class CoachMenu extends JFrame implements ActionListener
         btnAdd.setOpaque(true);
         btnAdd.setBorderPainted(false);
         
-        btnEdit.setFont(new Font("Arial", Font.BOLD, 20));
-        btnEdit.setForeground(Color.WHITE);
-        btnEdit.setBackground(Color.DARK_GRAY);
-        btnEdit.setOpaque(true);
-        btnEdit.setBorderPainted(false);
-        
-        btnDelete.setFont(new Font("Arial", Font.BOLD, 20));
-        btnDelete.setForeground(Color.WHITE);
-        btnDelete.setBackground(Color.DARK_GRAY);
-        btnDelete.setOpaque(true);
-        btnDelete.setBorderPainted(false);
-        
-        btnSearch.setFont(new Font("Arial", Font.BOLD, 20));
-        btnSearch.setForeground(Color.WHITE);
-        btnSearch.setBackground(Color.DARK_GRAY);
-        btnSearch.setOpaque(true);
-        btnSearch.setBorderPainted(false);
-        
-        btnSortLast.setFont(new Font("Arial", Font.BOLD, 20));
-        btnSortLast.setForeground(Color.WHITE);
-        btnSortLast.setBackground(Color.DARK_GRAY);
-        btnSortLast.setOpaque(true);
-        btnSortLast.setBorderPainted(false);
-        
-        btnSortTeam.setFont(new Font("Arial", Font.BOLD, 20));
-        btnSortTeam.setForeground(Color.WHITE);
-        btnSortTeam.setBackground(Color.DARK_GRAY);
-        btnSortTeam.setOpaque(true);
-        btnSortTeam.setBorderPainted(false);
+        btnView.setFont(new Font("Arial", Font.BOLD, 20));
+        btnView.setForeground(Color.WHITE);
+        btnView.setBackground(Color.DARK_GRAY);
+        btnView.setOpaque(true);
+        btnView.setBorderPainted(false);
         
         btnBack.setFont(new Font("Arial", Font.BOLD, 20));
         btnBack.setForeground(Color.WHITE);
@@ -97,20 +70,13 @@ public class CoachMenu extends JFrame implements ActionListener
         con.add(lblHeading);
         con.add(lblLine);
         con.add(btnAdd);
-        con.add(btnEdit);
-        con.add(btnDelete);
-        con.add(btnSearch);
-        con.add(btnSortLast);
-        con.add(btnSortTeam);
+        con.add(btnView);
+        con.add(lblLine2);
         con.add(btnBack);
         
         //add action listeners to buttons
         btnAdd.addActionListener(this);
-        btnEdit.addActionListener(this);
-        btnDelete.addActionListener(this);
-        btnSearch.addActionListener(this);
-        btnSortLast.addActionListener(this);
-        btnSortTeam.addActionListener(this);
+        btnView.addActionListener(this);
         btnBack.addActionListener(this);
     }
     
@@ -119,37 +85,17 @@ public class CoachMenu extends JFrame implements ActionListener
         //what to do if each button is clicked
         if(ae.getSource() == btnAdd)
         {
-            AddCoachMenu acm = new AddCoachMenu(this);
+            //AddCoachMenu acm = new AddCoachMenu(this);
             this.setVisible(false);
         }
-        else if(ae.getSource() == btnEdit)
+        else if(ae.getSource() == btnView)
         {
-            AddCoachMenu acm2 = new AddCoachMenu(this);
-            this.setVisible(false);
-        }
-        else if(ae.getSource() == btnDelete)
-        {
-            SearchCoachMenu scm = new SearchCoachMenu(this);
-            this.setVisible(false);
-        }
-        else if(ae.getSource() == btnSearch)
-        {
-            SearchCoachMenu scm2 = new SearchCoachMenu(this);
-            this.setVisible(false);
-        }
-        else if(ae.getSource() == btnSortLast)
-        {
-            SortCoachMenu scm = new AddCoachMenu(this);
-            this.setVisible(false);
-        }
-        else if(ae.getSource() == btnSortTeam)
-        {
-            SortCoachMenu scm2 = new AddCoachMenu(this);
+            //AddCoachMenu acm2 = new AddCoachMenu(this);
             this.setVisible(false);
         }
         else if(ae.getSource() == btnBack)
         {
-            mainMenu.setVisible(true);
+            fe.setVisible(true);
             this.dispose();
         }
     }

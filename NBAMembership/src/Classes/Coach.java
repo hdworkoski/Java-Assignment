@@ -12,11 +12,11 @@ public class Coach extends Member
     private double wLRatio;
     
     public Coach
-        (String ID, String firstName, String lastName, String phone,
+        (String ID, String team, String firstName, String lastName, String phone,
                 String email, int yearsExp, int championships, int playoffs,
                     double wLRatio)
     {
-        super(ID, firstName, lastName, phone, email);
+        super(ID, team, firstName, lastName, phone, email);
         this.yearsExp = yearsExp;
         this.championships = championships;
         this.playoffs = playoffs;
@@ -66,5 +66,5 @@ public class Coach extends Member
     public void setwLRatio(double wLRatio)
     {
         this.wLRatio = wLRatio;
-    }    
+    }
 }
