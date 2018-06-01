@@ -12,6 +12,7 @@ public abstract class Member
     private String lastName;
     private String phone;
     private String email;
+    protected String type;
     
     public Member
         (String ID, String team, String firstName, String lastName, String phone, String email)
@@ -85,4 +86,6 @@ public abstract class Member
     {
         this.team = team;
     }
+    
+    public abstract String getType();
 }

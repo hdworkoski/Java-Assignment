@@ -16,7 +16,6 @@ public class Player extends Member
     private double rpg; //rebounds per game
     private int highScore; //highest score ever in one game
     
-    
     public Player
         (String ID, String team, String firstName, String lastName, String phone,
                 String email, String number, String college, boolean rookie,
@@ -24,6 +23,7 @@ public class Player extends Member
                         double rpg, int highScore)
     {
         super(ID, team, firstName, lastName, phone, email);
+        type = "Player";
         this.number = number;
         this.college = college;
         this.rookie = rookie;
@@ -38,6 +38,11 @@ public class Player extends Member
     public void calcSalary()
     {
         
+    }
+    
+    public String getType()
+    {
+        return type;
     }
 
     public String getNumber()

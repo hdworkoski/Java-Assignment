@@ -90,7 +90,7 @@ public class CoachMenu extends JFrame implements ActionListener
         }
         else if(ae.getSource() == btnView)
         {
-            //AddCoachMenu acm2 = new AddCoachMenu(this);
+            CoachTableMenu acm2 = new CoachTableMenu(this);
             this.setVisible(false);
         }
         else if(ae.getSource() == btnBack)

@@ -17,6 +17,7 @@ public class Coach extends Member
                     double wLRatio)
     {
         super(ID, team, firstName, lastName, phone, email);
+        type = "Coach";
         this.yearsExp = yearsExp;
         this.championships = championships;
         this.playoffs = playoffs;
@@ -26,6 +27,11 @@ public class Coach extends Member
     public void calcSalary()
     {
         
+    }
+    
+    public String getType()
+    {
+        return type;
     }
 
     public int getYearsExp()

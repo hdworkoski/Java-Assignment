@@ -1,6 +1,6 @@
 package DAL;
 
-import Classes.Player;
+import Classes.Coach;
 import DAL.ConnectionDetails;
 import static DAL.ConnectionDetails.getDRIVER;
 import static DAL.ConnectionDetails.getPASSWORD;
@@ -18,15 +18,14 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author hillarydworkoski
  */
-public class PlayerTableModel extends AbstractTableModel
+public class CoachTableModel extends AbstractTableModel
 {
-    private ArrayList<Player> list = new ArrayList<>();
+    private ArrayList<Coach> list = new ArrayList<>();
     private String[] columnNames = 
         {"ID", "Team", "First name", "Last name", "Phone", "Email", 
-            "Number", "College", "Rookie?", "Start Year", "Position", "Country", 
-                "PPG", "RPG", "High Score"};
+            "Years as Head Coach", "Championships", "Playoffs", "W/L Ratio"};
     
-    public PlayerTableModel()
+    public CoachTableModel()
     {
         getDataFromDatabase("");
     }
@@ -41,7 +40,7 @@ public class PlayerTableModel extends AbstractTableModel
         return columnNames.length;
     }
     
-    public ArrayList<Player> getList(String team)
+    public ArrayList<Coach> getList(String team)
     {
         getDataFromDatabase(team);
         return list;
@@ -49,39 +48,29 @@ public class PlayerTableModel extends AbstractTableModel
     
     public Object getValueAt(int row, int col)
     {
-        Player p = list.get(row);
+        Coach c = list.get(row);
         switch(col)
         {
             case 0:
-                return p.getID();
+                return c.getID();
             case 1:
-                return p.getTeam();
+                return c.getTeam();
             case 2:
-                return p.getFirstName();
+                return c.getFirstName();
             case 3:
-                return p.getLastName();
+                return c.getLastName();
             case 4:
-                return p.getPhone();
+                return c.getPhone();
             case 5:
-                return p.getEmail();
+                return c.getEmail();
             case 6:
-                return p.getNumber();
+                return c.getYearsExp();
             case 7:
-                return p.getCollege();
+                return c.getChampionships();
             case 8:
-                return p.isRookie();
+                return c.getPlayoffs();
             case 9:
-                return p.getStartYear();
-            case 10:
-                return p.getPosition();
-            case 11:
-                return p.getCountry();
-            case 12:
-                return p.getPPG();
-            case 13:
-                return p.getRPG();
-            case 14:
-                return p.getHS();
+                return c.getwLRatio();
         }
         return null;
     }
@@ -92,10 +81,10 @@ public class PlayerTableModel extends AbstractTableModel
         return columnNames[col];
     }
     
-    public Player getRow(int row)
+    public Coach getRow(int row)
     {
-        Player player = list.get(row);
-        return player;
+        Coach coach = list.get(row);
+        return coach;
     }
     
     public void getDataFromDatabase(String team)
@@ -118,21 +107,19 @@ public class PlayerTableModel extends AbstractTableModel
             stmt = con.createStatement();
             String sql;
             if(team.equals(""))
-                sql = "Select * from tblPlayer";
+                sql = "Select * from tblCoach";
             else
-                sql = "Select * from tblPlayer Where team = '" + team + "'";
+                sql = "Select * from tblCoach Where team = '" + team + "'";
             r = stmt.executeQuery(sql);
             
             list.clear();
             
             while(r.next())
             {
-                list.add(new Player(r.getString("ID"), r.getString("team"), 
+                list.add(new Coach(r.getString("ID"), r.getString("team"), 
                     r.getString("firstName"), r.getString("lastName"),
-                    r.getString("phone"), r.getString("email"), r.getString("number"),
-                    r.getString("college"), r.getBoolean("rookie"), r.getInt("startYear"),
-                    r.getString("position"), r.getString("country"), r.getDouble("ppg"),
-                    r.getDouble("rpg"), r.getInt("highScore")));
+                    r.getString("phone"), r.getString("email"), r.getInt("yearsExp"),
+                    r.getInt("championships"), r.getInt("playoffs"), r.getDouble("wLRatio")));
             }
             con.close();
         }

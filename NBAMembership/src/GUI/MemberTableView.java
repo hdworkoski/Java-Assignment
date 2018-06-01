@@ -1,6 +1,6 @@
 package GUI;
+import DAL.MemberTableModel;
 import DAL.PlayerTableModel;
-import java.awt.BorderLayout;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -21,7 +21,7 @@ import javax.swing.JTable;
  *
  * @author hillarydworkoski
  */
-public class PlayerTableMenu extends JFrame implements ActionListener
+public class MemberTableView extends JFrame implements ActionListener
 {
     //create GUI objects
     JButton btnEdit = new JButton("Edit");
@@ -37,16 +37,16 @@ public class PlayerTableMenu extends JFrame implements ActionListener
     JScrollPane scroll = new JScrollPane(tblPlayer,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    PlayerTableModel table;
-    PlayerMenu pm;
+    MemberTableModel table;
+    TeamTableMenu ttm;
     
-    public PlayerTableMenu(PlayerMenu pm)
+    public MemberTableView(String team, TeamTableMenu ttm)
     {
-        this.setTitle("View Players");
+        this.setTitle("View Members from " + team);
         this.setVisible(true);
         this.setBounds(300, 50, 630, 1000);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        this.pm = pm;
+        this.ttm = ttm;
         
         //set layout, fonts, colors
         pnlTop.setLayout(new GridLayout(2, 1, 5, 5));
@@ -56,7 +56,7 @@ public class PlayerTableMenu extends JFrame implements ActionListener
         con.setLayout(new FlowLayout());
         con.setBackground(Color.BLACK);
         lblImage.setIcon(imgLogo);
-        JLabel lblHeading = new JLabel("View Players");
+        JLabel lblHeading = new JLabel("View Members from " + team);
         lblHeading.setFont(new Font("Verdana", Font.BOLD, 34));
         lblHeading.setForeground(Color.WHITE);
         
@@ -88,7 +88,7 @@ public class PlayerTableMenu extends JFrame implements ActionListener
         btnDelete.setBorderPainted(false);
         
         //table model
-        table = new PlayerTableModel();
+        table = new MemberTableModel(team);
         tblPlayer.setModel(table);
         
         //add objects to container
@@ -102,19 +102,12 @@ public class PlayerTableMenu extends JFrame implements ActionListener
         con.add(pnlButtons);
         
         //add action listeners to buttons
-        btnEdit.addActionListener(this);
-        btnDelete.addActionListener(this);
         btnBack.addActionListener(this);
     }
     
     public void actionPerformed(ActionEvent ae)
     {
-        if(ae.getSource() == btnEdit)
-        {
-            
-            this.setVisible(false);
-        }
-        pm.setVisible(true);
+        ttm.setVisible(true);
         this.dispose();
     }
 }
