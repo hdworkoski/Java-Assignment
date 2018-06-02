@@ -25,7 +25,7 @@ public abstract class Member
         this.email = email;
     }
         
-    public abstract void calcSalary();
+    public abstract int calcSalary();
 
     public String getID()
     {

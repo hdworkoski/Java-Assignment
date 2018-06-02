@@ -1,6 +1,6 @@
 package GUI;
+import Classes.Player;
 import DAL.PlayerTableModel;
-import java.awt.BorderLayout;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,6 +27,7 @@ public class PlayerTableMenu extends JFrame implements ActionListener
     //create GUI objects
     JButton btnEdit = new JButton("Edit");
     JButton btnDelete = new JButton("Delete");
+    JButton btnSalary = new JButton("Calculate Salary");
     JButton btnBack = new JButton("Back");
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
@@ -87,6 +89,12 @@ public class PlayerTableMenu extends JFrame implements ActionListener
         btnDelete.setOpaque(true);
         btnDelete.setBorderPainted(false);
         
+        btnSalary.setFont(new Font("Arial", Font.BOLD, 20));
+        btnSalary.setForeground(Color.WHITE);
+        btnSalary.setBackground(Color.DARK_GRAY);
+        btnSalary.setOpaque(true);
+        btnSalary.setBorderPainted(false);
+        
         //table model
         table = new PlayerTableModel();
         tblPlayer.setModel(table);
@@ -98,12 +106,14 @@ public class PlayerTableMenu extends JFrame implements ActionListener
         con.add(scroll);
         pnlButtons.add(btnEdit);
         pnlButtons.add(btnDelete);
+        pnlButtons.add(btnSalary);
         pnlButtons.add(btnBack);
         con.add(pnlButtons);
         
         //add action listeners to buttons
         btnEdit.addActionListener(this);
         btnDelete.addActionListener(this);
+        btnSalary.addActionListener(this);
         btnBack.addActionListener(this);
     }
     
@@ -114,7 +124,18 @@ public class PlayerTableMenu extends JFrame implements ActionListener
             
             this.setVisible(false);
         }
-        pm.setVisible(true);
-        this.dispose();
+        else if(ae.getSource() == btnSalary)
+        {
+            Player p = table.getRow(tblPlayer.getSelectedRow());
+            int salary = p.calcSalary();
+            JOptionPane.showMessageDialog
+                (null, p.getFirstName() + " " + p.getLastName() 
+                        + " salary: $" + salary);
+        }
+        else
+        {
+            pm.setVisible(true);
+            this.dispose();
+        }
     }
 }

@@ -10,6 +10,7 @@ public class Coach extends Member
     private int championships;
     private int playoffs;
     private double wLRatio;
+    private int salary;
     
     public Coach
         (String ID, String team, String firstName, String lastName, String phone,
@@ -24,9 +25,21 @@ public class Coach extends Member
         this.wLRatio = wLRatio;
     }
         
-    public void calcSalary()
+    public int calcSalary()
     {
-        
+        if(championships >= 1)
+            salary = 5000000;
+        else if(playoffs >= 3)
+            salary = 4000000;
+        else if(playoffs >= 1)
+            salary = 3000000;
+        else if(yearsExp >= 5)
+            salary = 2000000;
+        else if(yearsExp >= 3)
+            salary = 1500000;
+        else
+            salary = 1000000;
+        return salary;
     }
     
     public String getType()

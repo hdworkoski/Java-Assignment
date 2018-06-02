@@ -15,6 +15,7 @@ public class Player extends Member
     private double ppg; //points per game
     private double rpg; //rebounds per game
     private int highScore; //highest score ever in one game
+    private int salary;
     
     public Player
         (String ID, String team, String firstName, String lastName, String phone,
@@ -35,9 +36,23 @@ public class Player extends Member
         this.highScore = highScore;
     }
         
-    public void calcSalary()
+    public int calcSalary()
     {
-        
+        if(rookie)
+            salary = 2000000;
+        else if(ppg >= 20 && rpg >= 8)
+            salary = 15000000;
+        else if(ppg >= 20)
+            salary = 10000000;
+        else if(rpg >= 8)
+            salary = 8000000;
+        else if(highScore >= 40)
+            salary = 13000000;
+        else if(startYear <= 2008)
+            salary = 1500000;
+        else
+            salary = 1000000;
+        return salary;
     }
     
     public String getType()
