@@ -1,5 +1,6 @@
 package GUI;
 import DAL.TeamTableModel;
+import java.awt.BorderLayout;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -30,6 +31,7 @@ public class TeamTableMenu extends JFrame implements ActionListener
     JPanel pnlButtons = new JPanel();
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
+    JLabel lblLine = new JLabel("                                                         ");
     JPanel pnlTop = new JPanel();
     Font dataFont = new Font("Arial", Font.BOLD, 14);
     JTable tblTeam = new JTable();
@@ -51,7 +53,7 @@ public class TeamTableMenu extends JFrame implements ActionListener
         //set layout, fonts, colors
         con.setLayout(new FlowLayout());
         con.setBackground(Color.BLACK);
-        pnlTop.setLayout(new GridLayout(2, 1, 5, 5));
+        pnlTop.setLayout(new BorderLayout());
         pnlTop.setBackground(Color.BLACK);
         pnlButtons.setLayout(new GridLayout(2, 2, 5, 5));
         pnlButtons.setBackground(Color.BLACK);
@@ -98,9 +100,10 @@ public class TeamTableMenu extends JFrame implements ActionListener
         tblTeam.setModel(table);
         
         //add objects to container
-        pnlTop.add(lblImage);
-        pnlTop.add(lblHeading);
+        pnlTop.add(lblImage, BorderLayout.NORTH);
+        pnlTop.add(lblHeading, BorderLayout.CENTER);
         con.add(pnlTop);
+        con.add(lblLine);
         con.add(scroll);
         pnlButtons.add(btnEdit);
         pnlButtons.add(btnView);

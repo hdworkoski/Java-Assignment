@@ -1,6 +1,7 @@
 package GUI;
+import Classes.Coach;
 import DAL.CoachTableModel;
-import DAL.PlayerTableModel;
+import java.awt.BorderLayout;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -26,9 +27,12 @@ public class CoachTableMenu extends JFrame implements ActionListener
     //create GUI objects
     JButton btnEdit = new JButton("Edit");
     JButton btnDelete = new JButton("Delete");
+    JButton btnSalary = new JButton("Calculate Salary");
     JButton btnBack = new JButton("Back");
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
+    JLabel lblSalary = new JLabel();
+    JLabel lblLine = new JLabel("                                                                     ");
     JPanel pnlTop = new JPanel();
     JPanel pnlButtons = new JPanel();
     Font dataFont = new Font("Arial", Font.BOLD, 14);
@@ -49,7 +53,7 @@ public class CoachTableMenu extends JFrame implements ActionListener
         this.cm = cm;
         
         //set layout, fonts, colors
-        pnlTop.setLayout(new GridLayout(2, 1, 5, 5));
+        pnlTop.setLayout(new BorderLayout());
         pnlTop.setBackground(Color.BLACK);
         pnlButtons.setLayout(new GridLayout(2, 2, 5, 5));
         pnlButtons.setBackground(Color.BLACK);
@@ -59,6 +63,8 @@ public class CoachTableMenu extends JFrame implements ActionListener
         JLabel lblHeading = new JLabel("View Coaches");
         lblHeading.setFont(new Font("Verdana", Font.BOLD, 34));
         lblHeading.setForeground(Color.WHITE);
+        lblSalary.setFont(new Font("Verdana", Font.BOLD, 20));
+        lblSalary.setForeground(Color.WHITE);
         
         tblCoach.setAutoCreateRowSorter(true);
         scroll.setBackground(Color.BLACK);
@@ -87,27 +93,47 @@ public class CoachTableMenu extends JFrame implements ActionListener
         btnDelete.setOpaque(true);
         btnDelete.setBorderPainted(false);
         
+        btnSalary.setFont(new Font("Arial", Font.BOLD, 20));
+        btnSalary.setForeground(Color.WHITE);
+        btnSalary.setBackground(Color.DARK_GRAY);
+        btnSalary.setOpaque(true);
+        btnSalary.setBorderPainted(false);
+        
         //table model
         table = new CoachTableModel();
         tblCoach.setModel(table);
         
         //add objects to container
-        pnlTop.add(lblImage);
-        pnlTop.add(lblHeading);
+        pnlTop.add(lblImage, BorderLayout.NORTH);
+        pnlTop.add(lblHeading, BorderLayout.CENTER);
         con.add(pnlTop);
+        con.add(lblLine);
         con.add(scroll);
+        con.add(lblSalary);
         pnlButtons.add(btnEdit);
         pnlButtons.add(btnDelete);
+        pnlButtons.add(btnSalary);
         pnlButtons.add(btnBack);
         con.add(pnlButtons);
         
         //add action listeners to buttons
         btnBack.addActionListener(this);
+        btnSalary.addActionListener(this);
     }
     
     public void actionPerformed(ActionEvent ae)
     {
-        cm.setVisible(true);
-        this.dispose();
+        if(ae.getSource() == btnSalary)
+        {
+            Coach c = table.getRow(tblCoach.getSelectedRow());
+            int salary = c.calcSalary();
+            lblSalary.setText(c.getFirstName() + " " + c.getLastName() 
+                        + " salary: $" + salary);
+        }
+        else
+        {
+            cm.setVisible(true);
+            this.dispose();
+        }
     }
 }

@@ -1,6 +1,7 @@
 package GUI;
 import Classes.Player;
 import DAL.PlayerTableModel;
+import java.awt.BorderLayout;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -13,7 +14,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -31,6 +31,8 @@ public class PlayerTableMenu extends JFrame implements ActionListener
     JButton btnBack = new JButton("Back");
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
+    JLabel lblSalary = new JLabel();
+    JLabel lblLine = new JLabel("                                                                    ");
     JPanel pnlTop = new JPanel();
     JPanel pnlButtons = new JPanel();
     Font dataFont = new Font("Arial", Font.BOLD, 14);
@@ -51,7 +53,7 @@ public class PlayerTableMenu extends JFrame implements ActionListener
         this.pm = pm;
         
         //set layout, fonts, colors
-        pnlTop.setLayout(new GridLayout(2, 1, 5, 5));
+        pnlTop.setLayout(new BorderLayout());
         pnlTop.setBackground(Color.BLACK);
         pnlButtons.setLayout(new GridLayout(2, 2, 5, 5));
         pnlButtons.setBackground(Color.BLACK);
@@ -61,6 +63,8 @@ public class PlayerTableMenu extends JFrame implements ActionListener
         JLabel lblHeading = new JLabel("View Players");
         lblHeading.setFont(new Font("Verdana", Font.BOLD, 34));
         lblHeading.setForeground(Color.WHITE);
+        lblSalary.setFont(new Font("Verdana", Font.BOLD, 20));
+        lblSalary.setForeground(Color.WHITE);
         
         tblPlayer.setAutoCreateRowSorter(true);
         scroll.setBackground(Color.BLACK);
@@ -100,10 +104,12 @@ public class PlayerTableMenu extends JFrame implements ActionListener
         tblPlayer.setModel(table);
         
         //add objects to container
-        pnlTop.add(lblImage);
-        pnlTop.add(lblHeading);
+        pnlTop.add(lblImage, BorderLayout.NORTH);
+        pnlTop.add(lblHeading, BorderLayout.CENTER);
         con.add(pnlTop);
+        con.add(lblLine);
         con.add(scroll);
+        con.add(lblSalary);
         pnlButtons.add(btnEdit);
         pnlButtons.add(btnDelete);
         pnlButtons.add(btnSalary);
@@ -128,8 +134,7 @@ public class PlayerTableMenu extends JFrame implements ActionListener
         {
             Player p = table.getRow(tblPlayer.getSelectedRow());
             int salary = p.calcSalary();
-            JOptionPane.showMessageDialog
-                (null, p.getFirstName() + " " + p.getLastName() 
+            lblSalary.setText(p.getFirstName() + " " + p.getLastName() 
                         + " salary: $" + salary);
         }
         else
