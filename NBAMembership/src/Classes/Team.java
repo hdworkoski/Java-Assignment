@@ -1,5 +1,13 @@
 package Classes;
 
+import DAL.ConnectionDetails;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
 /**
  *
  * @author hillarydworkoski
@@ -45,5 +53,44 @@ public class Team
     public void setDivision(String division)
     {
         this.division = division;
+    }
+    
+    public static ArrayList<String> getTeams()
+    {
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet r = null;
+        
+        ArrayList<String> teams = new ArrayList<>();
+        
+        try
+        {
+            String url = ConnectionDetails.getURL();
+            String username = ConnectionDetails.getUSERNAME();
+            String password = ConnectionDetails.getPASSWORD();
+            
+            Class.forName(ConnectionDetails.getDRIVER());
+            con = DriverManager.getConnection(url, username, password);
+            
+            
+            stmt = con.createStatement();
+            String sql = "Select Name from tblTeam";
+            r = stmt.executeQuery(sql);
+            
+            while(r.next())
+            {
+                teams.add(r.getString("name"));
+            }
+            con.close();
+        }
+        catch(SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        catch(ClassNotFoundException CNFex)
+        {
+            System.out.println(CNFex.getMessage());
+        }
+        return teams;
     }
 }
