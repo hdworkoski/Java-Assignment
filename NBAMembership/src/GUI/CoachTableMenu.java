@@ -31,16 +31,17 @@ public class CoachTableMenu extends JFrame implements ActionListener
     JButton btnBack = new JButton("Back");
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
-    JLabel lblSalary = new JLabel();
+    JLabel lblSalary = new JLabel("   ");
     JLabel lblLine = new JLabel("                                                                     ");
     JPanel pnlTop = new JPanel();
     JPanel pnlButtons = new JPanel();
+    JPanel pnlBottom = new JPanel();
     Font dataFont = new Font("Arial", Font.BOLD, 14);
     JTable tblCoach = new JTable();
     Container con = getContentPane();
     JScrollPane scroll = new JScrollPane(tblCoach,
-            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     CoachTableModel table;
     CoachMenu cm;
     
@@ -48,7 +49,7 @@ public class CoachTableMenu extends JFrame implements ActionListener
     {
         this.setTitle("View Coaches");
         this.setVisible(true);
-        this.setBounds(300, 50, 630, 1000);
+        this.setBounds(300, 50, 800, 800);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.cm = cm;
         
@@ -57,7 +58,9 @@ public class CoachTableMenu extends JFrame implements ActionListener
         pnlTop.setBackground(Color.BLACK);
         pnlButtons.setLayout(new GridLayout(2, 2, 5, 5));
         pnlButtons.setBackground(Color.BLACK);
-        con.setLayout(new FlowLayout());
+        pnlBottom.setLayout(new BorderLayout());
+        pnlBottom.setBackground(Color.BLACK);
+        con.setLayout(new BorderLayout());
         con.setBackground(Color.BLACK);
         lblImage.setIcon(imgLogo);
         JLabel lblHeading = new JLabel("View Coaches");
@@ -106,15 +109,16 @@ public class CoachTableMenu extends JFrame implements ActionListener
         //add objects to container
         pnlTop.add(lblImage, BorderLayout.NORTH);
         pnlTop.add(lblHeading, BorderLayout.CENTER);
-        con.add(pnlTop);
-        con.add(lblLine);
-        con.add(scroll);
-        con.add(lblSalary);
+        pnlTop.add(lblLine, BorderLayout.SOUTH);
+        con.add(pnlTop, BorderLayout.NORTH);
+        con.add(scroll, BorderLayout.CENTER);
+        pnlBottom.add(lblSalary, BorderLayout.NORTH);
         pnlButtons.add(btnEdit);
         pnlButtons.add(btnDelete);
         pnlButtons.add(btnSalary);
         pnlButtons.add(btnBack);
-        con.add(pnlButtons);
+        pnlBottom.add(pnlButtons, BorderLayout.CENTER);
+        con.add(pnlBottom, BorderLayout.SOUTH);
         
         //add action listeners to buttons
         btnBack.addActionListener(this);

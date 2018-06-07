@@ -32,6 +32,7 @@ public class TeamTableMenu extends JFrame implements ActionListener
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
     JLabel lblLine = new JLabel("                                                         ");
+    JLabel lblLine2 = new JLabel("                                                         ");
     JPanel pnlTop = new JPanel();
     Font dataFont = new Font("Arial", Font.BOLD, 14);
     JTable tblTeam = new JTable();
@@ -46,7 +47,7 @@ public class TeamTableMenu extends JFrame implements ActionListener
     {
         this.setTitle("View Teams");
         this.setVisible(true);
-        this.setBounds(400, 50, 530, 1000);
+        this.setBounds(400, 50, 530, 800);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.tm = tm;
         
@@ -109,6 +110,7 @@ public class TeamTableMenu extends JFrame implements ActionListener
         pnlButtons.add(btnView);
         pnlButtons.add(btnDelete);
         pnlButtons.add(btnBack);
+        con.add(lblLine2);
         con.add(pnlButtons);
         
         //add action listeners to buttons
