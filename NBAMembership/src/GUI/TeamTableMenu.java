@@ -62,6 +62,10 @@ public class TeamTableMenu extends JFrame implements ActionListener
         JLabel lblHeading = new JLabel("View Teams");
         lblHeading.setFont(new Font("Verdana", Font.BOLD, 34));
         lblHeading.setForeground(Color.WHITE);
+        lblHeading.setHorizontalAlignment(JLabel.CENTER);
+        lblImage.setHorizontalAlignment(JLabel.CENTER);
+        lblHeading.setHorizontalAlignment(JLabel.CENTER);
+        lblImage.setHorizontalAlignment(JLabel.CENTER);
         
         tblTeam.setAutoCreateRowSorter(true);
         scroll.setBackground(Color.BLACK);

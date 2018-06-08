@@ -9,21 +9,19 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 /**
  *
  * @author hillarydworkoski
  */
-public class AddPlayerMenu extends JFrame implements ActionListener
+public class AddCoachMenu extends JFrame implements ActionListener
 {
     //create GUI objects
     JButton btnSave = new JButton("Save");
@@ -33,7 +31,6 @@ public class AddPlayerMenu extends JFrame implements ActionListener
     JPanel pnlTop = new JPanel();
     JPanel pnlDataLeft = new JPanel();
     JPanel pnlDataRight = new JPanel();
-    JPanel pnlRadio = new JPanel();
     JPanel pnlButtons = new JPanel();
     JPanel pnlBottom = new JPanel();
     Font dataFont = new Font("Arial", Font.BOLD, 14);
@@ -52,55 +49,35 @@ public class AddPlayerMenu extends JFrame implements ActionListener
     JTextField txfPhone = new JTextField(10);
     JLabel lblEmail = new JLabel("Email");
     JTextField txfEmail = new JTextField(10);
-    JLabel lblNumber = new JLabel("  Player Number");
-    JTextField txfNumber = new JTextField(4);
-    JLabel lblCollege = new JLabel("College");
-    JTextField txfCollege = new JTextField(10);
-    JLabel lblRookie = new JLabel("  Rookie This Year?");
-    JRadioButton rbtYes = new JRadioButton("Yes");
-    JRadioButton rbtNo = new JRadioButton("No");
-    ButtonGroup btgRookie = new ButtonGroup();
-    JLabel lblYear = new JLabel("Year Started in NBA");
-    JTextField txfYear = new JTextField(6);
-    JLabel lblPosition = new JLabel("  Position");
-    String[] strPosition = {"Point Guard", "Shooting Guard", "Small Forward", "Power Forward", "Center"};
-    JComboBox cmbPosition = new JComboBox(strPosition);
-    JLabel lblCountry = new JLabel("Country of Origin");
-    String[] arrCountry =  {"Argentina", "Australia", "Austria", "Bahamas",
-        "Bosnia", "Brazil", "Cameroon", "Canada", "China", "Croatia",
-        "Czech Republic", "Congo", "Dominican Republic", "Egypt", "Finland",
-        "France", "Georgia",  "Germany", "Greece", "Haiti", "Israel", "Italy",
-        "Latvia", "Lithunia", "Mali", "Montenegro", "New Zealand", "Poland",
-        "Puerto Rico", "Russia", "Senegal", "Serbia", "Slovenia", "South Sudan",
-        "Spain", "Sweden", "Switzerland", "Turkey", "Ukraine", "UK", "USA"};
-    JComboBox cmbCountry = new JComboBox(arrCountry);
-    JLabel lblPPG = new JLabel("  Average Points Per Game");
-    JTextField txfPPG = new JTextField(5);
-    JLabel lblRPG = new JLabel("Average Rebounds Per Game");
-    JTextField txfRPG = new JTextField(5);
-    JLabel lblHS = new JLabel("  Highest Score in One Game");
-    JTextField txfHS = new JTextField(5);
+    JLabel lblYears = new JLabel("  Years Experience");
+    JTextField txfYears = new JTextField(4);
+    JLabel lblChampionships = new JLabel("Championships");
+    JTextField txfChampionships = new JTextField(10);
+    JLabel lblPlayoffs = new JLabel("  Playoffs");
+    JTextField txfPlayoffs = new JTextField(6);
+    JLabel lblWL = new JLabel("Win/Loss Ratio");
+    JTextField txfWL = new JTextField(6);
     JLabel lblMsg = new JLabel("  ");
     
     Container con = getContentPane();
-    PlayerMenu pm;
+    CoachMenu cm;
     
-    public AddPlayerMenu(String title, PlayerMenu pm)
+    public AddCoachMenu(String title, CoachMenu cm)
     {
         this.setTitle(title);
         this.setVisible(true);
-        this.setBounds(300, 100, 900, 620);
+        this.setBounds(300, 100, 700, 500);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
         //set layout, fonts, colors
         JLabel lblHeading = new JLabel(title);
         lblHeading.setHorizontalAlignment(JLabel.CENTER);
         con.setLayout(new BorderLayout());
-        this.pm = pm;
+        this.cm = cm;
         pnlTop.setLayout(new BorderLayout());
         pnlTop.setBackground(Color.BLACK);
-        pnlDataLeft.setLayout(new GridLayout(8, 2, 5, 5));
-        pnlDataRight.setLayout(new GridLayout(8, 2, 5, 5));
+        pnlDataLeft.setLayout(new GridLayout(5, 2, 5, 5));
+        pnlDataRight.setLayout(new GridLayout(5, 2, 5, 5));
         con.setBackground(Color.BLACK);
         lblImage.setIcon(imgLogo);
         lblImage.setHorizontalAlignment(JLabel.CENTER);
@@ -108,8 +85,6 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         lblHeading.setForeground(Color.WHITE);
         pnlDataLeft.setBackground(Color.BLACK);
         pnlDataRight.setBackground(Color.BLACK);
-        pnlRadio.setBackground(Color.BLACK);
-        pnlRadio.setLayout(new GridLayout(2, 1, 3, 3));
         pnlButtons.setLayout(new GridLayout(1, 2, 5, 5));
         pnlButtons.setBackground(Color.BLACK);
         pnlBottom.setLayout(new BorderLayout());
@@ -120,41 +95,22 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         lblLast.setFont(dataFont);
         lblPhone.setFont(dataFont);
         lblEmail.setFont(dataFont);
-        lblNumber.setFont(dataFont);
-        lblCollege.setFont(dataFont);
-        lblYear.setFont(dataFont);
-        lblRookie.setFont(dataFont);
-        lblPosition.setFont(dataFont);
-        lblCountry.setFont(dataFont);
-        lblPPG.setFont(dataFont);
-        lblRPG.setFont(dataFont);
-        lblHS.setFont(dataFont);
+        lblYears.setFont(dataFont);
+        lblChampionships.setFont(dataFont);
+        lblPlayoffs.setFont(dataFont);
+        lblWL.setFont(dataFont);
         lblID.setForeground(Color.WHITE);
         lblTeam.setForeground(Color.WHITE);
         lblFirst.setForeground(Color.WHITE);
         lblLast.setForeground(Color.WHITE);
         lblPhone.setForeground(Color.WHITE);
         lblEmail.setForeground(Color.WHITE);
-        lblNumber.setForeground(Color.WHITE);
-        lblCollege.setForeground(Color.WHITE);
-        lblYear.setForeground(Color.WHITE);
-        lblRookie.setForeground(Color.WHITE);
-        lblPosition.setForeground(Color.WHITE);
-        lblCountry.setForeground(Color.WHITE);
-        lblPPG.setForeground(Color.WHITE);
-        lblRPG.setForeground(Color.WHITE);
-        lblHS.setForeground(Color.WHITE);
-        
-        cmbCountry.setSelectedIndex(40);
+        lblYears.setForeground(Color.WHITE);
+        lblChampionships.setForeground(Color.WHITE);
+        lblPlayoffs.setForeground(Color.WHITE);
+        lblWL.setForeground(Color.WHITE);
         
         //customize buttons
-        rbtYes.setFont(new Font("Arial", Font.BOLD, 14));
-        rbtYes.setForeground(Color.WHITE);
-        
-        rbtNo.setFont(new Font("Arial", Font.BOLD, 14));
-        rbtNo.setForeground(Color.WHITE);
-        rbtNo.setSelected(true);
-        
         btnSave.setFont(new Font("Arial", Font.BOLD, 20));
         btnSave.setForeground(Color.WHITE);
         btnSave.setBackground(Color.DARK_GRAY);
@@ -183,28 +139,14 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         pnlDataLeft.add(txfPhone);
         pnlDataRight.add(lblEmail);
         pnlDataRight.add(txfEmail);
-        pnlDataLeft.add(lblNumber);
-        pnlDataLeft.add(txfNumber);
-        pnlDataRight.add(lblCollege);
-        pnlDataRight.add(txfCollege);
-        pnlDataLeft.add(lblRookie);
-        btgRookie.add(rbtYes);
-        btgRookie.add(rbtNo);
-        pnlRadio.add(rbtYes);
-        pnlRadio.add(rbtNo);
-        pnlDataLeft.add(pnlRadio);
-        pnlDataRight.add(lblYear);
-        pnlDataRight.add(txfYear);
-        pnlDataLeft.add(lblPosition);
-        pnlDataLeft.add(cmbPosition);
-        pnlDataRight.add(lblCountry);
-        pnlDataRight.add(cmbCountry);
-        pnlDataLeft.add(lblPPG);
-        pnlDataLeft.add(txfPPG);
-        pnlDataRight.add(lblRPG);
-        pnlDataRight.add(txfRPG);
-        pnlDataLeft.add(lblHS);
-        pnlDataLeft.add(txfHS);
+        pnlDataLeft.add(lblYears);
+        pnlDataLeft.add(txfYears);
+        pnlDataRight.add(lblChampionships);
+        pnlDataRight.add(txfChampionships);
+        pnlDataLeft.add(lblPlayoffs);
+        pnlDataLeft.add(txfPlayoffs);
+        pnlDataRight.add(lblWL);
+        pnlDataRight.add(txfWL);
         con.add(pnlDataLeft, BorderLayout.WEST);
         con.add(new JLabel("  "), BorderLayout.CENTER);
         con.add(pnlDataRight, BorderLayout.EAST);
@@ -227,12 +169,12 @@ public class AddPlayerMenu extends JFrame implements ActionListener
             //{
             //    validateID(
             //}
-            pm.setVisible(true);
+            cm.setVisible(true);
             this.dispose();
         }
         else if(ae.getSource() == btnCancel)
         {
-            pm.setVisible(true);
+            cm.setVisible(true);
             this.dispose();
         }
     }

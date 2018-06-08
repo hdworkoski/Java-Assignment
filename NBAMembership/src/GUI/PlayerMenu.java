@@ -45,6 +45,8 @@ public class PlayerMenu extends JFrame implements ActionListener
         lblImage.setIcon(imgLogo);
         lblHeading.setFont(new Font("Verdana", Font.BOLD, 34));
         lblHeading.setForeground(Color.WHITE);
+        lblHeading.setHorizontalAlignment(JLabel.CENTER);
+        lblImage.setHorizontalAlignment(JLabel.CENTER);
         
         //customize buttons
         btnAdd.setFont(new Font("Arial", Font.BOLD, 20));

@@ -84,7 +84,8 @@ public class TeamMenu extends JFrame implements ActionListener
         //what to do if each button is clicked
         if(ae.getSource() == btnAdd)
         {
-            
+            AddTeamMenu atm = new AddTeamMenu("Add New Team", this);
+            this.setVisible(false);
         }
         else if(ae.getSource() == btnView)
         {

@@ -85,7 +85,7 @@ public class CoachMenu extends JFrame implements ActionListener
         //what to do if each button is clicked
         if(ae.getSource() == btnAdd)
         {
-            //AddCoachMenu acm = new AddCoachMenu(this);
+            AddCoachMenu acm = new AddCoachMenu("Add New Coach", this);
             this.setVisible(false);
         }
         else if(ae.getSource() == btnView)

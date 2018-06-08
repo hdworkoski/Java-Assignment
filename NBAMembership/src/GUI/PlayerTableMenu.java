@@ -66,6 +66,8 @@ public class PlayerTableMenu extends JFrame implements ActionListener
         JLabel lblHeading = new JLabel("View Players");
         lblHeading.setFont(new Font("Verdana", Font.BOLD, 34));
         lblHeading.setForeground(Color.WHITE);
+        lblHeading.setHorizontalAlignment(JLabel.CENTER);
+        lblImage.setHorizontalAlignment(JLabel.CENTER);
         lblSalary.setFont(new Font("Verdana", Font.BOLD, 20));
         lblSalary.setForeground(Color.WHITE);
         
