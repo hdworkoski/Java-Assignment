@@ -13,18 +13,23 @@ import javax.swing.table.AbstractTableModel;
 /**
  *
  * @author hillarydworkoski
+ * File: TeamTableModel.java
+ * Description: Table Model for Team class
+ * Date: 10/6/18
  */
 public class TeamTableModel extends AbstractTableModel
 {
+    //declare ArrayList of Teams and Array of column names
     private ArrayList<Team> list = new ArrayList<>();
-    private String[] columnNames = 
-        {"Name", "Conference", "Division"};
+    private String[] columnNames = {"Name", "Conference", "Division"};
     
+    //constructor
     public TeamTableModel()
     {
         getDataFromDatabase();
     }
     
+    //create abstract methods from Abstract Table Model
     public int getRowCount()
     {
         return list.size();
@@ -62,6 +67,8 @@ public class TeamTableModel extends AbstractTableModel
         return team;
     }
     
+    //method to get data from tblTeam, put data into a Team object, and
+    //add Team object to ArrayList
     public void getDataFromDatabase()
     {
         Connection con = null;
@@ -70,14 +77,12 @@ public class TeamTableModel extends AbstractTableModel
         
         try
         {
-        
             String url = ConnectionDetails.getURL();
             String username = ConnectionDetails.getUSERNAME();
             String password = ConnectionDetails.getPASSWORD();
             
             Class.forName(ConnectionDetails.getDRIVER());
             con = DriverManager.getConnection(url, username, password);
-            
             
             stmt = con.createStatement();
             String sql = "Select * from tblTeam";

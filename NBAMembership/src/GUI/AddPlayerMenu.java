@@ -1,6 +1,7 @@
 package GUI;
 
 import Classes.Team;
+import DAL.ConnectionDetails;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -8,6 +9,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -144,6 +149,8 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         lblPPG.setForeground(Color.WHITE);
         lblRPG.setForeground(Color.WHITE);
         lblHS.setForeground(Color.WHITE);
+        lblMsg.setFont(dataFont);
+        lblMsg.setForeground(Color.WHITE);
         
         cmbCountry.setSelectedIndex(40);
         
@@ -212,7 +219,7 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         pnlButtons.add(btnCancel);
         pnlBottom.add(lblMsg, BorderLayout.NORTH);
         pnlBottom.add(pnlButtons, BorderLayout.CENTER);
-        con.add(pnlButtons, BorderLayout.SOUTH);
+        con.add(pnlBottom, BorderLayout.SOUTH);
         
         //add action listeners to buttons
         btnSave.addActionListener(this);
@@ -223,12 +230,60 @@ public class AddPlayerMenu extends JFrame implements ActionListener
     {
         if(ae.getSource() == btnSave)
         {
-            //try
-            //{
-            //    validateID(
-            //}
-            pm.setVisible(true);
-            this.dispose();
+            Connection con = null;
+            Statement stmt = null;
+            String ID = txfID.getText();
+            String team = (String)cmbTeams.getSelectedItem();
+            String firstName = txfFirst.getText();
+            String lastName = txfLast.getText();
+            String phone = txfPhone.getText();
+            String email = txfEmail.getText();
+            String number = txfNumber.getText();
+            String college = txfCollege.getText();
+            int rookie;
+            if(rbtYes.isSelected())
+                rookie = 1;
+            else
+                rookie = 0;
+            int startYear = Integer.parseInt(txfYear.getText());
+            String position = (String) cmbPosition.getSelectedItem();
+            String country = (String) cmbCountry.getSelectedItem();
+            float ppg = Float.parseFloat(txfPPG.getText());
+            float rpg = Float.parseFloat(txfRPG.getText());
+            int highScore = Integer.parseInt(txfHS.getText());
+        
+            try
+            {
+                String url = ConnectionDetails.getURL();
+                String username = ConnectionDetails.getUSERNAME();
+                String password = ConnectionDetails.getPASSWORD();
+
+                Class.forName(ConnectionDetails.getDRIVER());
+                con = DriverManager.getConnection(url, username, password);
+
+                stmt = con.createStatement();
+                String sql = "Insert into tblPlayer Values('" + ID  + "','" + team
+                        + "','" + firstName + "','" + lastName + "','" + phone + "','"
+                        + email + "','" + number + "','" + college + "'," + rookie
+                        +  "," + startYear + ",'" + position + "','" + country + "',"
+                        + ppg + "," + rpg + "," + highScore + ");";
+                stmt.executeUpdate(sql);
+                String msg = "Player: " + ID + " " + firstName + " " + lastName
+                        + " has been added to the database for the " + team;
+                resetValues();
+                lblMsg.setText(msg);
+                btnCancel.setText("Back");
+                this.repaint();
+                con.close();
+            }
+            catch(SQLException sqlE)
+            {
+                System.err.println("SQL Error: " + sqlE);
+            }
+            catch(ClassNotFoundException cnfE)
+            {
+                System.err.println("Class Error: " + cnfE);
+            }
         }
         else if(ae.getSource() == btnCancel)
         {
@@ -245,5 +300,26 @@ public class AddPlayerMenu extends JFrame implements ActionListener
             arrTeams[i] = teams.get(i);
         }
         return arrTeams;
+    }
+    
+    public void resetValues()
+    {
+        lblMsg.setText("  ");
+        txfID.setText("");
+        cmbTeams.setSelectedItem(0);
+        txfFirst.setText("");
+        txfLast.setText("");
+        txfPhone.setText("");
+        txfEmail.setText("");
+        txfNumber.setText("");
+        txfCollege.setText("");
+        rbtNo.setSelected(true);
+        txfYear.setText("");
+        cmbPosition.setSelectedItem(0);
+        cmbCountry.setSelectedItem(40);
+        txfPPG.setText("");
+        txfRPG.setText("");
+        txfHS.setText("");
+        this.repaint();
     }
 }

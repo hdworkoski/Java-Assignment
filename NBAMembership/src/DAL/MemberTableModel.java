@@ -14,20 +14,24 @@ import javax.swing.table.AbstractTableModel;
 /**
  *
  * @author hillarydworkoski
+ * File: MemberTableModel.java
+ * Description: Table Model for Member class (including Players and Coaches)
+ * Date: 10/6/18
  */
 public class MemberTableModel extends AbstractTableModel
 {
+    //declare ArrayList of Members and Array of column names
     private ArrayList<Member> list = new ArrayList<>();
-    private ArrayList<Player> pList = new ArrayList<>();
-    private ArrayList<Coach> cList = new ArrayList<>();
     private String[] columnNames = 
-        {"ID", "Team", "First name", "Last name", "Phone", "Email", "Type"};
+            {"ID", "Team", "First name", "Last name", "Phone", "Email", "Type"};
     
+    //constructor
     public MemberTableModel(String team)
     {
         getData(team);
     }
     
+    //create abstract methods from AbstractTableModel class
     public int getRowCount()
     {
         return list.size();
@@ -42,9 +46,10 @@ public class MemberTableModel extends AbstractTableModel
     {
         for(int i=0; i<list.size(); i++)
         {
-            if(list.get(i).getType().equals("Coach"))
+            //try to create a Coach object at the specified row
+            try
             {
-                Coach c = cList.get(row);
+                Coach c = (Coach)list.get(row);
                 switch(col)
                 {
                     case 0:
@@ -63,9 +68,10 @@ public class MemberTableModel extends AbstractTableModel
                         return c.getType();
                 }
             }
-            else
+            //if exception thrown, create Player object instead
+            catch(ClassCastException cce)
             {
-                Player p = pList.get(row + cList.size());
+                Player p = (Player)list.get(row);
                 switch(col)
                 {
                     case 0:
@@ -85,7 +91,6 @@ public class MemberTableModel extends AbstractTableModel
                 }
             }
         }
-        
         return null;
     }
     
@@ -95,19 +100,74 @@ public class MemberTableModel extends AbstractTableModel
         return columnNames[col];
     }
     
-    public Player getRow(int row)
+    public Member getRow(int row)
     {
-        Player player = pList.get(row);
-        return player;
+        //try to create Coach object for specified row
+        try
+        {
+            Coach coach = (Coach)list.get(row);
+            return coach;
+        }
+        //if exception thrown, create Player object instead
+        catch(ClassCastException cce)
+        {
+            Player player = (Player)list.get(row);
+            return player;
+        }
     }
     
+    //method to get data from tblCoach and tblPlayer
+    //and create Coach and Player objects and add them to ArrayList
     public void getData(String team)
     {
-        PlayerTableModel pTable = new PlayerTableModel();
-        pList = pTable.getList(team);
-        CoachTableModel cTable = new CoachTableModel();
-        cList = cTable.getList(team);
-        list.addAll(cList);
-        list.addAll(pList);
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet r = null;
+        
+        try
+        {
+            String url = ConnectionDetails.getURL();
+            String username = ConnectionDetails.getUSERNAME();
+            String password = ConnectionDetails.getPASSWORD();
+            
+            Class.forName(ConnectionDetails.getDRIVER());
+            con = DriverManager.getConnection(url, username, password);
+            
+            stmt = con.createStatement();
+            String sql = "Select * from tblCoach Where team = '" + team + "'";
+            r = stmt.executeQuery(sql);
+            
+            list.clear();
+            
+            while(r.next())
+            {
+                list.add(new Coach(r.getString("ID"), r.getString("team"), 
+                    r.getString("firstName"), r.getString("lastName"),
+                    r.getString("phone"), r.getString("email"), r.getInt("yearsExp"),
+                    r.getInt("championships"), r.getInt("playoffs"), r.getDouble("wLRatio")));
+            }
+            
+            String sql2 = "Select * from tblPlayer Where team = '" + team + "'";
+            r = stmt.executeQuery(sql2);
+            
+            while(r.next())
+            {
+                list.add(new Player(r.getString("ID"), r.getString("team"), 
+                    r.getString("firstName"), r.getString("lastName"),
+                    r.getString("phone"), r.getString("email"), r.getString("number"),
+                    r.getString("college"), r.getBoolean("rookie"), r.getInt("startYear"),
+                    r.getString("position"), r.getString("country"), r.getDouble("ppg"),
+                    r.getDouble("rpg"), r.getInt("highScore")));
+            }
+            con.close();
+        }
+        catch(SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        catch(ClassNotFoundException CNFex)
+        {
+            System.out.println(CNFex.getMessage());
+        }
     }
 }

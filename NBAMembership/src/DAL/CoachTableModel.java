@@ -17,19 +17,25 @@ import javax.swing.table.AbstractTableModel;
 /**
  *
  * @author hillarydworkoski
+ * File: CoachTableModel.java
+ * Description: Table Model for the Coach class
+ * Date: 10/6/18
  */
 public class CoachTableModel extends AbstractTableModel
 {
+    //declare ArrayList of Coaches and Array of column names
     private ArrayList<Coach> list = new ArrayList<>();
     private String[] columnNames = 
         {"ID", "Team", "First name", "Last name", "Phone", "Email", 
             "Years as Head Coach", "Championships", "Playoffs", "W/L Ratio"};
     
+    //constructor
     public CoachTableModel()
     {
-        getDataFromDatabase("");
+        getDataFromDatabase();
     }
     
+    //creating abstract methods from AbstractTableModel
     public int getRowCount()
     {
         return list.size();
@@ -38,12 +44,6 @@ public class CoachTableModel extends AbstractTableModel
     public int getColumnCount()
     {
         return columnNames.length;
-    }
-    
-    public ArrayList<Coach> getList(String team)
-    {
-        getDataFromDatabase(team);
-        return list;
     }
     
     public Object getValueAt(int row, int col)
@@ -87,7 +87,9 @@ public class CoachTableModel extends AbstractTableModel
         return coach;
     }
     
-    public void getDataFromDatabase(String team)
+    //method to get Coach information from the database,
+    //put into a Coach object, and add Coach object to ArrayList
+    public void getDataFromDatabase()
     {
         Connection con = null;
         Statement stmt = null;
@@ -95,7 +97,6 @@ public class CoachTableModel extends AbstractTableModel
         
         try
         {
-        
             String url = ConnectionDetails.getURL();
             String username = ConnectionDetails.getUSERNAME();
             String password = ConnectionDetails.getPASSWORD();
@@ -103,13 +104,8 @@ public class CoachTableModel extends AbstractTableModel
             Class.forName(ConnectionDetails.getDRIVER());
             con = DriverManager.getConnection(url, username, password);
             
-            
             stmt = con.createStatement();
-            String sql;
-            if(team.equals(""))
-                sql = "Select * from tblCoach";
-            else
-                sql = "Select * from tblCoach Where team = '" + team + "'";
+            String sql = "Select * from tblCoach";
             r = stmt.executeQuery(sql);
             
             list.clear();

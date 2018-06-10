@@ -126,11 +126,8 @@ public class TeamTableMenu extends JFrame implements ActionListener
     {
         if(ae.getSource() == btnView)
         {
-            System.out.println(tblTeam.getSelectedRow());
-            String team = 
-                tblTeam.getValueAt
+            String team = tblTeam.getValueAt
                     (tblTeam.getSelectedRow(), 0).toString();
-            System.out.println(team);
             MemberTableView ptv = new MemberTableView(team, this);
         }
         else

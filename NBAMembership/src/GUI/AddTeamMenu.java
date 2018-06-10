@@ -1,5 +1,6 @@
 package GUI;
 
+import DAL.ConnectionDetails;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -7,6 +8,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -131,7 +136,7 @@ public class AddTeamMenu extends JFrame implements ActionListener
         pnlButtons.add(btnCancel);
         pnlBottom.add(lblMsg, BorderLayout.NORTH);
         pnlBottom.add(pnlButtons, BorderLayout.CENTER);
-        con.add(pnlButtons, BorderLayout.SOUTH);
+        con.add(pnlBottom, BorderLayout.SOUTH);
         
         //add action listeners to buttons
         rbtEast.addActionListener(this);
@@ -156,17 +161,60 @@ public class AddTeamMenu extends JFrame implements ActionListener
         }
         else if(ae.getSource() == btnSave)
         {
-            //try
-            //{
-            //    validateID(
-            //}
-            tm.setVisible(true);
-            this.dispose();
+            Connection con = null;
+            Statement stmt = null;
+            String name = txfName.getText();
+            String conference;
+            if(rbtEast.isSelected())
+                conference = "East";
+            else
+                conference = "West";
+            String division;
+            if(conference == "East")
+                division = (String) cmbEast.getSelectedItem();
+            else
+                division = (String) cmbWest.getSelectedItem();
+        
+            try
+            {
+                String url = ConnectionDetails.getURL();
+                String username = ConnectionDetails.getUSERNAME();
+                String password = ConnectionDetails.getPASSWORD();
+
+                Class.forName(ConnectionDetails.getDRIVER());
+                con = DriverManager.getConnection(url, username, password);
+
+                stmt = con.createStatement();
+                String sql = "Insert into tblTeam Values('" + name  + "','" + conference
+                        + "','" + division + "');";
+                stmt.executeUpdate(sql);
+                String msg = "Team: " + name + " has been added to the database";
+                resetValues();
+                lblMsg.setText(msg);
+                btnCancel.setText("Back");
+                this.repaint();
+                con.close();
+            }
+            catch(SQLException sqlE)
+            {
+                System.err.println("SQL Error: " + sqlE);
+            }
+            catch(ClassNotFoundException cnfE)
+            {
+                System.err.println("Class Error: " + cnfE);
+            }
         }
         else if(ae.getSource() == btnCancel)
         {
             tm.setVisible(true);
             this.dispose();
         }
+    }
+    
+    public void resetValues()
+    {
+        lblMsg.setText("  ");
+        txfName.setText("");
+        this.repaint();
     }
 }

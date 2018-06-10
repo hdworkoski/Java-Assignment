@@ -1,6 +1,7 @@
 package GUI;
 
 import Classes.Team;
+import DAL.ConnectionDetails;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -8,6 +9,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -154,7 +159,7 @@ public class AddCoachMenu extends JFrame implements ActionListener
         pnlButtons.add(btnCancel);
         pnlBottom.add(lblMsg, BorderLayout.NORTH);
         pnlBottom.add(pnlButtons, BorderLayout.CENTER);
-        con.add(pnlButtons, BorderLayout.SOUTH);
+        con.add(pnlBottom, BorderLayout.SOUTH);
         
         //add action listeners to buttons
         btnSave.addActionListener(this);
@@ -165,12 +170,50 @@ public class AddCoachMenu extends JFrame implements ActionListener
     {
         if(ae.getSource() == btnSave)
         {
-            //try
-            //{
-            //    validateID(
-            //}
-            cm.setVisible(true);
-            this.dispose();
+            Connection con = null;
+            Statement stmt = null;
+            String ID = txfID.getText();
+            String team = (String)cmbTeams.getSelectedItem();
+            String firstName = txfFirst.getText();
+            String lastName = txfLast.getText();
+            String phone = txfPhone.getText();
+            String email = txfEmail.getText();
+            int years = Integer.parseInt(txfYears.getText());
+            int champ = Integer.parseInt(txfChampionships.getText());
+            int playoff = Integer.parseInt(txfPlayoffs.getText());
+            float WL = Float.parseFloat(txfWL.getText());
+        
+            try
+            {
+                String url = ConnectionDetails.getURL();
+                String username = ConnectionDetails.getUSERNAME();
+                String password = ConnectionDetails.getPASSWORD();
+
+                Class.forName(ConnectionDetails.getDRIVER());
+                con = DriverManager.getConnection(url, username, password);
+
+                stmt = con.createStatement();
+                String sql = "Insert into tblCoach Values('" + ID  + "','" + team
+                        + "','" + firstName + "','" + lastName + "','" + phone + "','"
+                        + email + "'," + years + "," + champ + "," + playoff
+                        +  "," + WL + ");";
+                stmt.executeUpdate(sql);
+                String msg = "Coach: " + ID + " " + firstName + " " + lastName
+                        + " has been added to the database for the " + team;
+                resetValues();
+                lblMsg.setText(msg);
+                btnCancel.setText("Back");
+                this.repaint();
+                con.close();
+            }
+            catch(SQLException sqlE)
+            {
+                System.err.println("SQL Error: " + sqlE);
+            }
+            catch(ClassNotFoundException cnfE)
+            {
+                System.err.println("Class Error: " + cnfE);
+            }
         }
         else if(ae.getSource() == btnCancel)
         {
@@ -187,5 +230,21 @@ public class AddCoachMenu extends JFrame implements ActionListener
             arrTeams[i] = teams.get(i);
         }
         return arrTeams;
+    }
+    
+    public void resetValues()
+    {
+        lblMsg.setText("  ");
+        txfID.setText("");
+        cmbTeams.setSelectedItem(0);
+        txfFirst.setText("");
+        txfLast.setText("");
+        txfPhone.setText("");
+        txfEmail.setText("");
+        txfYears.setText("");
+        txfChampionships.setText("");
+        txfPlayoffs.setText("");
+        txfWL.setText("");
+        this.repaint();
     }
 }

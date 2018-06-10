@@ -17,20 +17,26 @@ import javax.swing.table.AbstractTableModel;
 /**
  *
  * @author hillarydworkoski
+ * File: PlayerTableModel.java
+ * Description: Table Model for the Player class
+ * Date: 10/6/18
  */
 public class PlayerTableModel extends AbstractTableModel
 {
+    //declare ArrayList of Players and Array of column names
     private ArrayList<Player> list = new ArrayList<>();
     private String[] columnNames = 
         {"ID", "Team", "First name", "Last name", "Phone", "Email", 
             "Number", "College", "Rookie?", "Start Year", "Position", "Country", 
                 "PPG", "RPG", "High Score"};
     
+    //constructor
     public PlayerTableModel()
     {
-        getDataFromDatabase("");
+        getDataFromDatabase();
     }
     
+    //create abstract methods from AbstractTableModel
     public int getRowCount()
     {
         return list.size();
@@ -39,12 +45,6 @@ public class PlayerTableModel extends AbstractTableModel
     public int getColumnCount()
     {
         return columnNames.length;
-    }
-    
-    public ArrayList<Player> getList(String team)
-    {
-        getDataFromDatabase(team);
-        return list;
     }
     
     public Object getValueAt(int row, int col)
@@ -98,7 +98,9 @@ public class PlayerTableModel extends AbstractTableModel
         return player;
     }
     
-    public void getDataFromDatabase(String team)
+    //method to get Player information from the database,
+    //put into a Player object, and add Player object to ArrayList
+    public void getDataFromDatabase()
     {
         Connection con = null;
         Statement stmt = null;
@@ -106,7 +108,6 @@ public class PlayerTableModel extends AbstractTableModel
         
         try
         {
-        
             String url = ConnectionDetails.getURL();
             String username = ConnectionDetails.getUSERNAME();
             String password = ConnectionDetails.getPASSWORD();
@@ -114,13 +115,9 @@ public class PlayerTableModel extends AbstractTableModel
             Class.forName(ConnectionDetails.getDRIVER());
             con = DriverManager.getConnection(url, username, password);
             
-            
             stmt = con.createStatement();
-            String sql;
-            if(team.equals(""))
-                sql = "Select * from tblPlayer";
-            else
-                sql = "Select * from tblPlayer Where team = '" + team + "'";
+            String sql = "Select * from tblPlayer";
+            
             r = stmt.executeQuery(sql);
             
             list.clear();
