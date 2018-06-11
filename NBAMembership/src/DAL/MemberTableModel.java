@@ -144,7 +144,7 @@ public class MemberTableModel extends AbstractTableModel
                 list.add(new Coach(r.getString("ID"), r.getString("team"), 
                     r.getString("firstName"), r.getString("lastName"),
                     r.getString("phone"), r.getString("email"), r.getInt("yearsExp"),
-                    r.getInt("championships"), r.getInt("playoffs"), r.getDouble("wLRatio")));
+                    r.getInt("championships"), r.getInt("playoffs"), r.getFloat("wLRatio")));
             }
             
             String sql2 = "Select * from tblPlayer Where team = '" + team + "'";
@@ -156,8 +156,8 @@ public class MemberTableModel extends AbstractTableModel
                     r.getString("firstName"), r.getString("lastName"),
                     r.getString("phone"), r.getString("email"), r.getString("number"),
                     r.getString("college"), r.getBoolean("rookie"), r.getInt("startYear"),
-                    r.getString("position"), r.getString("country"), r.getDouble("ppg"),
-                    r.getDouble("rpg"), r.getInt("highScore")));
+                    r.getString("position"), r.getString("country"), r.getFloat("ppg"),
+                    r.getFloat("rpg"), r.getInt("highScore")));
             }
             con.close();
         }

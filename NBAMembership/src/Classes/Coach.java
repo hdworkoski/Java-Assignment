@@ -9,13 +9,13 @@ public class Coach extends Member
     private int yearsExp;
     private int championships;
     private int playoffs;
-    private double wLRatio;
+    private float wLRatio;
     private int salary;
     
     public Coach
         (String ID, String team, String firstName, String lastName, String phone,
                 String email, int yearsExp, int championships, int playoffs,
-                    double wLRatio)
+                    float wLRatio)
     {
         super(ID, team, firstName, lastName, phone, email);
         type = "Coach";
@@ -77,12 +77,12 @@ public class Coach extends Member
         this.playoffs = playoffs;
     }
 
-    public double getwLRatio()
+    public float getwLRatio()
     {
         return wLRatio;
     }
 
-    public void setwLRatio(double wLRatio)
+    public void setwLRatio(float wLRatio)
     {
         this.wLRatio = wLRatio;
     }

@@ -12,16 +12,16 @@ public class Player extends Member
     private int startYear; //year they started in NBA
     private String position;
     private String country;
-    private double ppg; //points per game
-    private double rpg; //rebounds per game
+    private float ppg; //points per game
+    private float rpg; //rebounds per game
     private int highScore; //highest score ever in one game
     private int salary;
     
     public Player
         (String ID, String team, String firstName, String lastName, String phone,
                 String email, String number, String college, boolean rookie,
-                    int startYear, String position, String country, double ppg,
-                        double rpg, int highScore)
+                    int startYear, String position, String country, float ppg,
+                        float rpg, int highScore)
     {
         super(ID, team, firstName, lastName, phone, email);
         type = "Player";
@@ -120,22 +120,22 @@ public class Player extends Member
         this.country = country;
     }
     
-    public double getPPG()
+    public float getPPG()
     {
         return ppg;
     }
     
-    public void setPPG(double ppg)
+    public void setPPG(float ppg)
     {
         this.ppg = ppg;
     }
     
-    public double getRPG()
+    public float getRPG()
     {
         return rpg;
     }
     
-    public void setPRG(double rpg)
+    public void setPRG(float rpg)
     {
         this.rpg = rpg;
     }

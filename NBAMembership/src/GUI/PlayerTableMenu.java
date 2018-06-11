@@ -133,8 +133,8 @@ public class PlayerTableMenu extends JFrame implements ActionListener
     {
         if(ae.getSource() == btnEdit)
         {
-            
-            this.setVisible(false);
+            Player p = table.getRow(tblPlayer.getSelectedRow());
+            AddPlayerMenu apm = new AddPlayerMenu("Edit Player " + p.getID(), p);
         }
         else if(ae.getSource() == btnSalary)
         {

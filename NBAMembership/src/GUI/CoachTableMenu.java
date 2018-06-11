@@ -123,13 +123,20 @@ public class CoachTableMenu extends JFrame implements ActionListener
         con.add(pnlBottom, BorderLayout.SOUTH);
         
         //add action listeners to buttons
+        btnEdit.addActionListener(this);
+        btnDelete.addActionListener(this);
         btnBack.addActionListener(this);
         btnSalary.addActionListener(this);
     }
     
     public void actionPerformed(ActionEvent ae)
     {
-        if(ae.getSource() == btnSalary)
+        if(ae.getSource() == btnEdit)
+        {
+            Coach c = table.getRow(tblCoach.getSelectedRow());
+            AddCoachMenu acm = new AddCoachMenu("Edit Coach " + c.getID(), c);
+        }
+        else if(ae.getSource() == btnSalary)
         {
             Coach c = table.getRow(tblCoach.getSelectedRow());
             int salary = c.calcSalary();

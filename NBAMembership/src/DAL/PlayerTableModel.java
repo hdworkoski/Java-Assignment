@@ -128,8 +128,8 @@ public class PlayerTableModel extends AbstractTableModel
                     r.getString("firstName"), r.getString("lastName"),
                     r.getString("phone"), r.getString("email"), r.getString("number"),
                     r.getString("college"), r.getBoolean("rookie"), r.getInt("startYear"),
-                    r.getString("position"), r.getString("country"), r.getDouble("ppg"),
-                    r.getDouble("rpg"), r.getInt("highScore")));
+                    r.getString("position"), r.getString("country"), r.getFloat("ppg"),
+                    r.getFloat("rpg"), r.getInt("highScore")));
             }
             con.close();
         }

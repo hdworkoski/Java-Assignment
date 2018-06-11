@@ -1,4 +1,5 @@
 package GUI;
+import Classes.Team;
 import DAL.TeamTableModel;
 import java.awt.BorderLayout;
 
@@ -118,6 +119,8 @@ public class TeamTableMenu extends JFrame implements ActionListener
         con.add(pnlButtons);
         
         //add action listeners to buttons
+        btnEdit.addActionListener(this);
+        btnDelete.addActionListener(this);
         btnBack.addActionListener(this);
         btnView.addActionListener(this);
     }
@@ -129,6 +132,11 @@ public class TeamTableMenu extends JFrame implements ActionListener
             String team = tblTeam.getValueAt
                     (tblTeam.getSelectedRow(), 0).toString();
             MemberTableView ptv = new MemberTableView(team, this);
+        }
+        else if(ae.getSource() == btnEdit)
+        {
+            Team t = table.getRow(tblTeam.getSelectedRow());
+            AddTeamMenu atm = new AddTeamMenu("Edit Team", t);
         }
         else
         {

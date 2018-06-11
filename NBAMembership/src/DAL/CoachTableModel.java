@@ -115,7 +115,7 @@ public class CoachTableModel extends AbstractTableModel
                 list.add(new Coach(r.getString("ID"), r.getString("team"), 
                     r.getString("firstName"), r.getString("lastName"),
                     r.getString("phone"), r.getString("email"), r.getInt("yearsExp"),
-                    r.getInt("championships"), r.getInt("playoffs"), r.getDouble("wLRatio")));
+                    r.getInt("championships"), r.getInt("playoffs"), r.getFloat("wLRatio")));
             }
             con.close();
         }

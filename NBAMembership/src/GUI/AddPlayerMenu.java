@@ -1,5 +1,6 @@
 package GUI;
 
+import Classes.Player;
 import Classes.Team;
 import DAL.ConnectionDetails;
 import java.awt.BorderLayout;
@@ -68,8 +69,8 @@ public class AddPlayerMenu extends JFrame implements ActionListener
     JLabel lblYear = new JLabel("Year Started in NBA");
     JTextField txfYear = new JTextField(6);
     JLabel lblPosition = new JLabel("  Position");
-    String[] strPosition = {"Point Guard", "Shooting Guard", "Small Forward", "Power Forward", "Center"};
-    JComboBox cmbPosition = new JComboBox(strPosition);
+    String[] arrPosition = {"Point Guard", "Shooting Guard", "Small Forward", "Power Forward", "Center"};
+    JComboBox cmbPosition = new JComboBox(arrPosition);
     JLabel lblCountry = new JLabel("Country of Origin");
     String[] arrCountry =  {"Argentina", "Australia", "Austria", "Bahamas",
         "Bosnia", "Brazil", "Cameroon", "Canada", "China", "Croatia",
@@ -89,6 +90,8 @@ public class AddPlayerMenu extends JFrame implements ActionListener
     
     Container con = getContentPane();
     PlayerMenu pm;
+    Player p;
+    String title;
     
     public AddPlayerMenu(String title, PlayerMenu pm)
     {
@@ -98,6 +101,7 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
         //set layout, fonts, colors
+        this.title = title;
         JLabel lblHeading = new JLabel(title);
         lblHeading.setHorizontalAlignment(JLabel.CENTER);
         con.setLayout(new BorderLayout());
@@ -226,6 +230,161 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         btnCancel.addActionListener(this);
     }
     
+    public AddPlayerMenu(String title, Player p)
+    {
+        this.setTitle(title);
+        this.setVisible(true);
+        this.setBounds(300, 100, 900, 620);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        //set layout, fonts, colors
+        this.title = title;
+        this.p = p;
+        JLabel lblHeading = new JLabel(title);
+        lblHeading.setHorizontalAlignment(JLabel.CENTER);
+        con.setLayout(new BorderLayout());
+        pnlTop.setLayout(new BorderLayout());
+        pnlTop.setBackground(Color.BLACK);
+        pnlDataLeft.setLayout(new GridLayout(8, 2, 5, 5));
+        pnlDataRight.setLayout(new GridLayout(8, 2, 5, 5));
+        con.setBackground(Color.BLACK);
+        lblImage.setIcon(imgLogo);
+        lblImage.setHorizontalAlignment(JLabel.CENTER);
+        lblHeading.setFont(new Font("Verdana", Font.BOLD, 34));
+        lblHeading.setForeground(Color.WHITE);
+        pnlDataLeft.setBackground(Color.BLACK);
+        pnlDataRight.setBackground(Color.BLACK);
+        pnlRadio.setBackground(Color.BLACK);
+        pnlRadio.setLayout(new GridLayout(2, 1, 3, 3));
+        pnlButtons.setLayout(new GridLayout(1, 2, 5, 5));
+        pnlButtons.setBackground(Color.BLACK);
+        pnlBottom.setLayout(new BorderLayout());
+        pnlBottom.setBackground(Color.BLACK);
+        lblID.setFont(dataFont);
+        lblTeam.setFont(dataFont);
+        lblFirst.setFont(dataFont);
+        lblLast.setFont(dataFont);
+        lblPhone.setFont(dataFont);
+        lblEmail.setFont(dataFont);
+        lblNumber.setFont(dataFont);
+        lblCollege.setFont(dataFont);
+        lblYear.setFont(dataFont);
+        lblRookie.setFont(dataFont);
+        lblPosition.setFont(dataFont);
+        lblCountry.setFont(dataFont);
+        lblPPG.setFont(dataFont);
+        lblRPG.setFont(dataFont);
+        lblHS.setFont(dataFont);
+        lblID.setForeground(Color.WHITE);
+        lblTeam.setForeground(Color.WHITE);
+        lblFirst.setForeground(Color.WHITE);
+        lblLast.setForeground(Color.WHITE);
+        lblPhone.setForeground(Color.WHITE);
+        lblEmail.setForeground(Color.WHITE);
+        lblNumber.setForeground(Color.WHITE);
+        lblCollege.setForeground(Color.WHITE);
+        lblYear.setForeground(Color.WHITE);
+        lblRookie.setForeground(Color.WHITE);
+        lblPosition.setForeground(Color.WHITE);
+        lblCountry.setForeground(Color.WHITE);
+        lblPPG.setForeground(Color.WHITE);
+        lblRPG.setForeground(Color.WHITE);
+        lblHS.setForeground(Color.WHITE);
+        lblMsg.setFont(dataFont);
+        lblMsg.setForeground(Color.WHITE);
+        
+        //insert values
+        txfID.setText(p.getID());
+        txfID.setEditable(false);
+        cmbTeams.setSelectedItem(p.getTeam());
+        txfFirst.setText(p.getFirstName());
+        txfLast.setText(p.getLastName());
+        txfPhone.setText(p.getPhone());
+        txfEmail.setText(p.getEmail());
+        txfNumber.setText(p.getNumber());
+        txfCollege.setText(p.getCollege());
+        txfYear.setText(Integer.toString(p.getStartYear()));
+        if(p.isRookie())
+            rbtYes.setSelected(true);
+        else
+            rbtNo.setSelected(true);
+        cmbPosition.setSelectedItem(p.getPosition());
+        cmbCountry.setSelectedItem(p.getCountry());
+        txfPPG.setText(Float.toString(p.getPPG()));
+        txfRPG.setText(Float.toString(p.getRPG()));
+        txfHS.setText(Integer.toString(p.getHS()));
+        
+        //customize buttons
+        rbtYes.setFont(new Font("Arial", Font.BOLD, 14));
+        rbtYes.setForeground(Color.WHITE);
+        
+        rbtNo.setFont(new Font("Arial", Font.BOLD, 14));
+        rbtNo.setForeground(Color.WHITE);
+        
+        btnSave.setFont(new Font("Arial", Font.BOLD, 20));
+        btnSave.setForeground(Color.WHITE);
+        btnSave.setBackground(Color.DARK_GRAY);
+        btnSave.setOpaque(true);
+        btnSave.setBorderPainted(false);
+        
+        btnCancel.setFont(new Font("Arial", Font.BOLD, 20));
+        btnCancel.setForeground(Color.WHITE);
+        btnCancel.setBackground(Color.DARK_GRAY);
+        btnCancel.setOpaque(true);
+        btnCancel.setBorderPainted(false);
+        
+        //add objects
+        pnlTop.add(lblImage, BorderLayout.NORTH);
+        pnlTop.add(lblHeading, BorderLayout.CENTER);
+        con.add(pnlTop, BorderLayout.NORTH);
+        pnlDataLeft.add(lblID);
+        pnlDataLeft.add(txfID);
+        pnlDataRight.add(lblTeam);
+        pnlDataRight.add(cmbTeams);
+        pnlDataLeft.add(lblFirst);
+        pnlDataLeft.add(txfFirst);
+        pnlDataRight.add(lblLast);
+        pnlDataRight.add(txfLast);
+        pnlDataLeft.add(lblPhone);
+        pnlDataLeft.add(txfPhone);
+        pnlDataRight.add(lblEmail);
+        pnlDataRight.add(txfEmail);
+        pnlDataLeft.add(lblNumber);
+        pnlDataLeft.add(txfNumber);
+        pnlDataRight.add(lblCollege);
+        pnlDataRight.add(txfCollege);
+        pnlDataLeft.add(lblRookie);
+        btgRookie.add(rbtYes);
+        btgRookie.add(rbtNo);
+        pnlRadio.add(rbtYes);
+        pnlRadio.add(rbtNo);
+        pnlDataLeft.add(pnlRadio);
+        pnlDataRight.add(lblYear);
+        pnlDataRight.add(txfYear);
+        pnlDataLeft.add(lblPosition);
+        pnlDataLeft.add(cmbPosition);
+        pnlDataRight.add(lblCountry);
+        pnlDataRight.add(cmbCountry);
+        pnlDataLeft.add(lblPPG);
+        pnlDataLeft.add(txfPPG);
+        pnlDataRight.add(lblRPG);
+        pnlDataRight.add(txfRPG);
+        pnlDataLeft.add(lblHS);
+        pnlDataLeft.add(txfHS);
+        con.add(pnlDataLeft, BorderLayout.WEST);
+        con.add(new JLabel("  "), BorderLayout.CENTER);
+        con.add(pnlDataRight, BorderLayout.EAST);
+        pnlButtons.add(btnSave);
+        pnlButtons.add(btnCancel);
+        pnlBottom.add(lblMsg, BorderLayout.NORTH);
+        pnlBottom.add(pnlButtons, BorderLayout.CENTER);
+        con.add(pnlBottom, BorderLayout.SOUTH);
+        
+        //add action listeners to buttons
+        btnSave.addActionListener(this);
+        btnCancel.addActionListener(this);
+    }
+    
     public void actionPerformed(ActionEvent ae)
     {
         if(ae.getSource() == btnSave)
@@ -262,17 +421,35 @@ public class AddPlayerMenu extends JFrame implements ActionListener
                 con = DriverManager.getConnection(url, username, password);
 
                 stmt = con.createStatement();
-                String sql = "Insert into tblPlayer Values('" + ID  + "','" + team
-                        + "','" + firstName + "','" + lastName + "','" + phone + "','"
-                        + email + "','" + number + "','" + college + "'," + rookie
-                        +  "," + startYear + ",'" + position + "','" + country + "',"
-                        + ppg + "," + rpg + "," + highScore + ");";
-                stmt.executeUpdate(sql);
-                String msg = "Player: " + ID + " " + firstName + " " + lastName
-                        + " has been added to the database for the " + team;
+                String msg;
+                if(title.equals("Add New Player"))
+                {
+                    String sql = "Insert into tblPlayer Values('" + ID  + "','" + team
+                            + "','" + firstName + "','" + lastName + "','" + phone + "','"
+                            + email + "','" + number + "','" + college + "'," + rookie
+                            +  "," + startYear + ",'" + position + "','" + country + "',"
+                            + ppg + "," + rpg + "," + highScore + ");";
+                    stmt.executeUpdate(sql);
+                    msg = "Player: " + ID + " " + firstName + " " + lastName
+                            + " has been added to the database for the " + team;
+                    btnCancel.setText("Back");
+                }
+                else
+                {
+                    String sql = "Update tblPlayer Set team = '" + team 
+                            + "', firstName = '" + firstName + "', lastName = '" 
+                            + lastName + "', phone = '" + phone + "', email = '"
+                            + email + "', number = '" + number + "', college = '"
+                            + college + "', rookie = " + rookie + ", startYear = "
+                            + startYear + ", position = '" + position + "', country = '"
+                            + country + "', ppg = " + ppg + ", rpg = " + rpg 
+                            + ", highScore = " + highScore + " Where ID = '" + ID + "';";
+                    stmt.executeUpdate(sql);
+                    msg = "Player: " + ID + " has been updated in the database";
+                    btnCancel.setText("Close");
+                }
                 resetValues();
                 lblMsg.setText(msg);
-                btnCancel.setText("Back");
                 this.repaint();
                 con.close();
             }
@@ -287,7 +464,8 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         }
         else if(ae.getSource() == btnCancel)
         {
-            pm.setVisible(true);
+            if(title.equals("Add New Player"))
+                pm.setVisible(true);
             this.dispose();
         }
     }
