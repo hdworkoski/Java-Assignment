@@ -91,18 +91,13 @@ public class CoachTableModel extends AbstractTableModel
     //put into a Coach object, and add Coach object to ArrayList
     public void getDataFromDatabase()
     {
-        Connection con = null;
         Statement stmt = null;
         ResultSet r = null;
         
         try
         {
-            String url = ConnectionDetails.getURL();
-            String username = ConnectionDetails.getUSERNAME();
-            String password = ConnectionDetails.getPASSWORD();
-            
-            Class.forName(ConnectionDetails.getDRIVER());
-            con = DriverManager.getConnection(url, username, password);
+            ConnectionDetails cd = new ConnectionDetails();
+            Connection con = cd.getConnection();
             
             stmt = con.createStatement();
             String sql = "Select * from tblCoach";
@@ -122,10 +117,6 @@ public class CoachTableModel extends AbstractTableModel
         catch(SQLException ex)
         {
             System.out.println(ex.getMessage());
-        }
-        catch(ClassNotFoundException CNFex)
-        {
-            System.out.println(CNFex.getMessage());
         }
     }
 }

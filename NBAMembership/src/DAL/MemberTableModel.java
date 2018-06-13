@@ -120,18 +120,13 @@ public class MemberTableModel extends AbstractTableModel
     //and create Coach and Player objects and add them to ArrayList
     public void getData(String team)
     {
-        Connection con = null;
         Statement stmt = null;
         ResultSet r = null;
         
         try
         {
-            String url = ConnectionDetails.getURL();
-            String username = ConnectionDetails.getUSERNAME();
-            String password = ConnectionDetails.getPASSWORD();
-            
-            Class.forName(ConnectionDetails.getDRIVER());
-            con = DriverManager.getConnection(url, username, password);
+            ConnectionDetails cd = new ConnectionDetails();
+            Connection con = cd.getConnection();
             
             stmt = con.createStatement();
             String sql = "Select * from tblCoach Where team = '" + team + "'";
@@ -163,11 +158,7 @@ public class MemberTableModel extends AbstractTableModel
         }
         catch(SQLException ex)
         {
-            System.out.println(ex.getMessage());
-        }
-        catch(ClassNotFoundException CNFex)
-        {
-            System.out.println(CNFex.getMessage());
+            System.out.println("SQL Error: " + ex.getMessage());
         }
     }
 }

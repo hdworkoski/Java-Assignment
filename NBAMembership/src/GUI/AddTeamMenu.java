@@ -10,7 +10,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.ButtonGroup;
@@ -268,7 +267,6 @@ public class AddTeamMenu extends JFrame implements ActionListener
         }
         else if(ae.getSource() == btnSave)
         {
-            Connection con = null;
             Statement stmt = null;
             String name = txfName.getText();
             String conference;
@@ -284,12 +282,8 @@ public class AddTeamMenu extends JFrame implements ActionListener
         
             try
             {
-                String url = ConnectionDetails.getURL();
-                String username = ConnectionDetails.getUSERNAME();
-                String password = ConnectionDetails.getPASSWORD();
-
-                Class.forName(ConnectionDetails.getDRIVER());
-                con = DriverManager.getConnection(url, username, password);
+                ConnectionDetails cd = new ConnectionDetails();
+                Connection con = cd.getConnection();
 
                 stmt = con.createStatement();
                 String msg;
@@ -318,10 +312,6 @@ public class AddTeamMenu extends JFrame implements ActionListener
             catch(SQLException sqlE)
             {
                 System.err.println("SQL Error: " + sqlE);
-            }
-            catch(ClassNotFoundException cnfE)
-            {
-                System.err.println("Class Error: " + cnfE);
             }
         }
         else if(ae.getSource() == btnCancel)

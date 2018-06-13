@@ -45,11 +45,11 @@ public class ConnectionDetails
         }
         catch(SQLException SQLex)
         {
-            System.out.println(SQLex.getMessage());
+            System.out.println("SQL Error: " + SQLex.getMessage());
         }
         catch(ClassNotFoundException CNFex)
         {
-            System.out.println(CNFex.getMessage());
+            System.out.println("Error: " + CNFex.getMessage());
         }
         return con;
     }

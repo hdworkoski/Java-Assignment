@@ -1,9 +1,8 @@
 package DAL;
 
-import Classes.Player;
 import Classes.Team;
+import java.net.ConnectException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -71,18 +70,13 @@ public class TeamTableModel extends AbstractTableModel
     //add Team object to ArrayList
     public void getDataFromDatabase()
     {
-        Connection con = null;
         Statement stmt = null;
         ResultSet r = null;
         
         try
         {
-            String url = ConnectionDetails.getURL();
-            String username = ConnectionDetails.getUSERNAME();
-            String password = ConnectionDetails.getPASSWORD();
-            
-            Class.forName(ConnectionDetails.getDRIVER());
-            con = DriverManager.getConnection(url, username, password);
+            ConnectionDetails cd = new ConnectionDetails();
+            Connection con = cd.getConnection();
             
             stmt = con.createStatement();
             String sql = "Select * from tblTeam";
@@ -100,10 +94,6 @@ public class TeamTableModel extends AbstractTableModel
         catch(SQLException ex)
         {
             System.out.println(ex.getMessage());
-        }
-        catch(ClassNotFoundException CNFex)
-        {
-            System.out.println(CNFex.getMessage());
         }
     }
 }

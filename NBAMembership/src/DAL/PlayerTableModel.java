@@ -1,13 +1,7 @@
 package DAL;
 
 import Classes.Player;
-import DAL.ConnectionDetails;
-import static DAL.ConnectionDetails.getDRIVER;
-import static DAL.ConnectionDetails.getPASSWORD;
-import static DAL.ConnectionDetails.getURL;
-import static DAL.ConnectionDetails.getUSERNAME;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -102,18 +96,13 @@ public class PlayerTableModel extends AbstractTableModel
     //put into a Player object, and add Player object to ArrayList
     public void getDataFromDatabase()
     {
-        Connection con = null;
         Statement stmt = null;
         ResultSet r = null;
         
         try
         {
-            String url = ConnectionDetails.getURL();
-            String username = ConnectionDetails.getUSERNAME();
-            String password = ConnectionDetails.getPASSWORD();
-            
-            Class.forName(ConnectionDetails.getDRIVER());
-            con = DriverManager.getConnection(url, username, password);
+            ConnectionDetails cd = new ConnectionDetails();
+            Connection con = cd.getConnection();
             
             stmt = con.createStatement();
             String sql = "Select * from tblPlayer";
@@ -136,10 +125,6 @@ public class PlayerTableModel extends AbstractTableModel
         catch(SQLException ex)
         {
             System.out.println(ex.getMessage());
-        }
-        catch(ClassNotFoundException CNFex)
-        {
-            System.out.println(CNFex.getMessage());
         }
     }
 }

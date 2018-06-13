@@ -389,7 +389,6 @@ public class AddPlayerMenu extends JFrame implements ActionListener
     {
         if(ae.getSource() == btnSave)
         {
-            Connection con = null;
             Statement stmt = null;
             String ID = txfID.getText();
             String team = (String)cmbTeams.getSelectedItem();
@@ -413,12 +412,8 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         
             try
             {
-                String url = ConnectionDetails.getURL();
-                String username = ConnectionDetails.getUSERNAME();
-                String password = ConnectionDetails.getPASSWORD();
-
-                Class.forName(ConnectionDetails.getDRIVER());
-                con = DriverManager.getConnection(url, username, password);
+                ConnectionDetails cd = new ConnectionDetails();
+                Connection con = cd.getConnection();
 
                 stmt = con.createStatement();
                 String msg;
@@ -456,10 +451,6 @@ public class AddPlayerMenu extends JFrame implements ActionListener
             catch(SQLException sqlE)
             {
                 System.err.println("SQL Error: " + sqlE);
-            }
-            catch(ClassNotFoundException cnfE)
-            {
-                System.err.println("Class Error: " + cnfE);
             }
         }
         else if(ae.getSource() == btnCancel)
