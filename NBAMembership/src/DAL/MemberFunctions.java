@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -109,6 +110,45 @@ public class MemberFunctions
         return list;
     }
     
+    public static Player searchPlayer(String last)
+    {
+        Player p = new Player("", "", "", "", "", "", "", "", false, 0, "", "", 0, 0, 0);
+        ArrayList<Player> players = getPlayers();
+        for(int i=0; i<players.size(); i++)
+        {
+            if(players.get(i).getLastName().equalsIgnoreCase(last))
+            {
+                p = players.get(i);
+            }
+        }
+        return p;
+    }
+    
+    public static void deletePlayer(String ID)
+    {
+        Statement stmt = null;
+        try
+        {
+            ConnectionDetails cd = new ConnectionDetails();
+            Connection con = cd.getConnection();
+            stmt = con.createStatement();
+            String sql = "Delete from tblPlayer Where ID = '" + ID  + "';";
+            stmt.executeUpdate(sql);
+            con.close();
+            JOptionPane.showMessageDialog(null, "Player " + ID 
+                    + " has been deleted from the database");
+        }
+        catch(MySQLIntegrityConstraintViolationException PKex)
+        {
+            System.err.println("SQL Error: " + PKex.getMessage());
+            JOptionPane.showMessageDialog(null, "Player " + ID + " cannot be deleted");
+        }
+        catch(SQLException sqlE)
+        {
+            System.err.println("SQL Error: " + sqlE.getMessage());
+        }
+    }
+    
     public static void addTeam(String name, String conference, String division)
     {
         Statement stmt = null;
@@ -181,6 +221,33 @@ public class MemberFunctions
             System.out.println(ex.getMessage());
         }
         return list;
+    }
+    
+    public static void deleteTeam(String name)
+    {
+        Statement stmt = null;
+        try
+        {
+            ConnectionDetails cd = new ConnectionDetails();
+            Connection con = cd.getConnection();
+            stmt = con.createStatement();
+            String sql = "Delete from tblTeam Where name = '" + name  + "';";
+            stmt.executeUpdate(sql);
+            con.close();
+            JOptionPane.showMessageDialog(null, "Team " + name 
+                    + " has been deleted from the database");
+        }
+        catch(MySQLIntegrityConstraintViolationException PKex)
+        {
+            System.err.println("SQL Error: " + PKex.getMessage());
+            JOptionPane.showMessageDialog(null, 
+                    "Team " + name + " cannot be deleted because it has members "
+                            + "associated with it");
+        }
+        catch(SQLException sqlE)
+        {
+            System.err.println("SQL Error: " + sqlE.getMessage());
+        }
     }
     
     public static void addCoach(String ID, String team, String firstName, 
@@ -268,5 +335,44 @@ public class MemberFunctions
             System.out.println(ex.getMessage());
         }
         return list;
+    }
+    
+    public static void deleteCoach(String ID)
+    {
+        Statement stmt = null;
+        try
+        {
+            ConnectionDetails cd = new ConnectionDetails();
+            Connection con = cd.getConnection();
+            stmt = con.createStatement();
+            String sql = "Delete from tblCoach Where ID = '" + ID  + "';";
+            stmt.executeUpdate(sql);
+            con.close();
+            JOptionPane.showMessageDialog(null, "Coach " + ID 
+                    + " has been deleted from the database");
+        }
+        catch(MySQLIntegrityConstraintViolationException PKex)
+        {
+            System.err.println("SQL Error: " + PKex.getMessage());
+            JOptionPane.showMessageDialog(null, "Coach " + ID + " cannot be deleted");
+        }
+        catch(SQLException sqlE)
+        {
+            System.err.println("SQL Error: " + sqlE.getMessage());
+        }
+    }
+    
+    public static Coach searchCoach(String last)
+    {
+        Coach c = new Coach("", "", "", "", "", "", 0, 0, 0, 0);
+        ArrayList<Coach> coaches = getCoaches();
+        for(int i=0; i<coaches.size(); i++)
+        {
+            if(coaches.get(i).getLastName().equalsIgnoreCase(last))
+            {
+                c = coaches.get(i);
+            }
+        }
+        return c;
     }
 }

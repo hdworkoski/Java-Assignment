@@ -1,11 +1,11 @@
 package GUI;
 import Classes.Player;
+import DAL.MemberFunctions;
 import DAL.PlayerTableModel;
 import java.awt.BorderLayout;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -133,15 +134,44 @@ public class PlayerTableMenu extends JFrame implements ActionListener
     {
         if(ae.getSource() == btnEdit)
         {
-            Player p = table.getRow(tblPlayer.getSelectedRow());
-            AddPlayerMenu apm = new AddPlayerMenu("Edit Player " + p.getID(), p);
+            try
+            {
+                Player p = table.getRow(tblPlayer.getSelectedRow());
+                AddPlayerMenu apm = new AddPlayerMenu("Edit Player " + p.getID(), p);
+            }
+            catch(ArrayIndexOutOfBoundsException AIex)
+            {
+                JOptionPane.showMessageDialog(null, "You must select a player first");
+            }
         }
         else if(ae.getSource() == btnSalary)
         {
-            Player p = table.getRow(tblPlayer.getSelectedRow());
-            int salary = p.calcSalary();
-            lblSalary.setText(p.getFirstName() + " " + p.getLastName() 
+            try
+            {
+                Player p = table.getRow(tblPlayer.getSelectedRow());
+                int salary = p.calcSalary();
+                lblSalary.setText(p.getFirstName() + " " + p.getLastName() 
                         + " salary: $" + salary);
+            }
+            catch(ArrayIndexOutOfBoundsException AIex)
+            {
+                JOptionPane.showMessageDialog(null, "You must select a player first");
+            }
+        }
+        else if(ae.getSource() == btnDelete)
+        {
+            try
+            {
+                Player p = table.getRow(tblPlayer.getSelectedRow());
+                MemberFunctions.deletePlayer(p.getID());
+                table.getDataFromDatabase();
+                table.fireTableDataChanged();
+                this.repaint();
+            }
+            catch(ArrayIndexOutOfBoundsException AIex)
+            {
+                JOptionPane.showMessageDialog(null, "You must select a player first");
+            }
         }
         else
         {

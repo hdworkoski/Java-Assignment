@@ -23,6 +23,7 @@ public class CoachMenu extends JFrame implements ActionListener
     JLabel lblLine2 = new JLabel("                                                         ");
     JButton btnAdd = new JButton("Add a Coach");
     JButton btnView = new JButton("View Coaches");
+    JButton btnSearch = new JButton("Search for a Coach");
     JButton btnBack = new JButton("Back");
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
@@ -59,6 +60,12 @@ public class CoachMenu extends JFrame implements ActionListener
         btnView.setOpaque(true);
         btnView.setBorderPainted(false);
         
+        btnSearch.setFont(new Font("Arial", Font.BOLD, 20));
+        btnSearch.setForeground(Color.WHITE);
+        btnSearch.setBackground(Color.DARK_GRAY);
+        btnSearch.setOpaque(true);
+        btnSearch.setBorderPainted(false);
+        
         btnBack.setFont(new Font("Arial", Font.BOLD, 20));
         btnBack.setForeground(Color.WHITE);
         btnBack.setBackground(Color.DARK_GRAY);
@@ -71,12 +78,14 @@ public class CoachMenu extends JFrame implements ActionListener
         con.add(lblLine);
         con.add(btnAdd);
         con.add(btnView);
+        con.add(btnSearch);
         con.add(lblLine2);
         con.add(btnBack);
         
         //add action listeners to buttons
         btnAdd.addActionListener(this);
         btnView.addActionListener(this);
+        btnSearch.addActionListener(this);
         btnBack.addActionListener(this);
     }
     
@@ -93,7 +102,12 @@ public class CoachMenu extends JFrame implements ActionListener
             CoachTableMenu acm2 = new CoachTableMenu(this);
             this.setVisible(false);
         }
-        else if(ae.getSource() == btnBack)
+        else if(ae.getSource() == btnSearch)
+        {
+            SearchCoach sc = new SearchCoach(this);
+            this.setVisible(false);
+        }
+        else
         {
             fe.setVisible(true);
             this.dispose();

@@ -1,5 +1,6 @@
 package GUI;
 import Classes.Team;
+import DAL.MemberFunctions;
 import DAL.TeamTableModel;
 import java.awt.BorderLayout;
 
@@ -14,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -129,14 +131,40 @@ public class TeamTableMenu extends JFrame implements ActionListener
     {
         if(ae.getSource() == btnView)
         {
-            String team = tblTeam.getValueAt
+            try
+            {
+                String team = tblTeam.getValueAt
                     (tblTeam.getSelectedRow(), 0).toString();
-            MemberTableView ptv = new MemberTableView(team, this);
+                MemberTableView ptv = new MemberTableView(team, this);
+            }
+            catch(IndexOutOfBoundsException Iex)
+            {
+                JOptionPane.showMessageDialog(null, "You must select a team first");
+            }
         }
         else if(ae.getSource() == btnEdit)
         {
-            Team t = table.getRow(tblTeam.getSelectedRow());
-            AddTeamMenu atm = new AddTeamMenu("Edit Team", t);
+            try
+            {
+                Team t = table.getRow(tblTeam.getSelectedRow());
+                AddTeamMenu atm = new AddTeamMenu("Edit Team", t);
+            }
+            catch(ArrayIndexOutOfBoundsException AIex)
+            {
+                JOptionPane.showMessageDialog(null, "You must select a team first");
+            }
+        }
+        else if(ae.getSource() == btnDelete)
+        {
+            try
+            {
+                Team t = table.getRow(tblTeam.getSelectedRow());
+                MemberFunctions.deleteTeam(t.getName());
+            }
+            catch(ArrayIndexOutOfBoundsException AIex)
+            {
+                JOptionPane.showMessageDialog(null, "You must select a team first");
+            }
         }
         else
         {

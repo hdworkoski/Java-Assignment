@@ -1,11 +1,11 @@
 package GUI;
 import Classes.Coach;
 import DAL.CoachTableModel;
+import DAL.MemberFunctions;
 import java.awt.BorderLayout;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -133,15 +134,41 @@ public class CoachTableMenu extends JFrame implements ActionListener
     {
         if(ae.getSource() == btnEdit)
         {
-            Coach c = table.getRow(tblCoach.getSelectedRow());
-            AddCoachMenu acm = new AddCoachMenu("Edit Coach " + c.getID(), c);
+            try
+            {
+                Coach c = table.getRow(tblCoach.getSelectedRow());
+                AddCoachMenu acm = new AddCoachMenu("Edit Coach " + c.getID(), c);
+            }
+            catch(ArrayIndexOutOfBoundsException AIex)
+            {
+                JOptionPane.showMessageDialog(null, "You must select a coach first");
+            }
         }
         else if(ae.getSource() == btnSalary)
         {
-            Coach c = table.getRow(tblCoach.getSelectedRow());
-            int salary = c.calcSalary();
-            lblSalary.setText(c.getFirstName() + " " + c.getLastName() 
+            try
+            {
+                Coach c = table.getRow(tblCoach.getSelectedRow());
+                int salary = c.calcSalary();
+                lblSalary.setText(c.getFirstName() + " " + c.getLastName() 
                         + " salary: $" + salary);
+            }
+            catch(ArrayIndexOutOfBoundsException AIex)
+            {
+                JOptionPane.showMessageDialog(null, "You must select a coach first");
+            }
+        }
+        else if(ae.getSource() == btnDelete)
+        {
+            try
+            {
+                Coach c = table.getRow(tblCoach.getSelectedRow());
+                MemberFunctions.deleteCoach(c.getID());
+            }
+            catch(ArrayIndexOutOfBoundsException AIex)
+            {
+                JOptionPane.showMessageDialog(null, "You must select a coach first");
+            }
         }
         else
         {

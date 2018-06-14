@@ -23,6 +23,7 @@ public class PlayerMenu extends JFrame implements ActionListener
     JLabel lblLine2 = new JLabel("                                                         ");
     JButton btnAdd = new JButton("Add a Player");
     JButton btnView = new JButton("View Players");
+    JButton btnSearch = new JButton("Search for a Player");
     JButton btnBack = new JButton("Back");
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
@@ -67,18 +68,26 @@ public class PlayerMenu extends JFrame implements ActionListener
         btnBack.setOpaque(true);
         btnBack.setBorderPainted(false);
         
+        btnSearch.setFont(new Font("Arial", Font.BOLD, 20));
+        btnSearch.setForeground(Color.WHITE);
+        btnSearch.setBackground(Color.DARK_GRAY);
+        btnSearch.setOpaque(true);
+        btnSearch.setBorderPainted(false);
+        
         //add objects
         con.add(lblImage);
         con.add(lblHeading);
         con.add(lblLine);
         con.add(btnAdd);
         con.add(btnView);
+        con.add(btnSearch);
         con.add(lblLine2);
         con.add(btnBack);
         
         //add action listeners to buttons
         btnAdd.addActionListener(this);
         btnView.addActionListener(this);
+        btnSearch.addActionListener(this);
         btnBack.addActionListener(this);
     }
     
@@ -95,7 +104,12 @@ public class PlayerMenu extends JFrame implements ActionListener
             PlayerTableMenu ptm = new PlayerTableMenu(this);
             this.setVisible(false);
         }
-        else if(ae.getSource() == btnBack)
+        else if(ae.getSource() == btnSearch)
+        {
+            SearchPlayer sp = new SearchPlayer(this);
+            this.setVisible(false);
+        }
+        else
         {
             fe.setVisible(true);
             this.setVisible(false);

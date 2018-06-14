@@ -1,10 +1,12 @@
 package GUI;
+import Classes.Coach;
+import Classes.Player;
+import DAL.MemberFunctions;
 import DAL.MemberTableModel;
 import java.awt.BorderLayout;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -13,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -27,6 +30,7 @@ public class MemberTableView extends JFrame implements ActionListener
     //create GUI objects
     JButton btnEdit = new JButton("Edit");
     JButton btnDelete = new JButton("Delete");
+    JButton btnRefresh = new JButton("Refresh");
     JButton btnBack = new JButton("Back");
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
@@ -34,16 +38,18 @@ public class MemberTableView extends JFrame implements ActionListener
     JPanel pnlFullTop = new JPanel();
     JPanel pnlButtons = new JPanel();
     Font dataFont = new Font("Arial", Font.BOLD, 14);
-    JTable tblPlayer = new JTable();
+    JTable tblMember = new JTable();
     Container con = getContentPane();
-    JScrollPane scroll = new JScrollPane(tblPlayer,
+    JScrollPane scroll = new JScrollPane(tblMember,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     MemberTableModel table;
     TeamTableMenu ttm;
+    String team;
     
     public MemberTableView(String team, TeamTableMenu ttm)
     {
+        this.team = team;
         this.setTitle("View Members from " + team);
         this.setVisible(true);
         this.setBounds(300, 50, 630, 1000);
@@ -70,13 +76,13 @@ public class MemberTableView extends JFrame implements ActionListener
         lblHeading2.setHorizontalAlignment(JLabel.CENTER);
         lblImage.setHorizontalAlignment(JLabel.CENTER);
         
-        tblPlayer.setAutoCreateRowSorter(true);
+        tblMember.setAutoCreateRowSorter(true);
         scroll.setBackground(Color.BLACK);
         scroll.setForeground(Color.WHITE);
-        tblPlayer.setBackground(Color.BLACK);
-        tblPlayer.setForeground(Color.WHITE);
-        tblPlayer.getTableHeader().setBackground(Color.BLACK);
-        tblPlayer.getTableHeader().setForeground(Color.WHITE);
+        tblMember.setBackground(Color.BLACK);
+        tblMember.setForeground(Color.WHITE);
+        tblMember.getTableHeader().setBackground(Color.BLACK);
+        tblMember.getTableHeader().setForeground(Color.WHITE);
         
         //customize buttons
         btnBack.setFont(new Font("Arial", Font.BOLD, 20));
@@ -97,9 +103,15 @@ public class MemberTableView extends JFrame implements ActionListener
         btnDelete.setOpaque(true);
         btnDelete.setBorderPainted(false);
         
+        btnRefresh.setFont(new Font("Arial", Font.BOLD, 20));
+        btnRefresh.setForeground(Color.WHITE);
+        btnRefresh.setBackground(Color.DARK_GRAY);
+        btnRefresh.setOpaque(true);
+        btnRefresh.setBorderPainted(false);
+        
         //table model
         table = new MemberTableModel(team);
-        tblPlayer.setModel(table);
+        tblMember.setModel(table);
         
         //add objects to container
         pnlTop.add(lblImage, BorderLayout.NORTH);
@@ -113,16 +125,63 @@ public class MemberTableView extends JFrame implements ActionListener
         pnlButtons.add(new JLabel("  "));
         pnlButtons.add(btnEdit);
         pnlButtons.add(btnDelete);
+        pnlButtons.add(btnRefresh);
         pnlButtons.add(btnBack);
         con.add(pnlButtons, BorderLayout.SOUTH);
         
         //add action listeners to buttons
+        btnEdit.addActionListener(this);
+        btnDelete.addActionListener(this);
         btnBack.addActionListener(this);
+        btnRefresh.addActionListener(this);
     }
     
     public void actionPerformed(ActionEvent ae)
     {
-        ttm.setVisible(true);
-        this.dispose();
+        if(ae.getSource() == btnEdit)
+        {
+            try
+            {
+                Coach c = (Coach)table.getRow(tblMember.getSelectedRow());
+                AddCoachMenu acm = new AddCoachMenu("Edit Coach " + c.getID(), c);
+            }
+            catch(ClassCastException CCex)
+            {
+                Player p = (Player)table.getRow(tblMember.getSelectedRow());
+                AddPlayerMenu apm = new AddPlayerMenu("Edit Player " + p.getID(), p);
+            }
+            catch(ArrayIndexOutOfBoundsException AIex)
+            {
+                JOptionPane.showMessageDialog(null, "You must select a member first");
+            }
+        }
+        else if(ae.getSource() == btnDelete)
+        {
+            try
+            {
+                Coach c = (Coach)table.getRow(tblMember.getSelectedRow());
+                MemberFunctions.deleteCoach(c.getID());
+            }
+            catch(ClassCastException CCex)
+            {
+                Player p = (Player)table.getRow(tblMember.getSelectedRow());
+                MemberFunctions.deletePlayer(p.getID());
+            }
+            catch(ArrayIndexOutOfBoundsException AIex)
+            {
+                JOptionPane.showMessageDialog(null, "You must select a member first");
+            }
+        }
+        else if(ae.getSource() == btnRefresh)
+        {
+            table.getData(team);
+            table.fireTableDataChanged();
+            this.repaint();
+        }
+        else
+        {
+            ttm.setVisible(true);
+            this.dispose();
+        }
     }
 }
