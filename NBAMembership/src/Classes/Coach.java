@@ -1,10 +1,12 @@
 package Classes;
 
+import java.io.Serializable;
+
 /**
  *
  * @author hillarydworkoski
  */
-public class Coach extends Member
+public class Coach extends Member implements Serializable
 {
     private int yearsExp;
     private int championships;

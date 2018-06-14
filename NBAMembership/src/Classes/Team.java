@@ -1,6 +1,7 @@
 package Classes;
 
 import DAL.ConnectionDetails;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author hillarydworkoski
  */
-public class Team
+public class Team implements Serializable
 {
     private String name;
     private String conference;

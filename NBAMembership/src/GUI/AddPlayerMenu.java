@@ -2,7 +2,7 @@ package GUI;
 
 import Classes.Player;
 import Classes.Team;
-import DAL.ConnectionDetails;
+import DAL.MemberFunctions;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -10,10 +10,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -389,7 +385,6 @@ public class AddPlayerMenu extends JFrame implements ActionListener
     {
         if(ae.getSource() == btnSave)
         {
-            Statement stmt = null;
             String ID = txfID.getText();
             String team = (String)cmbTeams.getSelectedItem();
             String firstName = txfFirst.getText();
@@ -410,48 +405,28 @@ public class AddPlayerMenu extends JFrame implements ActionListener
             float rpg = Float.parseFloat(txfRPG.getText());
             int highScore = Integer.parseInt(txfHS.getText());
         
-            try
+            String msg;
+            if(title.equals("Add New Player"))
             {
-                ConnectionDetails cd = new ConnectionDetails();
-                Connection con = cd.getConnection();
-
-                stmt = con.createStatement();
-                String msg;
-                if(title.equals("Add New Player"))
-                {
-                    String sql = "Insert into tblPlayer Values('" + ID  + "','" + team
-                            + "','" + firstName + "','" + lastName + "','" + phone + "','"
-                            + email + "','" + number + "','" + college + "'," + rookie
-                            +  "," + startYear + ",'" + position + "','" + country + "',"
-                            + ppg + "," + rpg + "," + highScore + ");";
-                    stmt.executeUpdate(sql);
-                    msg = "Player: " + ID + " " + firstName + " " + lastName
-                            + " has been added to the database for the " + team;
-                    btnCancel.setText("Back");
-                }
-                else
-                {
-                    String sql = "Update tblPlayer Set team = '" + team 
-                            + "', firstName = '" + firstName + "', lastName = '" 
-                            + lastName + "', phone = '" + phone + "', email = '"
-                            + email + "', number = '" + number + "', college = '"
-                            + college + "', rookie = " + rookie + ", startYear = "
-                            + startYear + ", position = '" + position + "', country = '"
-                            + country + "', ppg = " + ppg + ", rpg = " + rpg 
-                            + ", highScore = " + highScore + " Where ID = '" + ID + "';";
-                    stmt.executeUpdate(sql);
-                    msg = "Player: " + ID + " has been updated in the database";
-                    btnCancel.setText("Close");
-                }
-                resetValues();
-                lblMsg.setText(msg);
-                this.repaint();
-                con.close();
+                MemberFunctions.addPlayer(ID, team, firstName, lastName, 
+                        phone, email, number, college, rookie, startYear, 
+                        position, country, ppg, rpg, highScore);
+                msg = "Player: " + ID + " " + firstName + " " + lastName
+                        + " has been added to the database for the " + team;
+                btnCancel.setText("Back");
             }
-            catch(SQLException sqlE)
+            else
             {
-                System.err.println("SQL Error: " + sqlE);
+                MemberFunctions.savePlayer(ID, team, firstName, lastName, 
+                        phone, email, number, college, rookie, startYear, 
+                        position, country, ppg, rpg, highScore);
+                msg = "Player: " + ID + " has been updated in the database";
+                btnCancel.setText("Close");
             }
+            resetValues();
+            lblMsg.setText(msg);
+            this.repaint();
+            
         }
         else if(ae.getSource() == btnCancel)
         {

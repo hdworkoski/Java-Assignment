@@ -1,16 +1,6 @@
 package DAL;
 
 import Classes.Coach;
-import DAL.ConnectionDetails;
-import static DAL.ConnectionDetails.getDRIVER;
-import static DAL.ConnectionDetails.getPASSWORD;
-import static DAL.ConnectionDetails.getURL;
-import static DAL.ConnectionDetails.getUSERNAME;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
@@ -91,32 +81,6 @@ public class CoachTableModel extends AbstractTableModel
     //put into a Coach object, and add Coach object to ArrayList
     public void getDataFromDatabase()
     {
-        Statement stmt = null;
-        ResultSet r = null;
-        
-        try
-        {
-            ConnectionDetails cd = new ConnectionDetails();
-            Connection con = cd.getConnection();
-            
-            stmt = con.createStatement();
-            String sql = "Select * from tblCoach";
-            r = stmt.executeQuery(sql);
-            
-            list.clear();
-            
-            while(r.next())
-            {
-                list.add(new Coach(r.getString("ID"), r.getString("team"), 
-                    r.getString("firstName"), r.getString("lastName"),
-                    r.getString("phone"), r.getString("email"), r.getInt("yearsExp"),
-                    r.getInt("championships"), r.getInt("playoffs"), r.getFloat("wLRatio")));
-            }
-            con.close();
-        }
-        catch(SQLException ex)
-        {
-            System.out.println(ex.getMessage());
-        }
+        list = MemberFunctions.getCoaches();
     }
 }

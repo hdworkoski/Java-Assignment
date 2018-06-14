@@ -1,10 +1,6 @@
 package DAL;
 
 import Classes.Player;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
@@ -96,35 +92,6 @@ public class PlayerTableModel extends AbstractTableModel
     //put into a Player object, and add Player object to ArrayList
     public void getDataFromDatabase()
     {
-        Statement stmt = null;
-        ResultSet r = null;
-        
-        try
-        {
-            ConnectionDetails cd = new ConnectionDetails();
-            Connection con = cd.getConnection();
-            
-            stmt = con.createStatement();
-            String sql = "Select * from tblPlayer";
-            
-            r = stmt.executeQuery(sql);
-            
-            list.clear();
-            
-            while(r.next())
-            {
-                list.add(new Player(r.getString("ID"), r.getString("team"), 
-                    r.getString("firstName"), r.getString("lastName"),
-                    r.getString("phone"), r.getString("email"), r.getString("number"),
-                    r.getString("college"), r.getBoolean("rookie"), r.getInt("startYear"),
-                    r.getString("position"), r.getString("country"), r.getFloat("ppg"),
-                    r.getFloat("rpg"), r.getInt("highScore")));
-            }
-            con.close();
-        }
-        catch(SQLException ex)
-        {
-            System.out.println(ex.getMessage());
-        }
+        list = MemberFunctions.getPlayers();
     }
 }

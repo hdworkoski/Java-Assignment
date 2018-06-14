@@ -1,10 +1,12 @@
 package Classes;
 
+import java.io.Serializable;
+
 /**
  *
  * @author hillarydworkoski
  */
-public abstract class Member
+public abstract class Member implements Serializable
 {
     private String ID;
     private String team;

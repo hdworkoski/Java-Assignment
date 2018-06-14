@@ -1,6 +1,8 @@
 package GUI;
 
 
+import Utilities.BackupDatabase;
+import Utilities.RestoreDatabase;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -8,7 +10,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,6 +28,8 @@ public class FrontEnd extends JFrame implements ActionListener
     JButton btnPlayers = new JButton("Players");
     JButton btnCoaches = new JButton("Coaches");
     JButton btnHelp = new JButton("Help");
+    JButton btnBackup = new JButton("Backup Database");
+    JButton btnRestore = new JButton("Restore Database");
     JPanel buttons = new JPanel();
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
@@ -38,12 +41,12 @@ public class FrontEnd extends JFrame implements ActionListener
     {
         this.setTitle("NBA Registration");
         this.setVisible(true);
-        this.setBounds(550, 200, 320, 500);
+        this.setBounds(550, 200, 320, 560);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //set layouts
         con.setLayout(new FlowLayout());
-        buttons.setLayout(new GridLayout(4, 2, 5, 5));
+        buttons.setLayout(new GridLayout(6, 1, 5, 5));
         
         //colors and fonts
         con.setBackground(Color.BLACK);
@@ -70,6 +73,18 @@ public class FrontEnd extends JFrame implements ActionListener
         btnCoaches.setOpaque(true);
         btnCoaches.setBorderPainted(false);
         
+        btnBackup.setFont(fntButtons);
+        btnBackup.setForeground(Color.WHITE);
+        btnBackup.setBackground(Color.DARK_GRAY);
+        btnBackup.setOpaque(true);
+        btnBackup.setBorderPainted(false);
+        
+        btnRestore.setFont(fntButtons);
+        btnRestore.setForeground(Color.WHITE);
+        btnRestore.setBackground(Color.DARK_GRAY);
+        btnRestore.setOpaque(true);
+        btnRestore.setBorderPainted(false);
+        
         btnHelp.setFont(fntButtons);
         btnHelp.setForeground(Color.WHITE);
         btnHelp.setBackground(Color.DARK_GRAY);
@@ -88,12 +103,16 @@ public class FrontEnd extends JFrame implements ActionListener
         buttons.add(btnTeams);
         buttons.add(btnPlayers);
         buttons.add(btnCoaches);
+        buttons.add(btnBackup);
+        buttons.add(btnRestore);
         buttons.add(btnHelp);
         
         //action listeners for buttons
         btnTeams.addActionListener(this);
         btnPlayers.addActionListener(this);
         btnCoaches.addActionListener(this);
+        btnBackup.addActionListener(this);
+        btnRestore.addActionListener(this);
         btnHelp.addActionListener(this);
     }
     
@@ -115,7 +134,15 @@ public class FrontEnd extends JFrame implements ActionListener
             CoachMenu cm = new CoachMenu(this);
             this.setVisible(false);
         }
-        else if(ae.getSource() == btnHelp)
+        else if(ae.getSource() == btnBackup)
+        {
+            BackupDatabase.backup();
+        }
+        else if(ae.getSource() == btnRestore)
+        {
+            RestoreDatabase.readAll();
+        }
+        else
         {
             Help help = new Help(this);
             this.setVisible(false);

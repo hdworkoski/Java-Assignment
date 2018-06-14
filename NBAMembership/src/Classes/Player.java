@@ -1,10 +1,12 @@
 package Classes;
 
+import java.io.Serializable;
+
 /**
  *
  * @author hillarydworkoski
  */
-public class Player extends Member
+public class Player extends Member implements Serializable
 {
     private String number;
     private String college;

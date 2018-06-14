@@ -1,11 +1,6 @@
 package DAL;
 
 import Classes.Team;
-import java.net.ConnectException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
@@ -70,30 +65,6 @@ public class TeamTableModel extends AbstractTableModel
     //add Team object to ArrayList
     public void getDataFromDatabase()
     {
-        Statement stmt = null;
-        ResultSet r = null;
-        
-        try
-        {
-            ConnectionDetails cd = new ConnectionDetails();
-            Connection con = cd.getConnection();
-            
-            stmt = con.createStatement();
-            String sql = "Select * from tblTeam";
-            r = stmt.executeQuery(sql);
-            
-            list.clear();
-            
-            while(r.next())
-            {
-                list.add(new Team(r.getString("name"), r.getString("conference"), 
-                    r.getString("division")));
-            }
-            con.close();
-        }
-        catch(SQLException ex)
-        {
-            System.out.println(ex.getMessage());
-        }
+        list = MemberFunctions.getTeams();
     }
 }

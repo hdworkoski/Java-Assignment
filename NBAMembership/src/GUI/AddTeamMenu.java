@@ -1,7 +1,7 @@
 package GUI;
 
 import Classes.Team;
-import DAL.ConnectionDetails;
+import DAL.MemberFunctions;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -9,8 +9,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -280,39 +278,22 @@ public class AddTeamMenu extends JFrame implements ActionListener
             else
                 division = (String) cmbWest.getSelectedItem();
         
-            try
+            String msg;
+            if(title.equals("Add New Team"))
             {
-                ConnectionDetails cd = new ConnectionDetails();
-                Connection con = cd.getConnection();
-
-                stmt = con.createStatement();
-                String msg;
-                if(title.equals("Add New Team"))
-                {
-                    String sql = "Insert into tblTeam Values('" + name  + "','"
-                            + conference + "','" + division + "');";
-                    stmt.executeUpdate(sql);
-                    msg = "Team: " + name + " has been added to the database";
-                    btnCancel.setText("Back");
-                }
-                else
-                {
-                    String sql = "Update tblTeam Set conference = '" + conference
-                            + "', division = '" + division + "' WHERE name = '"
-                            + name + "';";
-                    stmt.executeUpdate(sql);
-                    msg = "Team : " + name + " has been updated in the database";
-                    btnCancel.setText("Close");
-                }
-                resetValues();
-                lblMsg.setText(msg);
-                this.repaint();
-                con.close();
+                MemberFunctions.addTeam(name, conference, division);
+                msg = "Team: " + name + " has been added to the database";
+                btnCancel.setText("Back");
             }
-            catch(SQLException sqlE)
+            else
             {
-                System.err.println("SQL Error: " + sqlE);
+                MemberFunctions.saveTeam(name, conference, division);
+                msg = "Team : " + name + " has been updated in the database";
+                btnCancel.setText("Close");
             }
+            resetValues();
+            lblMsg.setText(msg);
+            this.repaint();
         }
         else if(ae.getSource() == btnCancel)
         {

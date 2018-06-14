@@ -2,7 +2,7 @@ package GUI;
 
 import Classes.Coach;
 import Classes.Team;
-import DAL.ConnectionDetails;
+import DAL.MemberFunctions;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -10,9 +10,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -299,45 +296,25 @@ public class AddCoachMenu extends JFrame implements ActionListener
             int playoff = Integer.parseInt(txfPlayoffs.getText());
             float WL = Float.parseFloat(txfWL.getText());
         
-            try
+            String msg;
+            if(title.equals("Add New Coach"))
             {
-                ConnectionDetails cd = new ConnectionDetails();
-                Connection con = cd.getConnection();
-
-                stmt = con.createStatement();
-                String msg;
-                if(title.equals("Add New Coach"))
-                {
-                    String sql = "Insert into tblCoach Values('" + ID  + "','" + team
-                            + "','" + firstName + "','" + lastName + "','" + phone + "','"
-                            + email + "'," + years + "," + champ + "," + playoff
-                            +  "," + WL + ");";
-                    stmt.executeUpdate(sql);
-                    msg = "Coach: " + ID + " " + firstName + " " + lastName
-                            + " has been added to the database for the " + team;
-                    btnCancel.setText("Back");
-                }
-                else
-                {
-                    String sql = "Update tblCoach Set team = '" + team 
-                            + "', firstName = '" + firstName + "', lastName = '"
-                            + lastName + "', phone = '" + phone + "', email = '"
-                            + email + "', yearsExp = " + years + ", championships = "
-                            + champ + ", playoffs = " + playoff + ", wLRatio = "
-                            + WL + " WHERE ID = '" + ID + "';";
-                    stmt.executeUpdate(sql);
-                    msg = "Coach: " + ID + " has been updated in the database";
-                    btnCancel.setText("Close");
-                }
-                resetValues();
-                lblMsg.setText(msg);
-                this.repaint();
-                con.close();
+                MemberFunctions.addCoach(ID, team, firstName, lastName, 
+                        phone, email, years, champ, playoff, WL);
+                msg = "Coach: " + ID + " " + firstName + " " + lastName
+                        + " has been added to the database for the " + team;
+                btnCancel.setText("Back");
             }
-            catch(SQLException sqlE)
+            else
             {
-                System.err.println("SQL Error: " + sqlE);
+                MemberFunctions.saveCoach(ID, team, firstName, lastName, phone, 
+                        email, years, champ, playoff, WL);
+                msg = "Coach: " + ID + " has been updated in the database";
+                btnCancel.setText("Close");
             }
+            resetValues();
+            lblMsg.setText(msg);
+            this.repaint();
         }
         else if(ae.getSource() == btnCancel)
         {
