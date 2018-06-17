@@ -5,6 +5,7 @@ import Classes.Player;
 import Classes.Team;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,10 +15,32 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author hillarydworkoski
+ * File: MemberFunctions.java
+ * Description: This file contains many different functions called by other classes
+ * to run SQL queries or other functions regarding Teams, Members, Players, and Coaches
+ * Date: 21/06/18
  */
 public class MemberFunctions
 {
-    
+    /**
+     * 
+     * @param ID
+     * @param team
+     * @param firstName
+     * @param lastName
+     * @param phone
+     * @param email
+     * @param number
+     * @param college
+     * @param rookie
+     * @param startYear
+     * @param position
+     * @param country
+     * @param ppg
+     * @param rpg
+     * @param highScore 
+     * This method creates an SQL query that adds a player to the database
+     */
     public static void addPlayer(String ID, String team, String firstName, String lastName, String phone,
                 String email, String number, String college, int rookie,
                     int startYear, String position, String country, float ppg,
@@ -47,7 +70,25 @@ public class MemberFunctions
         }
     }
     
-
+    /**
+     * 
+     * @param ID
+     * @param team
+     * @param firstName
+     * @param lastName
+     * @param phone
+     * @param email
+     * @param number
+     * @param college
+     * @param rookie
+     * @param startYear
+     * @param position
+     * @param country
+     * @param ppg
+     * @param rpg
+     * @param highScore 
+     * This method creates an SQL Query that edits an existing player in the database
+     */
     public static void savePlayer(String ID, String team, String firstName, String lastName, String phone,
                     String email, String number, String college, int rookie,
                         int startYear, String position, String country, float ppg,
@@ -76,6 +117,12 @@ public class MemberFunctions
         }
     }
     
+    /**
+     * 
+     * @return ArrayList<Player> of all players in database
+     * This method creates an SQL query to get all players from the database and
+     * add each one to a Player ArrayList
+     */
     public static ArrayList<Player> getPlayers()
     {
         ArrayList<Player> list = new ArrayList<>();
@@ -110,6 +157,12 @@ public class MemberFunctions
         return list;
     }
     
+    /**
+     * 
+     * @param last last name search term
+     * @return Player
+     * This method searches all Players in database to see if there is a match
+     */
     public static Player searchPlayer(String last)
     {
         Player p = new Player("", "", "", "", "", "", "", "", false, 0, "", "", 0, 0, 0);
@@ -124,6 +177,11 @@ public class MemberFunctions
         return p;
     }
     
+    /**
+     * 
+     * @param ID PK of player to delete
+     * This method creates an SQL query to delete a player from the database
+     */
     public static void deletePlayer(String ID)
     {
         Statement stmt = null;
@@ -149,6 +207,13 @@ public class MemberFunctions
         }
     }
     
+    /**
+     * 
+     * @param name
+     * @param conference
+     * @param division 
+     * This method creates an SQL query to add a team to the database
+     */
     public static void addTeam(String name, String conference, String division)
     {
         Statement stmt = null;
@@ -172,6 +237,13 @@ public class MemberFunctions
         }
     }
     
+    /**
+     * 
+     * @param name
+     * @param conference
+     * @param division 
+     * This method creates an SQL query to edit an existing team in the database
+     */
     public static void saveTeam(String name, String conference, String division)
     {
         Statement stmt = null;
@@ -192,6 +264,12 @@ public class MemberFunctions
         }
     }
     
+    /**
+     * 
+     * @return ArrayList<Team> all teams from database
+     * This method creates an SQL query to get all teams from the database and
+     * add them to a Team ArrayList
+     */
     public static ArrayList<Team> getTeams()
     {
         ArrayList<Team> list = new ArrayList<>();
@@ -222,6 +300,55 @@ public class MemberFunctions
         return list;
     }
     
+    /**
+     * 
+     * @return ArrayList<String> list of team names
+     * This method creates an ArrayList of team names from the database to be 
+     * added to the combo box for Add Player or Add Coach
+     */
+    public static ArrayList<String> getTeamNames()
+    {
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet r = null;
+        
+        ArrayList<String> teams = new ArrayList<>();
+        
+        try
+        {
+            String url = ConnectionDetails.getURL();
+            String username = ConnectionDetails.getUSERNAME();
+            String password = ConnectionDetails.getPASSWORD();
+            
+            Class.forName(ConnectionDetails.getDRIVER());
+            con = DriverManager.getConnection(url, username, password);
+            
+            stmt = con.createStatement();
+            String sql = "Select Name from tblTeam";
+            r = stmt.executeQuery(sql);
+            
+            while(r.next())
+            {
+                teams.add(r.getString("name"));
+            }
+            con.close();
+        }
+        catch(SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        catch(ClassNotFoundException CNFex)
+        {
+            System.out.println(CNFex.getMessage());
+        }
+        return teams;
+    }
+    
+    /**
+     * 
+     * @param name PK of team to be deleted
+     * This method creates an SQL query to delete a Team from the database
+     */
     public static void deleteTeam(String name)
     {
         Statement stmt = null;
@@ -249,6 +376,20 @@ public class MemberFunctions
         }
     }
     
+    /**
+     * 
+     * @param ID
+     * @param team
+     * @param firstName
+     * @param lastName
+     * @param phone
+     * @param email
+     * @param yearsExp
+     * @param championships
+     * @param playoffs
+     * @param wLRatio 
+     * This method creates an SQL query to add a coach to the database
+     */
     public static void addCoach(String ID, String team, String firstName, 
             String lastName, String phone, String email, int yearsExp,
                     int championships, int playoffs, float wLRatio)
@@ -276,7 +417,20 @@ public class MemberFunctions
         }
     }
     
-
+    /**
+     * 
+     * @param ID
+     * @param team
+     * @param firstName
+     * @param lastName
+     * @param phone
+     * @param email
+     * @param yearsExp
+     * @param championships
+     * @param playoffs
+     * @param wLRatio 
+     * This method creates an SQL query to edit an existing coach in the database
+     */
     public static void saveCoach(String ID, String team, String firstName, 
             String lastName, String phone, String email, int yearsExp,
                     int championships, int playoffs, float wLRatio)
@@ -302,6 +456,11 @@ public class MemberFunctions
         }
     }
     
+    /**
+     * 
+     * @return ArrayList<Coach> all coaches from database
+     * This method creates an SQL query to get all coaches from the database
+     */
     public static ArrayList<Coach> getCoaches()
     {
         ArrayList<Coach> list = new ArrayList<>();
@@ -336,6 +495,11 @@ public class MemberFunctions
         return list;
     }
     
+    /**
+     * 
+     * @param ID PK of coach to be deleted
+     * This method creates an SQL query to delete a coach from the database
+     */
     public static void deleteCoach(String ID)
     {
         Statement stmt = null;
@@ -361,6 +525,13 @@ public class MemberFunctions
         }
     }
     
+    /**
+     * 
+     * @param last last name search term
+     * @return Coach
+     * This method searches through coaches from database too see if there is 
+     * a match
+     */
     public static Coach searchCoach(String last)
     {
         Coach c = new Coach("", "", "", "", "", "", 0, 0, 0, 0);

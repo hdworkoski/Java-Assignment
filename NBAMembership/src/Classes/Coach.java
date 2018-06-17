@@ -5,15 +5,21 @@ import java.io.Serializable;
 /**
  *
  * @author hillarydworkoski
+ * File: Coach.java
+ * Description: Coach class that extends Member class with variables,
+ * constructor, get and set methods, calcSalary abstract method
+ * Date: 21/06/18
  */
 public class Coach extends Member implements Serializable
 {
+    //declare variables
     private int yearsExp;
     private int championships;
     private int playoffs;
     private float wLRatio;
     private int salary;
     
+    //constructor to create Coach object from given variables
     public Coach
         (String ID, String team, String firstName, String lastName, String phone,
                 String email, int yearsExp, int championships, int playoffs,
@@ -27,6 +33,7 @@ public class Coach extends Member implements Serializable
         this.wLRatio = wLRatio;
     }
         
+    //method from abstract Member class to calculate Salary based on Coach stats
     public int calcSalary()
     {
         if(championships >= 1)
@@ -44,6 +51,7 @@ public class Coach extends Member implements Serializable
         return salary;
     }
     
+    //get and set methods
     public String getType()
     {
         return type;

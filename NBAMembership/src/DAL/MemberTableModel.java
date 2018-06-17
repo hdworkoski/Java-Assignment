@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
  * @author hillarydworkoski
  * File: MemberTableModel.java
  * Description: Table Model for Member class (including Players and Coaches)
- * Date: 10/6/18
+ * Date: 21/6/18
  */
 public class MemberTableModel extends AbstractTableModel
 {

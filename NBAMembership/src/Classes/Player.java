@@ -5,9 +5,14 @@ import java.io.Serializable;
 /**
  *
  * @author hillarydworkoski
+ * File: Player.java
+ * Description: Player class that extends abstract Member class and includes
+ * variables, constructor, get and set methods
+ * Date: 21/06/18
  */
 public class Player extends Member implements Serializable
 {
+    //declare variables
     private String number;
     private String college;
     private boolean rookie; //are they a rookie this year?
@@ -19,6 +24,7 @@ public class Player extends Member implements Serializable
     private int highScore; //highest score ever in one game
     private int salary;
     
+    //constructor to create Player object with designated variables
     public Player
         (String ID, String team, String firstName, String lastName, String phone,
                 String email, String number, String college, boolean rookie,
@@ -38,6 +44,7 @@ public class Player extends Member implements Serializable
         this.highScore = highScore;
     }
         
+    //method from abstract Member class to calculate Player salary based on stats
     public int calcSalary()
     {
         if(rookie)
@@ -57,6 +64,7 @@ public class Player extends Member implements Serializable
         return salary;
     }
     
+    //get and set methods
     public String getType()
     {
         return type;

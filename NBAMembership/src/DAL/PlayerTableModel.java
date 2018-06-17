@@ -9,7 +9,7 @@ import javax.swing.table.AbstractTableModel;
  * @author hillarydworkoski
  * File: PlayerTableModel.java
  * Description: Table Model for the Player class
- * Date: 10/6/18
+ * Date: 21/6/18
  */
 public class PlayerTableModel extends AbstractTableModel
 {

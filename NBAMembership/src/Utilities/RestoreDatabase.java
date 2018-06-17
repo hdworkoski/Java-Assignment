@@ -14,6 +14,10 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author hillarydworkoski
+ * File: RestoreDatabase.java
+ * Description: This file gets data from database backup files and restores the
+ * data to the database
+ * Date: 21/06/18
  */
 public class RestoreDatabase
 {
@@ -24,6 +28,11 @@ public class RestoreDatabase
     private static ArrayList<Coach> coachList = new ArrayList<>();
     private static final String FILE_C = "CoachList.bin";
     
+    /**
+     * This method calls on other methods to create an ArrayList of each
+     * object type (Team, Player, Coach) and then loops through the ArrayList to
+     * add each object to the database
+     */
     public static void readAll()
     {
         try
@@ -65,6 +74,7 @@ public class RestoreDatabase
         catch(FileNotFoundException FNFex)
         {
             System.err.println("File Not Found Error: " + FNFex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error: Backup Files Not Found");
         }
         catch(ClassNotFoundException CNFex)
         {
@@ -76,6 +86,17 @@ public class RestoreDatabase
         }
     }
     
+    /**
+     * 
+     * @param teamList ArrayList to fill
+     * @param fileName name of file to access data from
+     * @return ArrayList<Team> teams read from file
+     * @throws FileNotFoundException
+     * @throws ClassNotFoundException
+     * @throws IOException 
+     * This method reads from the team file to add the Team ArrayList from the 
+     * file to the ArrayList provided
+     */
     public static ArrayList<Team> readTeam(ArrayList<Team> teamList, String fileName)
                                 throws FileNotFoundException, 
                                     ClassNotFoundException, IOException
@@ -89,6 +110,17 @@ public class RestoreDatabase
         return teamList;
     }
     
+    /**
+     * 
+     * @param playerList
+     * @param fileName
+     * @return ArrayList<Player> players read from file
+     * @throws FileNotFoundException
+     * @throws ClassNotFoundException
+     * @throws IOException 
+     * This method reads from the player file to add the Player ArrayList from the
+     * file to the ArrayList provided
+     */
     public static ArrayList<Player> readPlayer(ArrayList<Player> playerList, String fileName)
                                 throws FileNotFoundException, 
                                     ClassNotFoundException, IOException
@@ -102,6 +134,17 @@ public class RestoreDatabase
         return playerList;
     }
     
+    /**
+     * 
+     * @param coachList
+     * @param fileName
+     * @return ArrayList<Coach> coaches from the file
+     * @throws FileNotFoundException
+     * @throws ClassNotFoundException
+     * @throws IOException 
+     * This method reads from the coach file to add the Coach ArrayList from the
+     * file to the ArrayList provided
+     */
     public static ArrayList<Coach> readCoach(ArrayList<Coach> coachList, String fileName)
                                 throws FileNotFoundException, 
                                     ClassNotFoundException, IOException

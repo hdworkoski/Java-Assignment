@@ -9,7 +9,7 @@ import javax.swing.table.AbstractTableModel;
  * @author hillarydworkoski
  * File: CoachTableModel.java
  * Description: Table Model for the Coach class
- * Date: 10/6/18
+ * Date: 21/6/18
  */
 public class CoachTableModel extends AbstractTableModel
 {

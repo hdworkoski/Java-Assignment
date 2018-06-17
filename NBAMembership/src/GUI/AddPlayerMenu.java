@@ -43,7 +43,7 @@ public class AddPlayerMenu extends JFrame implements ActionListener
     JLabel lblID = new JLabel("  ID");
     JTextField txfID = new JTextField(5);
     JLabel lblTeam = new JLabel("Team");
-    ArrayList<String> teams = Team.getTeams();
+    ArrayList<String> teams = MemberFunctions.getTeamNames();
     String[] arrTeams = fillCombo(teams);
     JComboBox cmbTeams = new JComboBox(arrTeams);
     JLabel lblFirst = new JLabel("  First Name");

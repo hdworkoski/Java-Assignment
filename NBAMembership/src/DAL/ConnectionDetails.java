@@ -7,30 +7,41 @@ import java.sql.SQLException;
 /**
  *
  * @author hillarydworkoski
+ * File: ConnectionDetails.java
+ * Description: ConnnectionDetails class to save information for connecting
+ * to the database and create a connection method
+ * Date: 21/06/18
  */
 public class ConnectionDetails
 {
+    //declare final variables
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:8889/NBA?autoReconnect=true";
 
-    public static String getUSERNAME() {
+    //get methods
+    public static String getUSERNAME()
+    {
         return USERNAME;
     }
 
-    public static String getPASSWORD() {
+    public static String getPASSWORD()
+    {
         return PASSWORD;
     }
 
-    public static String getDRIVER() {
+    public static String getDRIVER()
+    {
         return DRIVER;
     }
 
-    public static String getURL() {
+    public static String getURL()
+    {
         return URL;
     }
     
+    //get connection method that is used in many other functions to connect to db
     public static Connection getConnection()
     {
         Connection con = null;

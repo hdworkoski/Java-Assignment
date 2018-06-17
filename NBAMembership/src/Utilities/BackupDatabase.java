@@ -15,6 +15,10 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author hillarydworkoski
+ * File: BackupDatabase.java
+ * Description: This file backs up the database objects (Players, Teams, Coaches)
+ * to binary files
+ * Date: 21/06/18
  */
 public class BackupDatabase
 {
@@ -25,6 +29,10 @@ public class BackupDatabase
     private static ArrayList<Coach> coachList = new ArrayList<>();
     private static final String FILE_C = "CoachList.bin";
     
+    /**
+     * This method calls on other methods to add objects to the ArrayLists and 
+     * then save the ArrayLists to files
+     */
     public static void backup()
     {
         try
@@ -51,6 +59,15 @@ public class BackupDatabase
         }
     }
     
+    /**
+     * 
+     * @param teamList filled list of Teams from database
+     * @param fileT file name
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws NotSerializableException 
+     * This method takes the filled ArrayList and saves it as an object to a file
+     */
     public static void saveTeam(ArrayList<Team> teamList, String fileT) throws 
                                             FileNotFoundException, IOException, 
                                                 NotSerializableException
@@ -63,6 +80,15 @@ public class BackupDatabase
         oos.close(); 
     }
     
+    /**
+     * 
+     * @param playerList filled list of Players from database
+     * @param fileP file name
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws NotSerializableException
+     * This method takes the filled ArrayList and saves it as an object to a file
+     */
     public static void savePlayer(ArrayList<Player> playerList, String fileP) throws 
                                             FileNotFoundException, IOException, 
                                                 NotSerializableException
@@ -75,6 +101,15 @@ public class BackupDatabase
         oos.close(); 
     }
     
+    /**
+     * 
+     * @param coachList filled list of Coaches from database
+     * @param fileC file name
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws NotSerializableException 
+     * This method takes the filled ArrayList and saves it as an object to a file
+     */
     public static void saveCoach(ArrayList<Coach> coachList, String fileC) throws 
                                             FileNotFoundException, IOException, 
                                                 NotSerializableException
