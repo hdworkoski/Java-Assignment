@@ -29,10 +29,10 @@ public class MemberFunctions
             ConnectionDetails cd = new ConnectionDetails();
             Connection con = cd.getConnection();
             stmt = con.createStatement();
-            String sql = "Insert into tblPlayer Values('" + ID  + "','" + team
-                    + "','" + firstName + "','" + lastName + "','" + phone + "','"
-                    + email + "','" + number + "','" + college + "'," + rookie
-                    +  "," + startYear + ",'" + position + "','" + country + "',"
+            String sql = "Insert into tblPlayer Values(\"" + ID  + "\",\"" + team
+                    + "\",\"" + firstName + "\",\"" + lastName + "\",\"" + phone + "\",\""
+                    + email + "\",\"" + number + "\",\"" + college + "\"," + rookie
+                    +  "," + startYear + ",\"" + position + "\",\"" + country + "\","
                     + ppg + "," + rpg + "," + highScore + ");";
             stmt.executeUpdate(sql);
             con.close();
@@ -132,7 +132,7 @@ public class MemberFunctions
             ConnectionDetails cd = new ConnectionDetails();
             Connection con = cd.getConnection();
             stmt = con.createStatement();
-            String sql = "Delete from tblPlayer Where ID = '" + ID  + "';";
+            String sql = "Delete from tblPlayer Where ID = \"" + ID  + "\";";
             stmt.executeUpdate(sql);
             con.close();
             JOptionPane.showMessageDialog(null, "Player " + ID 
@@ -157,8 +157,8 @@ public class MemberFunctions
             ConnectionDetails cd = new ConnectionDetails();
             Connection con = cd.getConnection();
             stmt = con.createStatement();
-            String sql = "Insert into tblTeam Values('" + name + "','" + conference
-                    + "','" + division + "');";
+            String sql = "Insert into tblTeam Values(\"" + name + "\",\"" + conference
+                    + "\",\"" + division + "\");";
             stmt.executeUpdate(sql);
             con.close();
         }
@@ -172,7 +172,6 @@ public class MemberFunctions
         }
     }
     
-
     public static void saveTeam(String name, String conference, String division)
     {
         Statement stmt = null;
@@ -181,9 +180,9 @@ public class MemberFunctions
             ConnectionDetails cd = new ConnectionDetails();
             Connection con = cd.getConnection();
             stmt = con.createStatement();
-            String sql = "Update tblTeam Set conference = '" + conference 
-                    + "', division = '" + division + "' Where name = '" 
-                    + name + "';";
+            String sql = "Update tblTeam Set conference = \"" + conference 
+                    + "\", division = \"" + division + "\" Where name = \"" 
+                    + name + "\";";
             stmt.executeUpdate(sql);
             con.close();
         }
@@ -231,7 +230,7 @@ public class MemberFunctions
             ConnectionDetails cd = new ConnectionDetails();
             Connection con = cd.getConnection();
             stmt = con.createStatement();
-            String sql = "Delete from tblTeam Where name = '" + name  + "';";
+            String sql = "Delete from tblTeam Where name = \"" + name  + "\";";
             stmt.executeUpdate(sql);
             con.close();
             JOptionPane.showMessageDialog(null, "Team " + name 
@@ -260,9 +259,9 @@ public class MemberFunctions
             ConnectionDetails cd = new ConnectionDetails();
             Connection con = cd.getConnection();
             stmt = con.createStatement();
-            String sql = "Insert into tblCoach Values('" + ID  + "','" + team
-                    + "','" + firstName + "','" + lastName + "','" + phone + "','"
-                    + email + "'," + yearsExp + "," + championships + "," + playoffs
+            String sql = "Insert into tblCoach Values(\"" + ID  + "\",\"" + team
+                    + "\",\"" + firstName + "\",\"" + lastName + "\",\"" + phone + "\",\""
+                    + email + "\"," + yearsExp + "," + championships + "," + playoffs
                     +  "," + wLRatio + ");";
             stmt.executeUpdate(sql);
             con.close();
@@ -288,12 +287,12 @@ public class MemberFunctions
             ConnectionDetails cd = new ConnectionDetails();
             Connection con = cd.getConnection();
             stmt = con.createStatement();
-            String sql = "Update tblCoach Set team = '" + team 
-                            + "', firstName = '" + firstName + "', lastName = '"
-                            + lastName + "', phone = '" + phone + "', email = '"
-                            + email + "', yearsExp = " + yearsExp + ", championships = "
+            String sql = "Update tblCoach Set team = \"" + team 
+                            + "\", firstName = \"" + firstName + "\", lastName = \""
+                            + lastName + "\", phone = \"" + phone + "\", email = \""
+                            + email + "\", yearsExp = " + yearsExp + ", championships = "
                             + championships + ", playoffs = " + playoffs + ", wLRatio = "
-                            + wLRatio + " WHERE ID = '" + ID + "';";
+                            + wLRatio + " WHERE ID = \"" + ID + "\";";
             stmt.executeUpdate(sql);
             con.close();
         }
@@ -345,7 +344,7 @@ public class MemberFunctions
             ConnectionDetails cd = new ConnectionDetails();
             Connection con = cd.getConnection();
             stmt = con.createStatement();
-            String sql = "Delete from tblCoach Where ID = '" + ID  + "';";
+            String sql = "Delete from tblCoach Where ID = \"" + ID  + "\";";
             stmt.executeUpdate(sql);
             con.close();
             JOptionPane.showMessageDialog(null, "Coach " + ID 

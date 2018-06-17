@@ -4,7 +4,6 @@ import Classes.Coach;
 import Classes.Player;
 import Classes.Team;
 import DAL.MemberFunctions;
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,20 +18,21 @@ import javax.swing.JOptionPane;
 public class RestoreDatabase
 {
     private static ArrayList<Team> teamList = new ArrayList<>();
-    private static String fileT = "TeamList.bin";
+    private static final String FILE_T = "TeamList.bin";
     private static ArrayList<Player> playerList = new ArrayList<>();
-    private static String fileP = "PlayerList.bin";
+    private static final String FILE_P = "PlayerList.bin";
     private static ArrayList<Coach> coachList = new ArrayList<>();
-    private static String fileC = "CoachList.bin";
+    private static final String FILE_C = "CoachList.bin";
     
     public static void readAll()
     {
         try
         {
             //read the contents of the files
-            teamList = readTeam(teamList, fileT);
-            playerList = readPlayer(playerList, fileP);
-            coachList = readCoach(coachList, fileC);
+            teamList = readTeam(teamList, FILE_T);
+            playerList = readPlayer(playerList, FILE_P);
+            coachList = readCoach(coachList, FILE_C);
+            String sqlT = "Insert into tblTeam Values";
             for(int i=0; i<teamList.size(); i++)
             {
                 Team t = teamList.get(i);
@@ -83,7 +83,7 @@ public class RestoreDatabase
         FileInputStream fIS = new FileInputStream(fileName);
         ObjectInputStream oIS = new ObjectInputStream(fIS);
         
-        teamList.add((Team)oIS.readObject());
+        teamList = (ArrayList<Team>) oIS.readObject();
         
         oIS.close();
         return teamList;
@@ -96,7 +96,7 @@ public class RestoreDatabase
         FileInputStream fIS = new FileInputStream(fileName);
         ObjectInputStream oIS = new ObjectInputStream(fIS);
         
-        playerList.add((Player)oIS.readObject());
+        playerList = (ArrayList<Player>) oIS.readObject();
         
         oIS.close();
         return playerList;
@@ -109,7 +109,7 @@ public class RestoreDatabase
         FileInputStream fIS = new FileInputStream(fileName);
         ObjectInputStream oIS = new ObjectInputStream(fIS);
         
-        coachList.add((Coach)oIS.readObject());
+        coachList = (ArrayList<Coach>) oIS.readObject();
         
         oIS.close();
         return coachList;

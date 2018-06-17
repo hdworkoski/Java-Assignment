@@ -2,6 +2,7 @@ package GUI;
 
 import Classes.Player;
 import DAL.MemberFunctions;
+import Utilities.Validation;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -135,37 +136,40 @@ public class SearchPlayer extends JFrame implements ActionListener
         if(ae.getSource() == btnSearch)
         {
             String last = txfLast.getText();
-            Player p = MemberFunctions.searchPlayer(last);
-            if(p.getFirstName().equals(""))
+            if(Validation.validateName(last))
             {
-                lblMsg1.setText("Player Record Not Found");
-                lblMsg2.setText("  ");
-                lblMsg3.setText("  ");
-                lblMsg4.setText("  ");
-                lblMsg5.setText("  ");
-                lblMsg6.setText("  ");
-                lblMsg7.setText("  ");
-                lblMsg8.setText("  ");
-                lblMsg9.setText("  ");
-                lblMsg10.setText("  ");
-            }
-            else
-            {
-                String rookie;
-                if(p.isRookie())
-                    rookie = "Yes";
+                Player p = MemberFunctions.searchPlayer(last);
+                if(p.getFirstName().equals(""))
+                {
+                    lblMsg1.setText("Player Record Not Found");
+                    lblMsg2.setText("  ");
+                    lblMsg3.setText("  ");
+                    lblMsg4.setText("  ");
+                    lblMsg5.setText("  ");
+                    lblMsg6.setText("  ");
+                    lblMsg7.setText("  ");
+                    lblMsg8.setText("  ");
+                    lblMsg9.setText("  ");
+                    lblMsg10.setText("  ");
+                }
                 else
-                    rookie = "No";
-                lblMsg1.setText("Player: " + p.getID() + " " + p.getFirstName() + " " + p.getLastName());
-                lblMsg2.setText("Phone: " + p.getPhone());
-                lblMsg3.setText("Email: " + p.getEmail());
-                lblMsg4.setText("Team: " + p.getTeam());
-                lblMsg5.setText("Number: " + p.getNumber() + " Rookie: " + rookie);
-                lblMsg6.setText("College: " + p.getCollege());
-                lblMsg7.setText("Start Year: " + p.getStartYear());
-                lblMsg8.setText("Position: " + p.getPosition());
-                lblMsg9.setText("Country: " + p.getCountry());
-                lblMsg10.setText("PPG: " + p.getPPG() + " RPG: " + p.getRPG() + " High Score: " + p.getHS());
+                {
+                    String rookie;
+                    if(p.isRookie())
+                        rookie = "Yes";
+                    else
+                        rookie = "No";
+                    lblMsg1.setText("Player: " + p.getID() + " " + p.getFirstName() + " " + p.getLastName());
+                    lblMsg2.setText("Phone: " + p.getPhone());
+                    lblMsg3.setText("Email: " + p.getEmail());
+                    lblMsg4.setText("Team: " + p.getTeam());
+                    lblMsg5.setText("Number: " + p.getNumber() + " Rookie: " + rookie);
+                    lblMsg6.setText("College: " + p.getCollege());
+                    lblMsg7.setText("Start Year: " + p.getStartYear());
+                    lblMsg8.setText("Position: " + p.getPosition());
+                    lblMsg9.setText("Country: " + p.getCountry());
+                    lblMsg10.setText("PPG: " + p.getPPG() + " RPG: " + p.getRPG() + " High Score: " + p.getHS());
+                }
             }
         }
         else

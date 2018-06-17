@@ -3,6 +3,7 @@ package GUI;
 import Classes.Coach;
 import Classes.Team;
 import DAL.MemberFunctions;
+import Utilities.Validation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -10,7 +11,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,8 +32,7 @@ public class AddCoachMenu extends JFrame implements ActionListener
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
     JPanel pnlTop = new JPanel();
-    JPanel pnlDataLeft = new JPanel();
-    JPanel pnlDataRight = new JPanel();
+    JPanel pnlData = new JPanel();
     JPanel pnlButtons = new JPanel();
     JPanel pnlBottom = new JPanel();
     Font dataFont = new Font("Arial", Font.BOLD, 14);
@@ -82,15 +81,13 @@ public class AddCoachMenu extends JFrame implements ActionListener
         this.title = title;
         pnlTop.setLayout(new BorderLayout());
         pnlTop.setBackground(Color.BLACK);
-        pnlDataLeft.setLayout(new GridLayout(5, 2, 5, 5));
-        pnlDataRight.setLayout(new GridLayout(5, 2, 5, 5));
+        pnlData.setLayout(new GridLayout(5, 4, 5, 5));
         con.setBackground(Color.BLACK);
         lblImage.setIcon(imgLogo);
         lblImage.setHorizontalAlignment(JLabel.CENTER);
         lblHeading.setFont(new Font("Verdana", Font.BOLD, 34));
         lblHeading.setForeground(Color.WHITE);
-        pnlDataLeft.setBackground(Color.BLACK);
-        pnlDataRight.setBackground(Color.BLACK);
+        pnlData.setBackground(Color.BLACK);
         pnlButtons.setLayout(new GridLayout(1, 2, 5, 5));
         pnlButtons.setBackground(Color.BLACK);
         pnlBottom.setLayout(new BorderLayout());
@@ -105,6 +102,7 @@ public class AddCoachMenu extends JFrame implements ActionListener
         lblChampionships.setFont(dataFont);
         lblPlayoffs.setFont(dataFont);
         lblWL.setFont(dataFont);
+        lblMsg.setFont(dataFont);
         lblID.setForeground(Color.WHITE);
         lblTeam.setForeground(Color.WHITE);
         lblFirst.setForeground(Color.WHITE);
@@ -115,6 +113,7 @@ public class AddCoachMenu extends JFrame implements ActionListener
         lblChampionships.setForeground(Color.WHITE);
         lblPlayoffs.setForeground(Color.WHITE);
         lblWL.setForeground(Color.WHITE);
+        lblMsg.setForeground(Color.WHITE);
         
         //customize buttons
         btnSave.setFont(new Font("Arial", Font.BOLD, 20));
@@ -133,29 +132,27 @@ public class AddCoachMenu extends JFrame implements ActionListener
         pnlTop.add(lblImage, BorderLayout.NORTH);
         pnlTop.add(lblHeading, BorderLayout.CENTER);
         con.add(pnlTop, BorderLayout.NORTH);
-        pnlDataLeft.add(lblID);
-        pnlDataLeft.add(txfID);
-        pnlDataRight.add(lblTeam);
-        pnlDataRight.add(cmbTeams);
-        pnlDataLeft.add(lblFirst);
-        pnlDataLeft.add(txfFirst);
-        pnlDataRight.add(lblLast);
-        pnlDataRight.add(txfLast);
-        pnlDataLeft.add(lblPhone);
-        pnlDataLeft.add(txfPhone);
-        pnlDataRight.add(lblEmail);
-        pnlDataRight.add(txfEmail);
-        pnlDataLeft.add(lblYears);
-        pnlDataLeft.add(txfYears);
-        pnlDataRight.add(lblChampionships);
-        pnlDataRight.add(txfChampionships);
-        pnlDataLeft.add(lblPlayoffs);
-        pnlDataLeft.add(txfPlayoffs);
-        pnlDataRight.add(lblWL);
-        pnlDataRight.add(txfWL);
-        con.add(pnlDataLeft, BorderLayout.WEST);
-        con.add(new JLabel("  "), BorderLayout.CENTER);
-        con.add(pnlDataRight, BorderLayout.EAST);
+        pnlData.add(lblID);
+        pnlData.add(txfID);
+        pnlData.add(lblTeam);
+        pnlData.add(cmbTeams);
+        pnlData.add(lblFirst);
+        pnlData.add(txfFirst);
+        pnlData.add(lblLast);
+        pnlData.add(txfLast);
+        pnlData.add(lblPhone);
+        pnlData.add(txfPhone);
+        pnlData.add(lblEmail);
+        pnlData.add(txfEmail);
+        pnlData.add(lblYears);
+        pnlData.add(txfYears);
+        pnlData.add(lblChampionships);
+        pnlData.add(txfChampionships);
+        pnlData.add(lblPlayoffs);
+        pnlData.add(txfPlayoffs);
+        pnlData.add(lblWL);
+        pnlData.add(txfWL);
+        con.add(pnlData, BorderLayout.CENTER);
         pnlButtons.add(btnSave);
         pnlButtons.add(btnCancel);
         pnlBottom.add(lblMsg, BorderLayout.NORTH);
@@ -182,15 +179,13 @@ public class AddCoachMenu extends JFrame implements ActionListener
         con.setLayout(new BorderLayout());
         pnlTop.setLayout(new BorderLayout());
         pnlTop.setBackground(Color.BLACK);
-        pnlDataLeft.setLayout(new GridLayout(5, 2, 5, 5));
-        pnlDataRight.setLayout(new GridLayout(5, 2, 5, 5));
+        pnlData.setLayout(new GridLayout(5, 4, 5, 5));
         con.setBackground(Color.BLACK);
         lblImage.setIcon(imgLogo);
         lblImage.setHorizontalAlignment(JLabel.CENTER);
         lblHeading.setFont(new Font("Verdana", Font.BOLD, 34));
         lblHeading.setForeground(Color.WHITE);
-        pnlDataLeft.setBackground(Color.BLACK);
-        pnlDataRight.setBackground(Color.BLACK);
+        pnlData.setBackground(Color.BLACK);
         pnlButtons.setLayout(new GridLayout(1, 2, 5, 5));
         pnlButtons.setBackground(Color.BLACK);
         pnlBottom.setLayout(new BorderLayout());
@@ -205,6 +200,7 @@ public class AddCoachMenu extends JFrame implements ActionListener
         lblChampionships.setFont(dataFont);
         lblPlayoffs.setFont(dataFont);
         lblWL.setFont(dataFont);
+        lblMsg.setFont(dataFont);
         lblID.setForeground(Color.WHITE);
         lblTeam.setForeground(Color.WHITE);
         lblFirst.setForeground(Color.WHITE);
@@ -215,6 +211,7 @@ public class AddCoachMenu extends JFrame implements ActionListener
         lblChampionships.setForeground(Color.WHITE);
         lblPlayoffs.setForeground(Color.WHITE);
         lblWL.setForeground(Color.WHITE);
+        lblMsg.setForeground(Color.WHITE);
         
         //customize buttons
         btnSave.setFont(new Font("Arial", Font.BOLD, 20));
@@ -246,29 +243,27 @@ public class AddCoachMenu extends JFrame implements ActionListener
         pnlTop.add(lblImage, BorderLayout.NORTH);
         pnlTop.add(lblHeading, BorderLayout.CENTER);
         con.add(pnlTop, BorderLayout.NORTH);
-        pnlDataLeft.add(lblID);
-        pnlDataLeft.add(txfID);
-        pnlDataRight.add(lblTeam);
-        pnlDataRight.add(cmbTeams);
-        pnlDataLeft.add(lblFirst);
-        pnlDataLeft.add(txfFirst);
-        pnlDataRight.add(lblLast);
-        pnlDataRight.add(txfLast);
-        pnlDataLeft.add(lblPhone);
-        pnlDataLeft.add(txfPhone);
-        pnlDataRight.add(lblEmail);
-        pnlDataRight.add(txfEmail);
-        pnlDataLeft.add(lblYears);
-        pnlDataLeft.add(txfYears);
-        pnlDataRight.add(lblChampionships);
-        pnlDataRight.add(txfChampionships);
-        pnlDataLeft.add(lblPlayoffs);
-        pnlDataLeft.add(txfPlayoffs);
-        pnlDataRight.add(lblWL);
-        pnlDataRight.add(txfWL);
-        con.add(pnlDataLeft, BorderLayout.WEST);
-        con.add(new JLabel("  "), BorderLayout.CENTER);
-        con.add(pnlDataRight, BorderLayout.EAST);
+        pnlData.add(lblID);
+        pnlData.add(txfID);
+        pnlData.add(lblTeam);
+        pnlData.add(cmbTeams);
+        pnlData.add(lblFirst);
+        pnlData.add(txfFirst);
+        pnlData.add(lblLast);
+        pnlData.add(txfLast);
+        pnlData.add(lblPhone);
+        pnlData.add(txfPhone);
+        pnlData.add(lblEmail);
+        pnlData.add(txfEmail);
+        pnlData.add(lblYears);
+        pnlData.add(txfYears);
+        pnlData.add(lblChampionships);
+        pnlData.add(txfChampionships);
+        pnlData.add(lblPlayoffs);
+        pnlData.add(txfPlayoffs);
+        pnlData.add(lblWL);
+        pnlData.add(txfWL);
+        con.add(pnlData, BorderLayout.CENTER);
         pnlButtons.add(btnSave);
         pnlButtons.add(btnCancel);
         pnlBottom.add(lblMsg, BorderLayout.NORTH);
@@ -284,37 +279,59 @@ public class AddCoachMenu extends JFrame implements ActionListener
     {
         if(ae.getSource() == btnSave)
         {
-            Statement stmt = null;
-            String ID = txfID.getText();
             String team = (String)cmbTeams.getSelectedItem();
-            String firstName = txfFirst.getText();
-            String lastName = txfLast.getText();
-            String phone = txfPhone.getText();
-            String email = txfEmail.getText();
-            int years = Integer.parseInt(txfYears.getText());
-            int champ = Integer.parseInt(txfChampionships.getText());
-            int playoff = Integer.parseInt(txfPlayoffs.getText());
-            float WL = Float.parseFloat(txfWL.getText());
-        
-            String msg;
-            if(title.equals("Add New Coach"))
+            boolean valid = true;
+            if(!Validation.validateID(txfID.getText()))
+                valid = false;
+            else if(!Validation.validateName(txfFirst.getText()))
+                valid = false;
+            else if(!Validation.validateName(txfLast.getText()))
+                valid = false;
+            else if(!Validation.validatePhone(txfPhone.getText()))
+                valid = false;
+            else if(!Validation.validateEmail(txfEmail.getText()))
+                valid = false;
+            else if(!Validation.validateInt(txfYears.getText(), "years"))
+                valid = false;
+            else if(!Validation.validateInt(txfChampionships.getText(), "championships"))
+                valid = false;
+            else if(!Validation.validateInt(txfPlayoffs.getText(), "playoffs"))
+                valid = false;
+            else if(!Validation.validateFloat(txfWL.getText(), "win/loss ratio"))
+                valid = false;
+            
+            if(valid)
             {
-                MemberFunctions.addCoach(ID, team, firstName, lastName, 
-                        phone, email, years, champ, playoff, WL);
-                msg = "Coach: " + ID + " " + firstName + " " + lastName
-                        + " has been added to the database for the " + team;
-                btnCancel.setText("Back");
+                String ID = txfID.getText();
+                String firstName = txfFirst.getText();
+                String lastName = txfLast.getText();
+                String phone = txfPhone.getText();
+                String email = txfEmail.getText();
+                int years = Integer.parseInt(txfYears.getText());
+                int champ = Integer.parseInt(txfChampionships.getText());
+                int playoff = Integer.parseInt(txfPlayoffs.getText());
+                float WL = Float.parseFloat(txfWL.getText());
+
+                String msg;
+                if(title.equals("Add New Coach"))
+                {
+                    MemberFunctions.addCoach(ID, team, firstName, lastName, 
+                            phone, email, years, champ, playoff, WL);
+                    msg = "Coach: " + ID + " " + firstName + " " + lastName
+                            + " has been added to the database for the " + team;
+                    btnCancel.setText("Back");
+                }
+                else
+                {
+                    MemberFunctions.saveCoach(ID, team, firstName, lastName, phone, 
+                            email, years, champ, playoff, WL);
+                    msg = "Coach: " + ID + " has been updated in the database";
+                    btnCancel.setText("Close");
+                }
+                resetValues();
+                lblMsg.setText(msg);
+                this.repaint();
             }
-            else
-            {
-                MemberFunctions.saveCoach(ID, team, firstName, lastName, phone, 
-                        email, years, champ, playoff, WL);
-                msg = "Coach: " + ID + " has been updated in the database";
-                btnCancel.setText("Close");
-            }
-            resetValues();
-            lblMsg.setText(msg);
-            this.repaint();
         }
         else if(ae.getSource() == btnCancel)
         {

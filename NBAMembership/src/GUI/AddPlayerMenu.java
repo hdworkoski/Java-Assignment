@@ -3,6 +3,7 @@ package GUI;
 import Classes.Player;
 import Classes.Team;
 import DAL.MemberFunctions;
+import Utilities.Validation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -33,8 +34,7 @@ public class AddPlayerMenu extends JFrame implements ActionListener
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
     JPanel pnlTop = new JPanel();
-    JPanel pnlDataLeft = new JPanel();
-    JPanel pnlDataRight = new JPanel();
+    JPanel pnlData = new JPanel();
     JPanel pnlRadio = new JPanel();
     JPanel pnlButtons = new JPanel();
     JPanel pnlBottom = new JPanel();
@@ -104,15 +104,13 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         this.pm = pm;
         pnlTop.setLayout(new BorderLayout());
         pnlTop.setBackground(Color.BLACK);
-        pnlDataLeft.setLayout(new GridLayout(8, 2, 5, 5));
-        pnlDataRight.setLayout(new GridLayout(8, 2, 5, 5));
+        pnlData.setLayout(new GridLayout(8, 4, 5, 5));
         con.setBackground(Color.BLACK);
         lblImage.setIcon(imgLogo);
         lblImage.setHorizontalAlignment(JLabel.CENTER);
         lblHeading.setFont(new Font("Verdana", Font.BOLD, 34));
         lblHeading.setForeground(Color.WHITE);
-        pnlDataLeft.setBackground(Color.BLACK);
-        pnlDataRight.setBackground(Color.BLACK);
+        pnlData.setBackground(Color.BLACK);
         pnlRadio.setBackground(Color.BLACK);
         pnlRadio.setLayout(new GridLayout(2, 1, 3, 3));
         pnlButtons.setLayout(new GridLayout(1, 2, 5, 5));
@@ -178,43 +176,41 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         pnlTop.add(lblImage, BorderLayout.NORTH);
         pnlTop.add(lblHeading, BorderLayout.CENTER);
         con.add(pnlTop, BorderLayout.NORTH);
-        pnlDataLeft.add(lblID);
-        pnlDataLeft.add(txfID);
-        pnlDataRight.add(lblTeam);
-        pnlDataRight.add(cmbTeams);
-        pnlDataLeft.add(lblFirst);
-        pnlDataLeft.add(txfFirst);
-        pnlDataRight.add(lblLast);
-        pnlDataRight.add(txfLast);
-        pnlDataLeft.add(lblPhone);
-        pnlDataLeft.add(txfPhone);
-        pnlDataRight.add(lblEmail);
-        pnlDataRight.add(txfEmail);
-        pnlDataLeft.add(lblNumber);
-        pnlDataLeft.add(txfNumber);
-        pnlDataRight.add(lblCollege);
-        pnlDataRight.add(txfCollege);
-        pnlDataLeft.add(lblRookie);
+        pnlData.add(lblID);
+        pnlData.add(txfID);
+        pnlData.add(lblTeam);
+        pnlData.add(cmbTeams);
+        pnlData.add(lblFirst);
+        pnlData.add(txfFirst);
+        pnlData.add(lblLast);
+        pnlData.add(txfLast);
+        pnlData.add(lblPhone);
+        pnlData.add(txfPhone);
+        pnlData.add(lblEmail);
+        pnlData.add(txfEmail);
+        pnlData.add(lblNumber);
+        pnlData.add(txfNumber);
+        pnlData.add(lblCollege);
+        pnlData.add(txfCollege);
+        pnlData.add(lblRookie);
         btgRookie.add(rbtYes);
         btgRookie.add(rbtNo);
         pnlRadio.add(rbtYes);
         pnlRadio.add(rbtNo);
-        pnlDataLeft.add(pnlRadio);
-        pnlDataRight.add(lblYear);
-        pnlDataRight.add(txfYear);
-        pnlDataLeft.add(lblPosition);
-        pnlDataLeft.add(cmbPosition);
-        pnlDataRight.add(lblCountry);
-        pnlDataRight.add(cmbCountry);
-        pnlDataLeft.add(lblPPG);
-        pnlDataLeft.add(txfPPG);
-        pnlDataRight.add(lblRPG);
-        pnlDataRight.add(txfRPG);
-        pnlDataLeft.add(lblHS);
-        pnlDataLeft.add(txfHS);
-        con.add(pnlDataLeft, BorderLayout.WEST);
-        con.add(new JLabel("  "), BorderLayout.CENTER);
-        con.add(pnlDataRight, BorderLayout.EAST);
+        pnlData.add(pnlRadio);
+        pnlData.add(lblYear);
+        pnlData.add(txfYear);
+        pnlData.add(lblPosition);
+        pnlData.add(cmbPosition);
+        pnlData.add(lblCountry);
+        pnlData.add(cmbCountry);
+        pnlData.add(lblPPG);
+        pnlData.add(txfPPG);
+        pnlData.add(lblRPG);
+        pnlData.add(txfRPG);
+        pnlData.add(lblHS);
+        pnlData.add(txfHS);
+        con.add(pnlData, BorderLayout.CENTER);
         pnlButtons.add(btnSave);
         pnlButtons.add(btnCancel);
         pnlBottom.add(lblMsg, BorderLayout.NORTH);
@@ -241,15 +237,13 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         con.setLayout(new BorderLayout());
         pnlTop.setLayout(new BorderLayout());
         pnlTop.setBackground(Color.BLACK);
-        pnlDataLeft.setLayout(new GridLayout(8, 2, 5, 5));
-        pnlDataRight.setLayout(new GridLayout(8, 2, 5, 5));
+        pnlData.setLayout(new GridLayout(8, 4, 5, 5));
         con.setBackground(Color.BLACK);
         lblImage.setIcon(imgLogo);
         lblImage.setHorizontalAlignment(JLabel.CENTER);
         lblHeading.setFont(new Font("Verdana", Font.BOLD, 34));
         lblHeading.setForeground(Color.WHITE);
-        pnlDataLeft.setBackground(Color.BLACK);
-        pnlDataRight.setBackground(Color.BLACK);
+        pnlData.setBackground(Color.BLACK);
         pnlRadio.setBackground(Color.BLACK);
         pnlRadio.setLayout(new GridLayout(2, 1, 3, 3));
         pnlButtons.setLayout(new GridLayout(1, 2, 5, 5));
@@ -333,43 +327,41 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         pnlTop.add(lblImage, BorderLayout.NORTH);
         pnlTop.add(lblHeading, BorderLayout.CENTER);
         con.add(pnlTop, BorderLayout.NORTH);
-        pnlDataLeft.add(lblID);
-        pnlDataLeft.add(txfID);
-        pnlDataRight.add(lblTeam);
-        pnlDataRight.add(cmbTeams);
-        pnlDataLeft.add(lblFirst);
-        pnlDataLeft.add(txfFirst);
-        pnlDataRight.add(lblLast);
-        pnlDataRight.add(txfLast);
-        pnlDataLeft.add(lblPhone);
-        pnlDataLeft.add(txfPhone);
-        pnlDataRight.add(lblEmail);
-        pnlDataRight.add(txfEmail);
-        pnlDataLeft.add(lblNumber);
-        pnlDataLeft.add(txfNumber);
-        pnlDataRight.add(lblCollege);
-        pnlDataRight.add(txfCollege);
-        pnlDataLeft.add(lblRookie);
+        pnlData.add(lblID);
+        pnlData.add(txfID);
+        pnlData.add(lblTeam);
+        pnlData.add(cmbTeams);
+        pnlData.add(lblFirst);
+        pnlData.add(txfFirst);
+        pnlData.add(lblLast);
+        pnlData.add(txfLast);
+        pnlData.add(lblPhone);
+        pnlData.add(txfPhone);
+        pnlData.add(lblEmail);
+        pnlData.add(txfEmail);
+        pnlData.add(lblNumber);
+        pnlData.add(txfNumber);
+        pnlData.add(lblCollege);
+        pnlData.add(txfCollege);
+        pnlData.add(lblRookie);
         btgRookie.add(rbtYes);
         btgRookie.add(rbtNo);
         pnlRadio.add(rbtYes);
         pnlRadio.add(rbtNo);
-        pnlDataLeft.add(pnlRadio);
-        pnlDataRight.add(lblYear);
-        pnlDataRight.add(txfYear);
-        pnlDataLeft.add(lblPosition);
-        pnlDataLeft.add(cmbPosition);
-        pnlDataRight.add(lblCountry);
-        pnlDataRight.add(cmbCountry);
-        pnlDataLeft.add(lblPPG);
-        pnlDataLeft.add(txfPPG);
-        pnlDataRight.add(lblRPG);
-        pnlDataRight.add(txfRPG);
-        pnlDataLeft.add(lblHS);
-        pnlDataLeft.add(txfHS);
-        con.add(pnlDataLeft, BorderLayout.WEST);
-        con.add(new JLabel("  "), BorderLayout.CENTER);
-        con.add(pnlDataRight, BorderLayout.EAST);
+        pnlData.add(pnlRadio);
+        pnlData.add(lblYear);
+        pnlData.add(txfYear);
+        pnlData.add(lblPosition);
+        pnlData.add(cmbPosition);
+        pnlData.add(lblCountry);
+        pnlData.add(cmbCountry);
+        pnlData.add(lblPPG);
+        pnlData.add(txfPPG);
+        pnlData.add(lblRPG);
+        pnlData.add(txfRPG);
+        pnlData.add(lblHS);
+        pnlData.add(txfHS);
+        con.add(pnlData, BorderLayout.CENTER);
         pnlButtons.add(btnSave);
         pnlButtons.add(btnCancel);
         pnlBottom.add(lblMsg, BorderLayout.NORTH);
@@ -385,47 +377,74 @@ public class AddPlayerMenu extends JFrame implements ActionListener
     {
         if(ae.getSource() == btnSave)
         {
-            String ID = txfID.getText();
+            boolean valid = true;
             String team = (String)cmbTeams.getSelectedItem();
-            String firstName = txfFirst.getText();
-            String lastName = txfLast.getText();
-            String phone = txfPhone.getText();
-            String email = txfEmail.getText();
-            String number = txfNumber.getText();
-            String college = txfCollege.getText();
             int rookie;
             if(rbtYes.isSelected())
                 rookie = 1;
             else
                 rookie = 0;
-            int startYear = Integer.parseInt(txfYear.getText());
             String position = (String) cmbPosition.getSelectedItem();
             String country = (String) cmbCountry.getSelectedItem();
-            float ppg = Float.parseFloat(txfPPG.getText());
-            float rpg = Float.parseFloat(txfRPG.getText());
-            int highScore = Integer.parseInt(txfHS.getText());
-        
-            String msg;
-            if(title.equals("Add New Player"))
+            if(!Validation.validateID(txfID.getText()))
+                valid = false;
+            else if(!Validation.validateName(txfFirst.getText()))
+                valid = false;
+            else if(!Validation.validateName(txfLast.getText()))
+                valid = false;
+            else if(!Validation.validatePhone(txfPhone.getText()))
+                valid = false;
+            else if(!Validation.validateEmail(txfEmail.getText()))
+                valid = false;
+            else if(!Validation.validateNumber(txfNumber.getText()))
+                valid = false;
+            else if(!Validation.validateCollege(txfCollege.getText()))
+                valid = false;
+            else if(!Validation.validateYear(txfYear.getText()))
+                valid = false;
+            else if(!Validation.validateFloat(txfPPG.getText(), "PPG"))
+                valid = false;
+            else if(!Validation.validateFloat(txfRPG.getText(), "RPG"))
+                valid = false;
+            else if(!Validation.validateInt(txfHS.getText(), "High Score"))
+                valid = false;
+            
+            if(valid)
             {
-                MemberFunctions.addPlayer(ID, team, firstName, lastName, 
-                        phone, email, number, college, rookie, startYear, 
-                        position, country, ppg, rpg, highScore);
-                msg = "Player: " + ID + " " + firstName + " " + lastName
-                        + " has been added to the database for the " + team;
-                btnCancel.setText("Back");
+                String ID = txfID.getText();
+                String firstName = txfFirst.getText();
+                String lastName = txfLast.getText();
+                String phone = txfPhone.getText();
+                String email = txfEmail.getText();
+                String number = txfNumber.getText();
+                String college = txfCollege.getText();
+                int startYear = Integer.parseInt(txfYear.getText());
+                float ppg = Float.parseFloat(txfPPG.getText());
+                float rpg = Float.parseFloat(txfRPG.getText());
+                int highScore = Integer.parseInt(txfHS.getText());
+
+                String msg;
+                if(title.equals("Add New Player"))
+                {
+                    MemberFunctions.addPlayer(ID, team, firstName, lastName, 
+                            phone, email, number, college, rookie, startYear, 
+                            position, country, ppg, rpg, highScore);
+                    msg = "Player: " + ID + " " + firstName + " " + lastName
+                            + " has been added to the database for the " + team;
+                    btnCancel.setText("Back");
+                }
+                else
+                {
+                    MemberFunctions.savePlayer(ID, team, firstName, lastName, 
+                            phone, email, number, college, rookie, startYear, 
+                            position, country, ppg, rpg, highScore);
+                    msg = "Player: " + ID + " has been updated in the database";
+                    btnCancel.setText("Close");
+                }
+                resetValues();
+                lblMsg.setText(msg);
+                this.repaint();
             }
-            else
-            {
-                MemberFunctions.savePlayer(ID, team, firstName, lastName, 
-                        phone, email, number, college, rookie, startYear, 
-                        position, country, ppg, rpg, highScore);
-                msg = "Player: " + ID + " has been updated in the database";
-                btnCancel.setText("Close");
-            }
-            resetValues();
-            lblMsg.setText(msg);
-            this.repaint();
             
         }
         else if(ae.getSource() == btnCancel)

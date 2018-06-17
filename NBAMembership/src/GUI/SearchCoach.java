@@ -2,6 +2,7 @@ package GUI;
 
 import Classes.Coach;
 import DAL.MemberFunctions;
+import Utilities.Validation;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -128,29 +129,32 @@ public class SearchCoach extends JFrame implements ActionListener
         if(ae.getSource() == btnSearch)
         {
             String last = txfLast.getText();
-            Coach c = MemberFunctions.searchCoach(last);
-            if(c.getFirstName().equals(""))
+            if(Validation.validateName(last))
             {
-                lblMsg1.setText("Coach Record Not Found");
-                lblMsg2.setText("  ");
-                lblMsg3.setText("  ");
-                lblMsg4.setText("  ");
-                lblMsg5.setText("  ");
-                lblMsg6.setText("  ");
-                lblMsg7.setText("  ");
-                lblMsg8.setText("  ");
-                
-            }
-            else
-            {
-                lblMsg1.setText("Coach: " + c.getID() + " " + c.getFirstName() + " " + c.getLastName());
-                lblMsg2.setText("Phone: " + c.getPhone());
-                lblMsg3.setText("Email: " + c.getEmail());
-                lblMsg4.setText("Team: " + c.getTeam());
-                lblMsg5.setText("Years Experience: " + c.getYearsExp());
-                lblMsg6.setText("Championships: " + c.getChampionships());
-                lblMsg7.setText("Playoffs: " + c.getPlayoffs());
-                lblMsg8.setText("Win/Loss Ratio: " + c.getwLRatio());
+                Coach c = MemberFunctions.searchCoach(last);
+                if(c.getFirstName().equals(""))
+                {
+                    lblMsg1.setText("Coach Record Not Found");
+                    lblMsg2.setText("  ");
+                    lblMsg3.setText("  ");
+                    lblMsg4.setText("  ");
+                    lblMsg5.setText("  ");
+                    lblMsg6.setText("  ");
+                    lblMsg7.setText("  ");
+                    lblMsg8.setText("  ");
+
+                }
+                else
+                {
+                    lblMsg1.setText("Coach: " + c.getID() + " " + c.getFirstName() + " " + c.getLastName());
+                    lblMsg2.setText("Phone: " + c.getPhone());
+                    lblMsg3.setText("Email: " + c.getEmail());
+                    lblMsg4.setText("Team: " + c.getTeam());
+                    lblMsg5.setText("Years Experience: " + c.getYearsExp());
+                    lblMsg6.setText("Championships: " + c.getChampionships());
+                    lblMsg7.setText("Playoffs: " + c.getPlayoffs());
+                    lblMsg8.setText("Win/Loss Ratio: " + c.getwLRatio());
+                }
             }
         }
         else

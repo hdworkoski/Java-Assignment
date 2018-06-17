@@ -2,6 +2,7 @@ package GUI;
 
 import Classes.Team;
 import DAL.MemberFunctions;
+import Utilities.Validation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -62,7 +63,7 @@ public class AddTeamMenu extends JFrame implements ActionListener
     {
         this.setTitle(title);
         this.setVisible(true);
-        this.setBounds(300, 100, 400, 400);
+        this.setBounds(300, 100, 450, 400);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
         //set layout, fonts, colors
@@ -89,9 +90,11 @@ public class AddTeamMenu extends JFrame implements ActionListener
         lblName.setFont(dataFont);
         lblConference.setFont(dataFont);
         lblDivision.setFont(dataFont);
+        lblMsg.setFont(dataFont);
         lblName.setForeground(Color.WHITE);
         lblConference.setForeground(Color.WHITE);
         lblDivision.setForeground(Color.WHITE);
+        lblMsg.setForeground(Color.WHITE);
         
         //customize buttons
         rbtEast.setFont(new Font("Arial", Font.BOLD, 14));
@@ -135,8 +138,8 @@ public class AddTeamMenu extends JFrame implements ActionListener
         con.add(new JLabel("  "), BorderLayout.EAST);
         pnlButtons.add(btnSave);
         pnlButtons.add(btnCancel);
-        pnlBottom.add(lblMsg, BorderLayout.NORTH);
-        pnlBottom.add(pnlButtons, BorderLayout.CENTER);
+        pnlBottom.add(lblMsg, BorderLayout.CENTER);
+        pnlBottom.add(pnlButtons, BorderLayout.SOUTH);
         con.add(pnlBottom, BorderLayout.SOUTH);
         
         //add action listeners to buttons
@@ -145,11 +148,12 @@ public class AddTeamMenu extends JFrame implements ActionListener
         btnSave.addActionListener(this);
         btnCancel.addActionListener(this);
     }
+    
     public AddTeamMenu(String title, Team t)
     {
         this.setTitle(title);
         this.setVisible(true);
-        this.setBounds(300, 100, 400, 400);
+        this.setBounds(300, 100, 450, 400);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         
         //set layout, fonts, colors
@@ -176,9 +180,11 @@ public class AddTeamMenu extends JFrame implements ActionListener
         lblName.setFont(dataFont);
         lblConference.setFont(dataFont);
         lblDivision.setFont(dataFont);
+        lblMsg.setFont(dataFont);
         lblName.setForeground(Color.WHITE);
         lblConference.setForeground(Color.WHITE);
         lblDivision.setForeground(Color.WHITE);
+        lblMsg.setForeground(Color.WHITE);
         
         //customize buttons
         rbtEast.setFont(new Font("Arial", Font.BOLD, 14));
@@ -238,8 +244,8 @@ public class AddTeamMenu extends JFrame implements ActionListener
         con.add(new JLabel("  "), BorderLayout.EAST);
         pnlButtons.add(btnSave);
         pnlButtons.add(btnCancel);
-        pnlBottom.add(lblMsg, BorderLayout.NORTH);
-        pnlBottom.add(pnlButtons, BorderLayout.CENTER);
+        pnlBottom.add(lblMsg, BorderLayout.CENTER);
+        pnlBottom.add(pnlButtons, BorderLayout.SOUTH);
         con.add(pnlBottom, BorderLayout.SOUTH);
         
         //add action listeners to buttons
@@ -266,34 +272,37 @@ public class AddTeamMenu extends JFrame implements ActionListener
         else if(ae.getSource() == btnSave)
         {
             Statement stmt = null;
-            String name = txfName.getText();
-            String conference;
-            if(rbtEast.isSelected())
-                conference = "East";
-            else
-                conference = "West";
-            String division;
-            if(conference == "East")
-                division = (String) cmbEast.getSelectedItem();
-            else
-                division = (String) cmbWest.getSelectedItem();
-        
-            String msg;
-            if(title.equals("Add New Team"))
+            if(Validation.validateName(txfName.getText()))
             {
-                MemberFunctions.addTeam(name, conference, division);
-                msg = "Team: " + name + " has been added to the database";
-                btnCancel.setText("Back");
+                String name = txfName.getText();
+                String conference;
+                if(rbtEast.isSelected())
+                    conference = "Eastern";
+                else
+                    conference = "Western";
+                String division;
+                if(conference.equals("Eastern"))
+                    division = (String) cmbEast.getSelectedItem();
+                else
+                    division = (String) cmbWest.getSelectedItem();
+
+                String msg;
+                if(title.equals("Add New Team"))
+                {
+                    MemberFunctions.addTeam(name, conference, division);
+                    msg = "Team: " + name + " has been added to the database";
+                    btnCancel.setText("Back");
+                }
+                else
+                {
+                    MemberFunctions.saveTeam(name, conference, division);
+                    msg = "Team : " + name + " has been updated in the database";
+                    btnCancel.setText("Close");
+                }
+                resetValues();
+                lblMsg.setText(msg);
+                this.repaint();
             }
-            else
-            {
-                MemberFunctions.saveTeam(name, conference, division);
-                msg = "Team : " + name + " has been updated in the database";
-                btnCancel.setText("Close");
-            }
-            resetValues();
-            lblMsg.setText(msg);
-            this.repaint();
         }
         else if(ae.getSource() == btnCancel)
         {
@@ -308,7 +317,7 @@ public class AddTeamMenu extends JFrame implements ActionListener
         lblMsg.setText("  ");
         txfName.setText("");
         rbtEast.setSelected(true);
-        rbtWest.setSelected(true);
+        rbtWest.setSelected(false);
         cmbEast.setSelectedIndex(0);
         cmbWest.setSelectedIndex(0);
         this.repaint();
