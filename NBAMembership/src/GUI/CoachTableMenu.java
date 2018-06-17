@@ -29,6 +29,7 @@ public class CoachTableMenu extends JFrame implements ActionListener
     JButton btnEdit = new JButton("Edit");
     JButton btnDelete = new JButton("Delete");
     JButton btnSalary = new JButton("Calculate Salary");
+    JButton btnRefresh = new JButton("Refresh");
     JButton btnBack = new JButton("Back");
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
@@ -50,14 +51,14 @@ public class CoachTableMenu extends JFrame implements ActionListener
     {
         this.setTitle("View Coaches");
         this.setVisible(true);
-        this.setBounds(300, 50, 800, 800);
+        this.setBounds(300, 50, 800, 830);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.cm = cm;
         
         //set layout, fonts, colors
         pnlTop.setLayout(new BorderLayout());
         pnlTop.setBackground(Color.BLACK);
-        pnlButtons.setLayout(new GridLayout(2, 2, 5, 5));
+        pnlButtons.setLayout(new GridLayout(3, 2, 5, 5));
         pnlButtons.setBackground(Color.BLACK);
         pnlBottom.setLayout(new BorderLayout());
         pnlBottom.setBackground(Color.BLACK);
@@ -105,6 +106,12 @@ public class CoachTableMenu extends JFrame implements ActionListener
         btnSalary.setOpaque(true);
         btnSalary.setBorderPainted(false);
         
+        btnRefresh.setFont(new Font("Arial", Font.BOLD, 20));
+        btnRefresh.setForeground(Color.WHITE);
+        btnRefresh.setBackground(Color.DARK_GRAY);
+        btnRefresh.setOpaque(true);
+        btnRefresh.setBorderPainted(false);
+        
         //table model
         table = new CoachTableModel();
         tblCoach.setModel(table);
@@ -119,6 +126,7 @@ public class CoachTableMenu extends JFrame implements ActionListener
         pnlButtons.add(btnEdit);
         pnlButtons.add(btnDelete);
         pnlButtons.add(btnSalary);
+        pnlButtons.add(btnRefresh);
         pnlButtons.add(btnBack);
         pnlBottom.add(pnlButtons, BorderLayout.CENTER);
         con.add(pnlBottom, BorderLayout.SOUTH);
@@ -128,6 +136,7 @@ public class CoachTableMenu extends JFrame implements ActionListener
         btnDelete.addActionListener(this);
         btnBack.addActionListener(this);
         btnSalary.addActionListener(this);
+        btnRefresh.addActionListener(this);
     }
     
     public void actionPerformed(ActionEvent ae)
@@ -164,11 +173,20 @@ public class CoachTableMenu extends JFrame implements ActionListener
             {
                 Coach c = table.getRow(tblCoach.getSelectedRow());
                 MemberFunctions.deleteCoach(c.getID());
+                table.getDataFromDatabase();
+                table.fireTableDataChanged();
+                this.repaint();
             }
             catch(ArrayIndexOutOfBoundsException AIex)
             {
                 JOptionPane.showMessageDialog(null, "You must select a coach first");
             }
+        }
+        else if(ae.getSource() == btnRefresh)
+        {
+            table.getDataFromDatabase();
+            table.fireTableDataChanged();
+            this.repaint();
         }
         else
         {

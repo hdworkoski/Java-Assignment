@@ -171,6 +171,10 @@ public class MemberTableView extends JFrame implements ActionListener
             {
                 JOptionPane.showMessageDialog(null, "You must select a member first");
             }
+            
+            table.getData(team);
+            table.fireTableDataChanged();
+            this.repaint();
         }
         else if(ae.getSource() == btnRefresh)
         {

@@ -31,6 +31,7 @@ public class TeamTableMenu extends JFrame implements ActionListener
     JButton btnEdit = new JButton("Edit Team");
     JButton btnDelete = new JButton("Delete Team");
     JButton btnView = new JButton("View Members");
+    JButton btnRefresh = new JButton("Refresh");
     JPanel pnlButtons = new JPanel();
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
@@ -50,7 +51,7 @@ public class TeamTableMenu extends JFrame implements ActionListener
     {
         this.setTitle("View Teams");
         this.setVisible(true);
-        this.setBounds(400, 50, 530, 800);
+        this.setBounds(400, 50, 530, 830);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.tm = tm;
         
@@ -59,7 +60,7 @@ public class TeamTableMenu extends JFrame implements ActionListener
         con.setBackground(Color.BLACK);
         pnlTop.setLayout(new BorderLayout());
         pnlTop.setBackground(Color.BLACK);
-        pnlButtons.setLayout(new GridLayout(2, 2, 5, 5));
+        pnlButtons.setLayout(new GridLayout(3, 2, 5, 5));
         pnlButtons.setBackground(Color.BLACK);
         lblImage.setIcon(imgLogo);
         JLabel lblHeading = new JLabel("View Teams");
@@ -103,6 +104,12 @@ public class TeamTableMenu extends JFrame implements ActionListener
         btnView.setOpaque(true);
         btnView.setBorderPainted(false);
         
+        btnRefresh.setFont(new Font("Arial", Font.BOLD, 20));
+        btnRefresh.setForeground(Color.WHITE);
+        btnRefresh.setBackground(Color.DARK_GRAY);
+        btnRefresh.setOpaque(true);
+        btnRefresh.setBorderPainted(false);
+        
         //table model
         table = new TeamTableModel();
         tblTeam.setModel(table);
@@ -116,6 +123,7 @@ public class TeamTableMenu extends JFrame implements ActionListener
         pnlButtons.add(btnEdit);
         pnlButtons.add(btnView);
         pnlButtons.add(btnDelete);
+        pnlButtons.add(btnRefresh);
         pnlButtons.add(btnBack);
         con.add(lblLine2);
         con.add(pnlButtons);
@@ -125,6 +133,7 @@ public class TeamTableMenu extends JFrame implements ActionListener
         btnDelete.addActionListener(this);
         btnBack.addActionListener(this);
         btnView.addActionListener(this);
+        btnRefresh.addActionListener(this);
     }
     
     public void actionPerformed(ActionEvent ae)
@@ -160,11 +169,20 @@ public class TeamTableMenu extends JFrame implements ActionListener
             {
                 Team t = table.getRow(tblTeam.getSelectedRow());
                 MemberFunctions.deleteTeam(t.getName());
+                table.getDataFromDatabase();
+                table.fireTableDataChanged();
+                this.repaint();
             }
             catch(ArrayIndexOutOfBoundsException AIex)
             {
                 JOptionPane.showMessageDialog(null, "You must select a team first");
             }
+        }
+        else if(ae.getSource() == btnRefresh)
+        {
+            table.getDataFromDatabase();
+            table.fireTableDataChanged();
+            this.repaint();
         }
         else
         {

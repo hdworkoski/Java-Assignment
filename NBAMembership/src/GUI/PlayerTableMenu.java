@@ -30,6 +30,7 @@ public class PlayerTableMenu extends JFrame implements ActionListener
     JButton btnDelete = new JButton("Delete");
     JButton btnSalary = new JButton("Calculate Salary");
     JButton btnBack = new JButton("Back");
+    JButton btnRefresh = new JButton("Refresh");
     ImageIcon imgLogo = new ImageIcon("NBALogo.png");
     JLabel lblImage = new JLabel();
     JLabel lblSalary = new JLabel("   ");
@@ -50,14 +51,14 @@ public class PlayerTableMenu extends JFrame implements ActionListener
     {
         this.setTitle("View Players");
         this.setVisible(true);
-        this.setBounds(200, 50, 1000, 800);
+        this.setBounds(200, 50, 1000, 830);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.pm = pm;
         
         //set layout, fonts, colors
         pnlTop.setLayout(new BorderLayout());
         pnlTop.setBackground(Color.BLACK);
-        pnlButtons.setLayout(new GridLayout(2, 2, 5, 5));
+        pnlButtons.setLayout(new GridLayout(3, 2, 5, 5));
         pnlButtons.setBackground(Color.BLACK);
         pnlBottom.setLayout(new BorderLayout());
         pnlBottom.setBackground(Color.BLACK);
@@ -105,6 +106,12 @@ public class PlayerTableMenu extends JFrame implements ActionListener
         btnSalary.setOpaque(true);
         btnSalary.setBorderPainted(false);
         
+        btnRefresh.setFont(new Font("Arial", Font.BOLD, 20));
+        btnRefresh.setForeground(Color.WHITE);
+        btnRefresh.setBackground(Color.DARK_GRAY);
+        btnRefresh.setOpaque(true);
+        btnRefresh.setBorderPainted(false);
+        
         //table model
         table = new PlayerTableModel();
         tblPlayer.setModel(table);
@@ -118,6 +125,7 @@ public class PlayerTableMenu extends JFrame implements ActionListener
         pnlButtons.add(btnEdit);
         pnlButtons.add(btnDelete);
         pnlButtons.add(btnSalary);
+        pnlButtons.add(btnRefresh);
         pnlButtons.add(btnBack);
         pnlBottom.add(lblSalary, BorderLayout.NORTH);
         pnlBottom.add(pnlButtons, BorderLayout.CENTER);
@@ -128,6 +136,7 @@ public class PlayerTableMenu extends JFrame implements ActionListener
         btnDelete.addActionListener(this);
         btnSalary.addActionListener(this);
         btnBack.addActionListener(this);
+        btnRefresh.addActionListener(this);
     }
     
     public void actionPerformed(ActionEvent ae)
@@ -172,6 +181,12 @@ public class PlayerTableMenu extends JFrame implements ActionListener
             {
                 JOptionPane.showMessageDialog(null, "You must select a player first");
             }
+        }
+        else if(ae.getSource() == btnRefresh)
+        {
+            table.getDataFromDatabase();
+            table.fireTableDataChanged();
+            this.repaint();
         }
         else
         {
