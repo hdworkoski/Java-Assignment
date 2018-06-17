@@ -5,11 +5,14 @@ import Utilities.BackupDatabase;
 import Utilities.RestoreDatabase;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -144,8 +147,16 @@ public class FrontEnd extends JFrame implements ActionListener
         }
         else
         {
-            Help help = new Help(this);
-            this.setVisible(false);
+            String document = "User Documentation.pdf";
+            try
+            {
+                File f = new File(document);
+                Desktop.getDesktop().open(f);
+            }
+            catch(IOException ioE)
+            {
+                System.err.print(ioE.getMessage());
+        }
         }
     } 
 }
