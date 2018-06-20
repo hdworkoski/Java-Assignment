@@ -14,6 +14,9 @@ import javax.swing.JLabel;
 /**
  *
  * @author hillarydworkoski
+ * File: CoachMenu.java
+ * Description: This class is for the GUI for the Coach Menu
+ * Date: 21/6/18
  */
 public class CoachMenu extends JFrame implements ActionListener
 {
@@ -30,6 +33,7 @@ public class CoachMenu extends JFrame implements ActionListener
     
     Container con = getContentPane();
     
+    //initialize variable
     FrontEnd fe;
     
     public CoachMenu(FrontEnd fe)
@@ -89,6 +93,11 @@ public class CoachMenu extends JFrame implements ActionListener
         btnBack.addActionListener(this);
     }
     
+    /**
+     * 
+     * @param ae ActionEvent when a button is clicked
+     * This method performs when a button is clicked in the window
+     */
     public void actionPerformed(ActionEvent ae)
     {
         //what to do if each button is clicked

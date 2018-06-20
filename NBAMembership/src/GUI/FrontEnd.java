@@ -22,6 +22,10 @@ import javax.swing.JPanel;
 /**
  *
  * @author hillarydworkoski
+ * File: FrontEnd.java
+ * Description: This is the GUI class for the main menu that opens when the program
+ * is run
+ * Date: 21/6/18
  */
 public class FrontEnd extends JFrame implements ActionListener
 {
@@ -40,6 +44,7 @@ public class FrontEnd extends JFrame implements ActionListener
     
     Container con = getContentPane();
     
+    //constructor
     public FrontEnd()
     {
         this.setTitle("NBA Registration");
@@ -119,6 +124,11 @@ public class FrontEnd extends JFrame implements ActionListener
         btnHelp.addActionListener(this);
     }
     
+    /**
+     * 
+     * @param ae ActionEvent when button is clicked
+     * This method is performed when a button is clicked in the window
+     */
     public void actionPerformed(ActionEvent ae)
     {
         //what to do for each button clicked

@@ -1,9 +1,9 @@
 package GUI;
+
 import Classes.Coach;
 import DAL.CoachTableModel;
 import DAL.MemberFunctions;
 import java.awt.BorderLayout;
-
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
@@ -22,6 +22,9 @@ import javax.swing.JTable;
 /**
  *
  * @author hillarydworkoski
+ * File: CoachTableMenu.java
+ * Description: This class is the GUI for the table menu for displaying Coaches
+ * Date: 21/6/18
  */
 public class CoachTableMenu extends JFrame implements ActionListener
 {
@@ -44,9 +47,12 @@ public class CoachTableMenu extends JFrame implements ActionListener
     JScrollPane scroll = new JScrollPane(tblCoach,
             JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
             JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    
+    //initialize variables
     CoachTableModel table;
     CoachMenu cm;
     
+    //constructor
     public CoachTableMenu(CoachMenu cm)
     {
         this.setTitle("View Coaches");
@@ -139,8 +145,14 @@ public class CoachTableMenu extends JFrame implements ActionListener
         btnRefresh.addActionListener(this);
     }
     
+    /**
+     * 
+     * @param ae ActionEvent
+     * This method is performed when a button is clicked in the window
+     */
     public void actionPerformed(ActionEvent ae)
     {
+        //what to do for each button
         if(ae.getSource() == btnEdit)
         {
             try

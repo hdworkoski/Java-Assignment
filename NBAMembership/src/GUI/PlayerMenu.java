@@ -14,6 +14,9 @@ import javax.swing.JLabel;
 /**
  *
  * @author hillarydworkoski
+ * File: PlayerMenu.java
+ * Description: This class is the GUI for the Player Menu window
+ * Date: 21/6/18
  */
 public class PlayerMenu extends JFrame implements ActionListener
 {
@@ -30,6 +33,7 @@ public class PlayerMenu extends JFrame implements ActionListener
     
     Container con = getContentPane();
     
+    //initalize variable
     FrontEnd fe;
     
     public PlayerMenu(FrontEnd fe)
@@ -91,6 +95,11 @@ public class PlayerMenu extends JFrame implements ActionListener
         btnBack.addActionListener(this);
     }
     
+    /**
+     * 
+     * @param ae ActionEvent
+     * This method is performed when a button is clicked in the window
+     */
     public void actionPerformed(ActionEvent ae)
     {
         //what to do if each button is clicked

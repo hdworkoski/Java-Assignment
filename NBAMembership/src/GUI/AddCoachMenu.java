@@ -22,6 +22,10 @@ import javax.swing.JTextField;
 /**
  *
  * @author hillarydworkoski
+ * File: AddCoachMenu.java
+ * Description: This class is for the Add Coach Menu GUI. It contains all the
+ * input fields for adding a Coach to the database.
+ * Date: 21/6/18
  */
 public class AddCoachMenu extends JFrame implements ActionListener
 {
@@ -36,6 +40,7 @@ public class AddCoachMenu extends JFrame implements ActionListener
     JPanel pnlBottom = new JPanel();
     Font dataFont = new Font("Arial", Font.BOLD, 14);
     
+    //GUI for input fields
     JLabel lblID = new JLabel("  ID");
     JTextField txfID = new JTextField(5);
     JLabel lblTeam = new JLabel("Team");
@@ -61,10 +66,13 @@ public class AddCoachMenu extends JFrame implements ActionListener
     JLabel lblMsg = new JLabel("  ");
     
     Container con = getContentPane();
+    
+    //initialize variables
     CoachMenu cm;
     Coach c;
     String title;
     
+    //constructor for adding a new Coach
     public AddCoachMenu(String title, CoachMenu cm)
     {
         this.setTitle(title);
@@ -163,6 +171,7 @@ public class AddCoachMenu extends JFrame implements ActionListener
         btnCancel.addActionListener(this);
     }
     
+    //constructor for editing an existing Coach
     public AddCoachMenu(String title, Coach c)
     {
         this.setTitle(title);
@@ -225,7 +234,7 @@ public class AddCoachMenu extends JFrame implements ActionListener
         btnCancel.setOpaque(true);
         btnCancel.setBorderPainted(false);
         
-        //insert values
+        //insert values from database
         txfID.setText(c.getID());
         txfID.setEditable(false);
         cmbTeams.setSelectedItem(c.getTeam());
@@ -274,10 +283,16 @@ public class AddCoachMenu extends JFrame implements ActionListener
         btnCancel.addActionListener(this);
     }
     
+    /**
+     * 
+     * @param ae ActionEvent (when button is clicked)
+     * This method runs when either button is clicked
+     */
     public void actionPerformed(ActionEvent ae)
     {
         if(ae.getSource() == btnSave)
         {
+            //validate all inputs
             String team = (String)cmbTeams.getSelectedItem();
             boolean valid = true;
             if(!Validation.validateID(txfID.getText()))
@@ -299,6 +314,7 @@ public class AddCoachMenu extends JFrame implements ActionListener
             else if(!Validation.validateFloat(txfWL.getText(), "win/loss ratio"))
                 valid = false;
             
+            //if all inputs are valid, get values
             if(valid)
             {
                 String ID = txfID.getText();
@@ -312,6 +328,8 @@ public class AddCoachMenu extends JFrame implements ActionListener
                 float WL = Float.parseFloat(txfWL.getText());
 
                 String msg;
+                
+                //if adding a new Coach
                 if(title.equals("Add New Coach"))
                 {
                     MemberFunctions.addCoach(ID, team, firstName, lastName, 
@@ -320,7 +338,7 @@ public class AddCoachMenu extends JFrame implements ActionListener
                             + " has been added to the database for the " + team;
                     btnCancel.setText("Back");
                 }
-                else
+                else //if editing an existing coach
                 {
                     MemberFunctions.saveCoach(ID, team, firstName, lastName, phone, 
                             email, years, champ, playoff, WL);
@@ -332,6 +350,7 @@ public class AddCoachMenu extends JFrame implements ActionListener
                 this.repaint();
             }
         }
+        //if 'Cancel' button is clicked
         else if(ae.getSource() == btnCancel)
         {
             if(title.equals("Add New Coach"))
@@ -340,6 +359,13 @@ public class AddCoachMenu extends JFrame implements ActionListener
         }
     }
     
+    /**
+     * 
+     * @param teams ArrayList of team names
+     * @return String[] Array of teams
+     * This method takes in the ArrayList of team names from the database and
+     * turns it into an Array to be filled in the combo box
+     */
     public String[] fillCombo(ArrayList<String> teams)
     {
         String[] arrTeams = new String[teams.size()];
@@ -350,11 +376,14 @@ public class AddCoachMenu extends JFrame implements ActionListener
         return arrTeams;
     }
     
+    /**
+     * This method resets all the input fields in the window
+     */
     public void resetValues()
     {
         lblMsg.setText("  ");
         txfID.setText("");
-        cmbTeams.setSelectedItem(0);
+        cmbTeams.setSelectedIndex(0);
         txfFirst.setText("");
         txfLast.setText("");
         txfPhone.setText("");

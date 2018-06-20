@@ -1,10 +1,10 @@
 package GUI;
+
 import Classes.Coach;
 import Classes.Player;
 import DAL.MemberFunctions;
 import DAL.MemberTableModel;
 import java.awt.BorderLayout;
-
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
@@ -24,6 +24,8 @@ import javax.swing.JTable;
  *
  * @author hillarydworkoski
  * File: MemberTableView.java
+ * Description: This file is the GUI for the table for viewing Members of a Team
+ * Date: 21/6/18
  */
 public class MemberTableView extends JFrame implements ActionListener
 {
@@ -43,10 +45,13 @@ public class MemberTableView extends JFrame implements ActionListener
     JScrollPane scroll = new JScrollPane(tblMember,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    
+    //initialize variables
     MemberTableModel table;
     TeamTableMenu ttm;
     String team;
     
+    //constructor
     public MemberTableView(String team, TeamTableMenu ttm)
     {
         this.team = team;
@@ -136,8 +141,14 @@ public class MemberTableView extends JFrame implements ActionListener
         btnRefresh.addActionListener(this);
     }
     
+    /**
+     * 
+     * @param ae ActionEvent
+     * This method is performed when a button is clicked in the window
+     */
     public void actionPerformed(ActionEvent ae)
     {
+        //what to do for each button
         if(ae.getSource() == btnEdit)
         {
             try

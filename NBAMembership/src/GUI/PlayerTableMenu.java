@@ -22,6 +22,9 @@ import javax.swing.JTable;
 /**
  *
  * @author hillarydworkoski
+ * File: PlayerTableMenu.java
+ * Description: This class is the GUI for the table for viewing Players
+ * Date: 21/6/18
  */
 public class PlayerTableMenu extends JFrame implements ActionListener
 {
@@ -44,9 +47,12 @@ public class PlayerTableMenu extends JFrame implements ActionListener
     JScrollPane scroll = new JScrollPane(tblPlayer,
             JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
             JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    
+    //initialize variables
     PlayerTableModel table;
     PlayerMenu pm;
     
+    //constructor
     public PlayerTableMenu(PlayerMenu pm)
     {
         this.setTitle("View Players");
@@ -139,8 +145,14 @@ public class PlayerTableMenu extends JFrame implements ActionListener
         btnRefresh.addActionListener(this);
     }
     
+    /**
+     * 
+     * @param ae ActionEvent
+     * This method is performed when a button is clicked in the window
+     */
     public void actionPerformed(ActionEvent ae)
     {
+        //what to do for each button
         if(ae.getSource() == btnEdit)
         {
             try

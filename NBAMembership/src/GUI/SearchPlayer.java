@@ -20,6 +20,9 @@ import javax.swing.JTextField;
 /**
  *
  * @author hillarydworkoski
+ * File: SearchPlayer.java
+ * Description: This class is the GUI for the Search Player window
+ * Date: 21/6/18
  */
 public class SearchPlayer extends JFrame implements ActionListener
 {
@@ -48,8 +51,10 @@ public class SearchPlayer extends JFrame implements ActionListener
     
     Container con = getContentPane();
     
+    //initialize variable
     PlayerMenu pm;
     
+    //constructor
     public SearchPlayer(PlayerMenu pm)
     {
         this.setTitle("Search for a Player");
@@ -135,9 +140,13 @@ public class SearchPlayer extends JFrame implements ActionListener
     {
         if(ae.getSource() == btnSearch)
         {
+            //get search term
             String last = txfLast.getText();
+            
+            //if search term is valid
             if(Validation.validateName(last))
             {
+                //if Player is not found
                 Player p = MemberFunctions.searchPlayer(last);
                 if(p.getFirstName().equals(""))
                 {
@@ -152,6 +161,7 @@ public class SearchPlayer extends JFrame implements ActionListener
                     lblMsg9.setText("  ");
                     lblMsg10.setText("  ");
                 }
+                //if Players is found
                 else
                 {
                     String rookie;

@@ -14,6 +14,9 @@ import javax.swing.JLabel;
 /**
  *
  * @author hillarydworkoski
+ * File: TeamMenu.java
+ * Description: This is the class for the GUI for the Team main menu
+ * Date: 21/6/18
  */
 public class TeamMenu extends JFrame implements ActionListener
 {
@@ -28,8 +31,11 @@ public class TeamMenu extends JFrame implements ActionListener
     JLabel lblImage = new JLabel();
     
     Container con = getContentPane();
+    
+    //initialize variable
     FrontEnd fe;
     
+    //constructor
     public TeamMenu(FrontEnd fe)
     {
         this.setTitle("Teams");
@@ -79,6 +85,11 @@ public class TeamMenu extends JFrame implements ActionListener
         btnBack.addActionListener(this);
     }
     
+    /**
+     * 
+     * @param ae ActionEvent
+     * This method is performed when a button is clicked in the window
+     */
     public void actionPerformed(ActionEvent ae)
     {
         //what to do if each button is clicked

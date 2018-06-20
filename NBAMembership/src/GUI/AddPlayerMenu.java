@@ -1,7 +1,6 @@
 package GUI;
 
 import Classes.Player;
-import Classes.Team;
 import DAL.MemberFunctions;
 import Utilities.Validation;
 import java.awt.BorderLayout;
@@ -25,6 +24,10 @@ import javax.swing.JTextField;
 /**
  *
  * @author hillarydworkoski
+ * File: AddPlayerMenu.java
+ * Description: This class is for the Add Player Menu GUI. It has input fields
+ * for adding a player or editing an existing player
+ * Date: 21/6/18
  */
 public class AddPlayerMenu extends JFrame implements ActionListener
 {
@@ -40,6 +43,7 @@ public class AddPlayerMenu extends JFrame implements ActionListener
     JPanel pnlBottom = new JPanel();
     Font dataFont = new Font("Arial", Font.BOLD, 14);
     
+    //input fields
     JLabel lblID = new JLabel("  ID");
     JTextField txfID = new JTextField(5);
     JLabel lblTeam = new JLabel("Team");
@@ -85,10 +89,13 @@ public class AddPlayerMenu extends JFrame implements ActionListener
     JLabel lblMsg = new JLabel("  ");
     
     Container con = getContentPane();
+    
+    //initialize variables
     PlayerMenu pm;
     Player p;
     String title;
     
+    //constructor for adding a new player to the database
     public AddPlayerMenu(String title, PlayerMenu pm)
     {
         this.setTitle(title);
@@ -222,6 +229,7 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         btnCancel.addActionListener(this);
     }
     
+    //constructor for editing an existing player in the database
     public AddPlayerMenu(String title, Player p)
     {
         this.setTitle(title);
@@ -283,7 +291,7 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         lblMsg.setFont(dataFont);
         lblMsg.setForeground(Color.WHITE);
         
-        //insert values
+        //insert values from database
         txfID.setText(p.getID());
         txfID.setEditable(false);
         cmbTeams.setSelectedItem(p.getTeam());
@@ -373,10 +381,17 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         btnCancel.addActionListener(this);
     }
     
+    /**
+     * 
+     * @param ae ActionEvent when button is clicked
+     * This method is performed when a button is clicked in the window
+     */
     public void actionPerformed(ActionEvent ae)
     {
+        //if Save button is clicked
         if(ae.getSource() == btnSave)
         {
+            //set some values
             boolean valid = true;
             String team = (String)cmbTeams.getSelectedItem();
             int rookie;
@@ -386,6 +401,8 @@ public class AddPlayerMenu extends JFrame implements ActionListener
                 rookie = 0;
             String position = (String) cmbPosition.getSelectedItem();
             String country = (String) cmbCountry.getSelectedItem();
+            
+            //validate other values
             if(!Validation.validateID(txfID.getText()))
                 valid = false;
             else if(!Validation.validateName(txfFirst.getText()))
@@ -409,6 +426,7 @@ public class AddPlayerMenu extends JFrame implements ActionListener
             else if(!Validation.validateInt(txfHS.getText(), "High Score"))
                 valid = false;
             
+            //if input is valid
             if(valid)
             {
                 String ID = txfID.getText();
@@ -424,6 +442,8 @@ public class AddPlayerMenu extends JFrame implements ActionListener
                 int highScore = Integer.parseInt(txfHS.getText());
 
                 String msg;
+                
+                //if add new player
                 if(title.equals("Add New Player"))
                 {
                     MemberFunctions.addPlayer(ID, team, firstName, lastName, 
@@ -433,7 +453,7 @@ public class AddPlayerMenu extends JFrame implements ActionListener
                             + " has been added to the database for the " + team;
                     btnCancel.setText("Back");
                 }
-                else
+                else //if edit existing player
                 {
                     MemberFunctions.savePlayer(ID, team, firstName, lastName, 
                             phone, email, number, college, rookie, startYear, 
@@ -445,8 +465,8 @@ public class AddPlayerMenu extends JFrame implements ActionListener
                 lblMsg.setText(msg);
                 this.repaint();
             }
-            
         }
+        //if Cancel button is clicked
         else if(ae.getSource() == btnCancel)
         {
             if(title.equals("Add New Player"))
@@ -455,6 +475,13 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         }
     }
     
+    /**
+     * 
+     * @param teams ArrayList of team names
+     * @return String[] Array of team names
+     * This method is to get the team names from the database and turn them into
+     * an Array for the combo box
+     */
     public String[] fillCombo(ArrayList<String> teams)
     {
         String[] arrTeams = new String[teams.size()];
@@ -465,11 +492,14 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         return arrTeams;
     }
     
+    /**
+     * This method resets input fields in the window
+     */
     public void resetValues()
     {
         lblMsg.setText("  ");
         txfID.setText("");
-        cmbTeams.setSelectedItem(0);
+        cmbTeams.setSelectedIndex(0);
         txfFirst.setText("");
         txfLast.setText("");
         txfPhone.setText("");
@@ -478,8 +508,8 @@ public class AddPlayerMenu extends JFrame implements ActionListener
         txfCollege.setText("");
         rbtNo.setSelected(true);
         txfYear.setText("");
-        cmbPosition.setSelectedItem(0);
-        cmbCountry.setSelectedItem(40);
+        cmbPosition.setSelectedIndex(0);
+        cmbCountry.setSelectedIndex(40);
         txfPPG.setText("");
         txfRPG.setText("");
         txfHS.setText("");

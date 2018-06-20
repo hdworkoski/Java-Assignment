@@ -24,6 +24,9 @@ import javax.swing.JTextField;
 /**
  *
  * @author hillarydworkoski
+ * File: AddTeamMenu.java
+ * Description: This class is the GUI for adding and editing teams
+ * Date: 21/6/18
  */
 public class AddTeamMenu extends JFrame implements ActionListener
 {
@@ -40,6 +43,7 @@ public class AddTeamMenu extends JFrame implements ActionListener
     JPanel pnlBottom = new JPanel();
     Font dataFont = new Font("Arial", Font.BOLD, 14);
     
+    //input fields
     JLabel lblName = new JLabel("Name");
     JTextField txfName = new JTextField(5);
     JLabel lblConference = new JLabel("Conference");
@@ -55,10 +59,13 @@ public class AddTeamMenu extends JFrame implements ActionListener
     JLabel lblMsg = new JLabel("  ");
     
     Container con = getContentPane();
+    
+    //initialize variables
     TeamMenu tm;
     Team t;
     String title;
     
+    //constructor for adding a new team to the database
     public AddTeamMenu(String title, TeamMenu tm)
     {
         this.setTitle(title);
@@ -149,6 +156,7 @@ public class AddTeamMenu extends JFrame implements ActionListener
         btnCancel.addActionListener(this);
     }
     
+    //constructor for editing an existing team from the database
     public AddTeamMenu(String title, Team t)
     {
         this.setTitle(title);
@@ -205,7 +213,7 @@ public class AddTeamMenu extends JFrame implements ActionListener
         btnCancel.setOpaque(true);
         btnCancel.setBorderPainted(false);
         
-        //insert values
+        //insert values from database
         txfName.setText(t.getName());
         txfName.setEditable(false);
         if(t.getConference().equals("Eastern"))
@@ -255,23 +263,32 @@ public class AddTeamMenu extends JFrame implements ActionListener
         btnCancel.addActionListener(this);
     }
     
+    /**
+     * 
+     * @param ae ActionEvent when button is clicked or radio button changed
+     * This method is performed when a button is clicked or radio button is
+     * changed in the window
+     */
     public void actionPerformed(ActionEvent ae)
     {
+        //if radio button changed to East
         if(ae.getSource() == rbtEast)
         {
             cmbWest.setVisible(false);
             cmbEast.setVisible(true);
             this.repaint();
         }
+        //if radio button changed to West
         else if(ae.getSource() == rbtWest)
         {
             cmbWest.setVisible(true);
             cmbEast.setVisible(false);
             this.repaint();
         }
+        //if Save button is clicked
         else if(ae.getSource() == btnSave)
         {
-            Statement stmt = null;
+            //if team name is valid
             if(Validation.validateName(txfName.getText()))
             {
                 String name = txfName.getText();
@@ -287,12 +304,15 @@ public class AddTeamMenu extends JFrame implements ActionListener
                     division = (String) cmbWest.getSelectedItem();
 
                 String msg;
+                
+                //if adding a new team
                 if(title.equals("Add New Team"))
                 {
                     MemberFunctions.addTeam(name, conference, division);
                     msg = "Team: " + name + " has been added to the database";
                     btnCancel.setText("Back");
                 }
+                //if editing an existing team
                 else
                 {
                     MemberFunctions.saveTeam(name, conference, division);
@@ -304,6 +324,7 @@ public class AddTeamMenu extends JFrame implements ActionListener
                 this.repaint();
             }
         }
+        //if Cancel button is clicked
         else if(ae.getSource() == btnCancel)
         {
             if(title.equals("Add New Team"))
@@ -312,6 +333,9 @@ public class AddTeamMenu extends JFrame implements ActionListener
         }
     }
     
+    /**
+     * This method resets input fields in the window
+     */
     public void resetValues()
     {
         lblMsg.setText("  ");

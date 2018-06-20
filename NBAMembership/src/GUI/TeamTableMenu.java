@@ -23,6 +23,9 @@ import javax.swing.JTable;
 /**
  *
  * @author hillarydworkoski
+ * File: TeamTableMenu.java
+ * Description: This class is the GUI for the table for viewing Teams
+ * Date: 21/6/18
  */
 public class TeamTableMenu extends JFrame implements ActionListener
 {
@@ -44,9 +47,12 @@ public class TeamTableMenu extends JFrame implements ActionListener
     JScrollPane scroll = new JScrollPane(tblTeam,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    
+    //initialize variables
     TeamTableModel table;
     TeamMenu tm;
     
+    //constructor
     public TeamTableMenu(TeamMenu tm)
     {
         this.setTitle("View Teams");
@@ -136,8 +142,14 @@ public class TeamTableMenu extends JFrame implements ActionListener
         btnRefresh.addActionListener(this);
     }
     
+    /**
+     * 
+     * @param ae ActionEvent
+     * This method is performed when a button is clicked in the window
+     */
     public void actionPerformed(ActionEvent ae)
     {
+        //what to do for each button
         if(ae.getSource() == btnView)
         {
             try

@@ -20,6 +20,9 @@ import javax.swing.JTextField;
 /**
  *
  * @author hillarydworkoski
+ * File: SearchCoach.java
+ * Description: This class is the GUI for the Search Coach window
+ * Date: 21/6/18
  */
 public class SearchCoach extends JFrame implements ActionListener
 {
@@ -46,8 +49,10 @@ public class SearchCoach extends JFrame implements ActionListener
     
     Container con = getContentPane();
     
+    //initialize variable
     CoachMenu cm;
     
+    //constructor
     public SearchCoach(CoachMenu cm)
     {
         this.setTitle("Search for a Coach");
@@ -128,9 +133,13 @@ public class SearchCoach extends JFrame implements ActionListener
     {
         if(ae.getSource() == btnSearch)
         {
+            //get search term from input
             String last = txfLast.getText();
+            
+            //if input is valid
             if(Validation.validateName(last))
             {
+                //if Coach is not found
                 Coach c = MemberFunctions.searchCoach(last);
                 if(c.getFirstName().equals(""))
                 {
@@ -144,6 +153,7 @@ public class SearchCoach extends JFrame implements ActionListener
                     lblMsg8.setText("  ");
 
                 }
+                //if Coach is found
                 else
                 {
                     lblMsg1.setText("Coach: " + c.getID() + " " + c.getFirstName() + " " + c.getLastName());

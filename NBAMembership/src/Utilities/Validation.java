@@ -1,11 +1,14 @@
 package Utilities;
 
-
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author hillarydworkoski
+ * File: Validation.java
+ * Description: These methods take user input from GUI classes and validates it
+ * and returns true or false if it is valid or not
+ * Date: 21/06/18
  */
 public class Validation
 {
@@ -83,15 +86,22 @@ public class Validation
             return true;
     }
     
+    /**
+     * 
+     * @param input (user input)
+     * @return boolean (if input is valid)
+     * This method validates a phone number of user input to see if it is empty,
+     * a number, and a correct length
+     */
     public static boolean validatePhone(String input)
     {
         boolean notValid = false;
         for(int i=0; i < input.length(); i++)
         {
-            //if(!(Character.isDigit(input.charAt(i))) || !(Character.isWhitespace(input.charAt(i))))
-            //{
-            //    notValid = true;
-            //}
+            if(!(Character.isDigit(input.charAt(i))) && !(Character.isWhitespace(input.charAt(i))))
+            {
+                notValid = true;
+            }
         }
         if(validateEmpty(input, "a phone number"))
             return false;
@@ -114,6 +124,14 @@ public class Validation
             return true;
     }
     
+    /**
+     * 
+     * @param input (user input)
+     * @return boolean (if it is valid)
+     * This method takes in user input for an email and validates that it is not
+     * empty, that it does not contain spaces, that it is not too long or too short,
+     * and that it contains '@' and '.'
+     */
     public static boolean validateEmail(String input)
     {
         boolean spaceFound = false;
@@ -150,6 +168,13 @@ public class Validation
             return true;
     }
     
+    /**
+     * 
+     * @param input (user input)
+     * @return boolean (if it is valid)
+     * This method validates user input for Player number to check that it is a
+     * number, is not empty and is not more than 2 digits
+     */
     public static boolean validateNumber(String input)
     {
         boolean notValid = false;
@@ -177,7 +202,7 @@ public class Validation
     }
     
     /**
-     * this method is to validate a member name where it is entered
+     * this method is to validate a college name where it is entered
      * this method returns a boolean to the method to determine whether
      * or not to get the input again
      * @param input (String of user input)
@@ -226,6 +251,13 @@ public class Validation
             return true;
     }
     
+    /**
+     * 
+     * @param input (user input)
+     * @return boolean (if it is valid)
+     * This method validates user input for a year to check that it is not empty,
+     * that it is only numbers, and that it is 4 digits
+     */
     public static boolean validateYear(String input)
     {
         boolean notValid = false;
@@ -252,12 +284,20 @@ public class Validation
             return true;
     }
     
+    /**
+     * 
+     * @param input (user input)
+     * @param type (PPG, W/L Ratio, RPG, etc.)
+     * @return boolean (if it is valid)
+     * This method checks that a float value is not empty, is numbers or '.',
+     * and is not too long or too short
+     */
     public static boolean validateFloat(String input, String type)
     {
         boolean notValid = false;
         for(int i=0; i < input.length(); i++)
         {
-            if(!(Character.isDigit(input.charAt(i))) || input.charAt(i) != '.')
+            if(!(Character.isDigit(input.charAt(i))) && input.charAt(i) != '.')
             {
                 notValid = true;
             }
@@ -283,6 +323,14 @@ public class Validation
             return true;
     }
     
+    /**
+     * 
+     * @param input (user input)
+     * @param type (High Score, Championships, Playoffs, etc)
+     * @return boolean (if it is valid)
+     * This method validates integer input to make sure it is not empty,
+     * it is a number, it is not too long, and that it is a positive number
+     */
     public static boolean validateInt(String input, String type)
     {
         boolean notValid = false;
@@ -314,6 +362,13 @@ public class Validation
             return true;
     }
     
+    /**
+     * 
+     * @param input (user input)
+     * @param type (type of input, i.e. 'ID')
+     * @return boolean if empty or not
+     * This method is used in the other methods to determine if the input is empty
+     */
     public static boolean validateEmpty(String input, String type)
     {
         if(input.isEmpty())
